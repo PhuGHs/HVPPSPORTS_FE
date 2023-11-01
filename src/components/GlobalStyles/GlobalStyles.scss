@@ -1,0 +1,55 @@
+@import 'normalize.css';
+:root {
+  //color
+  --blue: #213555;
+  --white: #fff;
+  --black: black;
+  //default layout
+  --default-layout-header-height: 60px;
+  --default-layout-width: 1150px;
+  //button color
+  --yellow: #ffc85e;
+  //heading
+  --darkyellow: #ffaa06 //default background color
+    --default-bg-color: #efefef;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  max-width: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+  color: var(--blue);
+  background-color: var(--default-bg-color);
+}
+
+button,
+input,
+[tabindex] {
+  outline: none;
+  border: none;
+  font-family: inherit;
+}
+
+li {
+  list-style-type: none;
+}
+
+a[href] {
+  color: var(--blue);
+  font-family: inherit;
+  text-decoration: none;
+}

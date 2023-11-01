@@ -1,0 +1,105 @@
+.wrapper {
+  font-size: 1.6rem;
+  font-weight: 700;
+  min-width: 100px;
+  padding: 9px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background-color: transparent;
+  user-select: none;
+  font-weight: 600;
+
+  + .wrapper {
+    margin-left: 16px;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.icons + .title,
+.title + .icons {
+  margin-left: 8px;
+}
+
+//button types
+.primary {
+  background-color: rgba(254, 44, 85, 1);
+  color: #fff;
+  &:hover {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
+  }
+}
+
+.secondary {
+  background-color: #FFC85E;
+  color: #fff;
+  &:hover {
+    background: #ffbf3e;
+  }
+}
+
+.grey {
+  background-color: rgb(222, 222, 222);
+  opacity: 0.4;
+  color: var(--blue);
+  // &:hover {
+  //   background: #ffca61;
+  //   color: white;
+  // }
+}
+
+.outline {
+  border-color: currentColor;
+  background-color: transparent;
+  color: var(--primary);
+  &:hover {
+    background-color: rgba(254, 44, 85, 0.06);
+  }
+}
+
+.grey_outline {
+  border-color: rgba(22, 24, 35, 0.12);
+  background-color: transparent;
+  &:hover {
+    background-color: rgba(22, 24, 35, 0.03);
+  }
+}
+
+.round {
+  border-color: rgba(22, 24, 35, 0.12);
+  color: rgba(22, 24, 35, 0.75);
+  border-radius: 999px;
+  &:hover {
+    border-color: rgba(22, 24, 35, 0.2);
+    background-color: rgba(22, 24, 35, 0.03);
+  }
+}
+
+.text {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.icons {
+  display: inline-block;
+  width: 24px;
+  text-align: center;
+}
+
+//disabled
+
+//button size
+.small {
+  min-width: 88px;
+  padding: 4px 16px;
+}
+
+.large {
+  padding: 14px 16px;
+  min-width: 140px;
+}

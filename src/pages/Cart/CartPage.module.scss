@@ -1,0 +1,135 @@
+h1 {
+  text-align: center;
+}
+
+.main-content {
+  width: 80%;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+
+  .product-container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .product-header {
+      width: 100%;
+      background-color: white;
+      height: 5%;
+      padding: 5px 15px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+
+      .first-col {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        width: 4%;
+      }
+
+      .second-col {
+        min-width: 50%;
+        width: 60%;
+      }
+
+      .third-col {
+        text-align: center;
+        width: 15%;
+      }
+
+      .fourth-col {
+        text-align: center;
+        width: 15%;
+      }
+
+      .fifth-col {
+        width: 4%;
+        display: flex;
+      }
+    }
+
+    .product-list {
+      width: 100%;
+      background-color: white;
+      min-height: 50%;
+      padding: 15px 15px;
+      border-radius: 10px;
+    }
+  }
+
+  .discount-checkout-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .discount-container {
+      height: 30%;
+      border-radius: 10px;
+      background-color: white;
+      display: flex;
+      padding: 15px;
+      flex-direction: column;
+
+      hr {
+        margin: 5px 20px 5px 20px;
+      }
+
+      .discount-header {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: #0085ff;
+
+        svg[data-icon='tags'] {
+          font-size: 120%;
+        }
+
+        span {
+          margin-left: 15px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .checkout-container {
+      height: 30%;
+      border-radius: 10px;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      padding: 15px;
+
+      .sub-total {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 20%;
+      }
+
+      hr {
+        margin: 0 10px;
+      }
+
+      .total {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 20%;
+      }
+    }
+  }
+}

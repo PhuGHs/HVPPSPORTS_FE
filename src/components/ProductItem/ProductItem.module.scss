@@ -1,0 +1,50 @@
+.container {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  background-color: white;
+  border-radius: 10px;
+  gap: 1rem;
+  flex-basis: calc(25% - 2%); /* Two items per row with 2% spacing between */
+  margin-bottom: 2%; /* Add vertical spacing between rows */
+
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    img {
+      width: 90%;
+    }
+
+    button {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      visibility: hidden;
+    }
+  }
+
+  .product-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .first {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 2%;
+    }
+  }
+}
+
+.container:hover {
+  button {
+    visibility: visible;
+    animation: ease-in 0.2;
+  }
+}

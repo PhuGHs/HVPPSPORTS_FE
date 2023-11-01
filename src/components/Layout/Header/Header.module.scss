@@ -1,0 +1,112 @@
+@use '../../../assets/styles/mixin';
+
+.navbar-cus {
+  width: 100vw;
+  padding: 0 1.5%;
+  min-height: var(--default-layout-header-height);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  box-shadow: 0px 1px 2px #dbdbdb;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.logo {
+  min-width: 180px;
+  margin-right: 20px;
+
+  .first-logo {
+    color: #2a2a86;
+  }
+
+  .second-logo {
+    color: #fcaf17;
+  }
+}
+
+.navitem-cus {
+  flex: 86%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .first-list {
+    width: 50%;
+    display: flex;
+    align-items: start;
+    gap: 1.2rem;
+    font-weight: 600;
+
+    a:hover {
+      color: #fcaf17;
+      border-bottom: 2px;
+    }
+  }
+
+  .end-items {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: center;
+
+    .second-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      width: fit-content;
+
+      .header-btn {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+        gap: 0.5rem;
+        justify-content: center;
+        height: 100%;
+      }
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      background-color: #eeeeee;
+      height: 40px;
+      width: 60%;
+      padding: 0 2%;
+      border-radius: 30px;
+      justify-content: space-between;
+      input {
+        background-color: inherit;
+        color: var(--blue);
+        width: 100%;
+      }
+    }
+  }
+}
+
+@include mixin.tablet {
+  .logo {
+    flex: 20%;
+  }
+
+  .navitem-cus {
+    flex: 70%;
+    align-items: start;
+  }
+}
+
+@include mixin.mobile {
+  .navbar-cus {
+    justify-content: space-between;
+  }
+}
