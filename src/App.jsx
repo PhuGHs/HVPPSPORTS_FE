@@ -4,7 +4,6 @@ import RootLayout from './pages/Root'
 import AccountPage from './pages/Account/AccountPage'
 import CartPage from './pages/Cart/CartPage'
 import { CartContext } from './store/cart-context'
-import './index.css'
 
 const router = createBrowserRouter([
   {
