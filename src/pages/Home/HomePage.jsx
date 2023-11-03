@@ -12,8 +12,16 @@ import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProductItem from '../../components/ProductItem/ProductItem'
 import { Link } from 'react-router-dom'
-
 const cx = classNames.bind(styles)
+
+export const categories = [
+  { id: '1', route: '/categories/premier-league', name: 'Premier League', src: PremierLeague, isActive: false },
+  { id: '2', route: '/categories/laliga', name: 'Laliga', src: Laliga, isActive: false },
+  { id: '3', route: '/categories/bundesliga', name: 'Bundesliga', src: Bundesliga, isActive: false },
+  { id: '4', route: '/categories/ligue1', name: 'Ligue 1', src: Ligue1, isActive: false },
+  { id: '5', route: '/categories/serieA', name: 'Serie A', src: SerieA, isActive: false },
+  { id: '6', route: '/categories/international', name: 'International', src: International, isActive: false }
+]
 
 const HomePage = () => {
   return (
@@ -23,32 +31,14 @@ const HomePage = () => {
       </div>
       <section id='categories' style={{ margin: '2% 0' }}>
         <ul>
-          <li>
-            <Link to='/categories'>
-              <img src={PremierLeague} alt='premier-league' />
-              <p>Premier League</p>
-            </Link>
-          </li>
-          <li>
-            <img src={Laliga} alt='laliga' />
-            <p>Laliga</p>
-          </li>
-          <li>
-            <img src={Bundesliga} alt='bundesliga' />
-            <p>Bundesliga</p>
-          </li>
-          <li>
-            <img src={Ligue1} alt='ligue1' />
-            <p>Ligue 1</p>
-          </li>
-          <li>
-            <img src={SerieA} alt='SeriaA' />
-            <p>Serie A</p>
-          </li>
-          <li>
-            <img src={International} alt='international' />
-            <p>International</p>
-          </li>
+          {categories.map((item) => (
+            <li key={item.id}>
+              <Link to={item.route}>
+                <img src={item.src} alt={item.name} />
+                <p>{item.name}</p>
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
       <section id='new-product' style={{ margin: '2% 0' }}>

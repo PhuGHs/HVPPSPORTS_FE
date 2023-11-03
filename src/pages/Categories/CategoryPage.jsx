@@ -2,10 +2,25 @@ import styles from './CategoryPage.module.scss'
 import classNames from 'classnames/bind'
 import { Chip, Pagination } from '@mui/material'
 import ProductItem from '../../components/ProductItem/ProductItem'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { categories } from '../Home/HomePage'
+import { useState } from 'react'
+
 
 const cx = classNames.bind(styles)
 const CategoryPage = () => {
+  const { type } = useParams()
+  const [routes, setRoutes] = useState(categories)
+  const handleSetActive = () => {
+    const updatedRoutes = routes.map((item) => {
+      return {
+        ...item,
+        isActive: item.route.split('/categories/')[0] === type
+      }
+    })
+    setRoutes(updatedRoutes)
+  }
+
   return (
     <div className={cx('container')}>
       <div className={cx('sidebar')}>
@@ -13,24 +28,20 @@ const CategoryPage = () => {
           <b>Danh mục</b>
         </p>
         <ul>
-          <li>
-            <Link to='/categories/premier-league'>Premier League</Link>
-          </li>
-          <li>
-            <Link to='/categories/laliga'>Laliga</Link>
-          </li>
-          <li>
-            <Link to='/categories/bundesliga'>Bundesliga</Link>
-          </li>
-          <li>
-            <Link to='/categories/ligue1'>Ligue 1</Link>
-          </li>
-          <li>
-            <Link to='/categories/serieA'>Serie A</Link>
-          </li>
-          <li>
-            <Link to='/categories/international'>International</Link>
-          </li>
+          {routes.map((item) => {
+            if (item.isActive) {
+              return (
+                <li className={cx('active')} key={item.id} onClick={handleSetActive}>
+                  <Link to={item.route}>{item.name}</Link>
+                </li>
+              )
+            }
+            return (
+              <li key={item.id} onClick={handleSetActive}>
+                <Link to={item.route}>{item.name}</Link>
+              </li>
+            )
+          })}
         </ul>
       </div>
       <div className={cx('content')}>

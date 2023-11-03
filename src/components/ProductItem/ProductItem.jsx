@@ -20,7 +20,7 @@ const ProductItem = () => {
           <p>
             <b>280.000đ</b>
           </p>
-          <Rating readOnly value={5} />
+          <Rating readOnly value={4} />
         </div>
       </div>
     </div>
