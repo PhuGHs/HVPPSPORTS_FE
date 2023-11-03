@@ -1,6 +1,7 @@
 import styles from './ProductItem.module.scss'
 import classNames from 'classnames/bind'
 import Button from '../Button/Button'
+import { Rating } from '@mui/material'
 
 const cx = classNames.bind(styles)
 const ProductItem = () => {
@@ -19,7 +20,7 @@ const ProductItem = () => {
           <p>
             <b>280.000đ</b>
           </p>
-          <p>five stars</p>
+          <Rating readOnly value={5} />
         </div>
       </div>
     </div>

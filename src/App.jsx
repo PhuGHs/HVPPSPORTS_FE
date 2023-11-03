@@ -4,6 +4,7 @@ import RootLayout from './pages/Root'
 import AccountPage from './pages/Account/AccountPage'
 import CartPage from './pages/Cart/CartPage'
 import { CartContext } from './store/cart-context'
+import CategoryPage from './pages/Categories/CategoryPage'
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,8 @@ const router = createBrowserRouter([
     children: [
       { path: '/account', element: <AccountPage /> },
       { path: '/cart', element: <CartPage /> },
-      { path: '/', element: <HomePage /> }
+      { path: '/', element: <HomePage /> },
+      { path: '/categories', element: <CategoryPage /> }
     ]
   }
 ])

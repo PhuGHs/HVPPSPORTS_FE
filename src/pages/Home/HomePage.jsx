@@ -11,6 +11,7 @@ import Button from '../../components/Button/Button'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ProductItem from '../../components/ProductItem/ProductItem'
+import { Link } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 
@@ -23,8 +24,10 @@ const HomePage = () => {
       <section id='categories' style={{ margin: '2% 0' }}>
         <ul>
           <li>
-            <img src={PremierLeague} alt='premier-league' />
-            <p>Premier League</p>
+            <Link to='/categories'>
+              <img src={PremierLeague} alt='premier-league' />
+              <p>Premier League</p>
+            </Link>
           </li>
           <li>
             <img src={Laliga} alt='laliga' />

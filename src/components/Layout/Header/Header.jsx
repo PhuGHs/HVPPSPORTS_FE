@@ -22,12 +22,12 @@ function Header() {
   return (
     <header className={cx('navbar-cus')}>
       <div className={cx('logo')}>
-        <a href='/#begin'>
+        <Link href='/'>
           <h2>
             <span className={cx('first-logo')}>HVPP </span>
             <span className={cx('second-logo')}>SPORTS</span>
           </h2>
-        </a>
+        </Link>
       </div>
       {isLargeDevice && (
         <nav className={cx('navitem-cus')}>
