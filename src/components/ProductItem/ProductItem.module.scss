@@ -6,8 +6,9 @@
   background-color: white;
   border-radius: 10px;
   gap: 1rem;
-  flex-basis: calc(25% - 2%); /* Two items per row with 2% spacing between */
-  margin-bottom: 2%; /* Add vertical spacing between rows */
+  flex-basis: calc(25% - 2%);
+  margin-bottom: 2%;
+  cursor: pointer;
 
   .image-container {
     display: flex;
@@ -32,6 +33,14 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+
+    .product-name {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* number of lines to show */
+              line-clamp: 2; 
+      -webkit-box-orient: vertical;
+    }
 
     .first {
       display: flex;

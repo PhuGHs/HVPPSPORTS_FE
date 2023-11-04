@@ -1,0 +1,22 @@
+.accordion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .first {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.7rem;
+    cursor: pointer;
+  }
+
+  .second {
+    overflow: hidden;
+    transition: height ease-in 0.1s;
+  }
+
+  .expanded {
+    height: auto;
+  }
+}
