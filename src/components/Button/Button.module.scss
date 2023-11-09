@@ -64,6 +64,7 @@
 .grey_outline {
   border-color: rgba(22, 24, 35, 0.12);
   background-color: transparent;
+  color: var(--blue);
   &:hover {
     background-color: rgba(22, 24, 35, 0.03);
   }
