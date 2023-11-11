@@ -1,0 +1,30 @@
+.tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  margin-bottom: 1rem;
+  gap: 1rem;
+
+  button {
+    padding: 0.5rem 0.25rem 0.5rem 0.25rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px 4px 0 0;
+    background-color: transparent;
+    color: var(--blue);
+    border: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+  }
+
+  button:hover, button.selected {
+    color: var(--dark-yellow);
+  }
+
+  .active-tab-indicator {
+    border: 1.5px solid var(--dark-yellow);
+    border-radius: 8px;
+  }
+}

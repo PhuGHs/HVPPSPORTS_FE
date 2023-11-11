@@ -41,6 +41,11 @@
           border-radius: 6px;
           padding: 0 5px;
           font-weight: 300;
+          color: var(--blue);
+        }
+
+        input:focus {
+          border: 2px solid var(--blue);
         }
       }
 
@@ -73,4 +78,6 @@
       align-items: center;
     }
   }
+
+  
 }

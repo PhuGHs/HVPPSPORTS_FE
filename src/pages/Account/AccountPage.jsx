@@ -1,10 +1,15 @@
 import { Outlet } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import AccountNavigation from '../../components/AccountNavigation/AccountNavigation'
 import styles from './AccountPage.module.scss'
 import classNames from 'classnames/bind'
+import { useState } from 'react'
 
 const cx = classNames.bind(styles)
 const AccountPage = () => {
+  const [selectedType, setSelectedType] = useState('Thông tin tài khoản')
+  const handleSelectType = (type) => {
+    setSelectedType(type)
+  }
   return (
     <div className={cx('container')}>
       <div className={cx('navbar')}>
@@ -12,31 +17,7 @@ const AccountPage = () => {
           <h3>TÀI KHOẢN</h3>
         </div>
         <hr />
-        <div className={cx('nav-item-active')}>
-          <Link to='info'>
-            <p>Thông tin tài khoản</p>
-          </Link>
-        </div>
-        <div className={cx('nav-item')}>
-          <Link to='address'>
-            <p>Sổ địa chỉ</p>
-          </Link>
-        </div>
-        <div className={cx('nav-item')}>
-          <Link to='voucher-wallet'>
-            <p>Ví voucher</p>
-          </Link>
-        </div>
-        <div className={cx('nav-item')}>
-          <Link to='my-orders'>
-            <p>Đơn hàng của tôi</p>
-          </Link>
-        </div>
-        <div className={cx('nav-item')}>
-          <Link to='my-reviews'>
-            <p>Nhận xét của tôi</p>
-          </Link>
-        </div>
+        <AccountNavigation selectedType={selectedType} onSelectType={handleSelectType}></AccountNavigation>
       </div>
       <div className={cx('side-content')}>
         <Outlet />

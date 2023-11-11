@@ -1,0 +1,11 @@
+.wallet-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .header {
+    color: var(--dark-yellow);
+      font-weight: 500;
+      font-size: 2rem;
+  }
+}
