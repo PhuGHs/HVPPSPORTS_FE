@@ -5,6 +5,13 @@ import classNames from 'classnames/bind'
 import { useState } from 'react'
 
 const cx = classNames.bind(styles)
+const items = [
+  { name: 'Thông tin tài khoản', link: 'info' },
+  { name: 'Sổ địa chỉ', link: 'address' },
+  { name: 'Ví voucher', link: 'voucher-wallet' },
+  { name: 'Đơn hàng của tôi', link: 'my-orders' },
+  { name: 'Nhận xét của tôi', link: 'my-reviews' }
+]
 const AccountPage = () => {
   const [selectedType, setSelectedType] = useState('Thông tin tài khoản')
   const handleSelectType = (type) => {
@@ -17,7 +24,11 @@ const AccountPage = () => {
           <h3>TÀI KHOẢN</h3>
         </div>
         <hr />
-        <AccountNavigation selectedType={selectedType} onSelectType={handleSelectType}></AccountNavigation>
+        <AccountNavigation
+          selectedType={selectedType}
+          onSelectType={handleSelectType}
+          items={items}
+        ></AccountNavigation>
       </div>
       <div className={cx('side-content')}>
         <Outlet />

@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 import styles from './Tab.module.scss'
 import classNames from 'classnames/bind'
+import { motion } from 'framer-motion'
 
 const cx = classNames.bind(styles)
 const Tab = ({ isSelected, onSelect, children }) => {
@@ -10,21 +11,20 @@ const Tab = ({ isSelected, onSelect, children }) => {
       <button className={isSelected ? cx('selected') : undefined} onClick={onSelect}>
         {children}
       </button>
-      {isSelected && <div className={cx('active-tab-indicator')} />}
+      {isSelected && <motion.div layoutId='tab-indicator' className={cx('active-tab-indicator')} />}
     </li>
-  );
-};
+  )
+}
 
-const Tabs = ({ selectedType, onSelectType, children }) => {
+const Tabs = ({ selectedType, onSelectType, items, children }) => {
   return (
     <>
       <menu className={cx('tabs')}>
-        <Tab isSelected={selectedType === 'Chờ đánh giá'} onSelect={() => onSelectType('Chờ đánh giá')}>
-          Chờ đánh giá
-        </Tab>
-        <Tab isSelected={selectedType === 'Đã đánh giá'} onSelect={() => onSelectType('Đã đánh giá')}>
-          Đã đánh giá
-        </Tab>
+        {items.map((item, index) => (
+          <Tab key={index} isSelected={selectedType === item} onSelect={() => onSelectType(item)}>
+            {item}
+          </Tab>
+        ))}
       </menu>
       <div>{children}</div>
     </>

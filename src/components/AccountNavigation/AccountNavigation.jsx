@@ -14,41 +14,20 @@ const NavItem = ({ isSelected, onSelect, children, link }) => {
   )
 }
 
-const AccountNavigation = ({ selectedType, onSelectType, children }) => {
+const AccountNavigation = ({ selectedType, onSelectType, children, items }) => {
   return (
     <>
       <menu className={cx('tabs')}>
-        <NavItem
-          isSelected={selectedType === 'Thông tin tài khoản'}
-          onSelect={() => onSelectType('Thông tin tài khoản')}
-          link='info'
-        >
-          Thông tin tài khoản
-        </NavItem>
-        <NavItem isSelected={selectedType === 'Sổ địa chỉ'} onSelect={() => onSelectType('Sổ địa chỉ')} link='address'>
-          Sổ địa chỉ
-        </NavItem>
-        <NavItem
-          isSelected={selectedType === 'Ví voucher'}
-          onSelect={() => onSelectType('Ví voucher')}
-          link='voucher-wallet'
-        >
-          Ví voucher
-        </NavItem>
-        <NavItem
-          isSelected={selectedType === 'Đơn hàng của tôi'}
-          onSelect={() => onSelectType('Đơn hàng của tôi')}
-          link='my-orders'
-        >
-          Đơn hàng của tôi
-        </NavItem>
-        <NavItem
-          isSelected={selectedType === 'Nhận xét của tôi'}
-          onSelect={() => onSelectType('Nhận xét của tôi')}
-          link='my-reviews'
-        >
-          Nhận xét của tôi
-        </NavItem>
+        {items.map((item, index) => (
+          <NavItem
+            key={index}
+            onSelect={() => onSelectType(item.name)}
+            isSelected={selectedType === item.name}
+            link={item.link}
+          >
+            {item.name}
+          </NavItem>
+        ))}
       </menu>
       <div>{children}</div>
     </>
