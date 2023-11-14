@@ -42,6 +42,15 @@
   }
 }
 
+.secondary_outline {
+  background-color: transparent;
+  border: 1px solid var(--dark-yellow);
+  color: var(--dark-yellow);
+  &:hover {
+    background-color: rgba(219, 254, 44, 0.06);
+  }
+}
+
 .grey {
   background-color: rgb(222, 222, 222);
   opacity: 0.4;

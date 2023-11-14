@@ -16,6 +16,7 @@ function Button({
   secondary = false,
   grey = false,
   outline = false,
+  secondary_outline = false,
   round = false,
   grey_outline = false,
   text = false,
@@ -46,6 +47,7 @@ function Button({
   const classes = cx('wrapper', {
     primary: primary,
     secondary: secondary,
+    secondary_outline: secondary_outline,
     grey: grey,
     border_radius: border_radius,
     outline: outline,

@@ -11,6 +11,7 @@ import AddressPage from './pages/Account/Address/AddressPage'
 import MyOrder from './pages/Account/MyOrder/MyOrder'
 import MyReviews from './pages/Account/MyReviews/MyReviews'
 import VoucherWallet from './pages/Account/VoucherWallet/VoucherWallet'
+import OrderDetails from './pages/Account/MyOrder/OrderDetails/OrderDetails'
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,11 @@ const router = createBrowserRouter([
           },
           {
             path: 'my-orders',
-            element: <MyOrder />
+            element: <MyOrder />,
+          },
+          {
+            path: 'my-orders/:id',
+            element: <OrderDetails />
           },
           {
             path: 'my-reviews',

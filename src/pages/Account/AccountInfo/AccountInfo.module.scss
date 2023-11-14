@@ -1,9 +1,12 @@
 .container {
   width: 100%;
+  padding: 20px;
+  border-radius: 10px;
   height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
 
   .inner-container {
     width: 100%;
