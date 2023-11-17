@@ -6,6 +6,7 @@ import { useState } from 'react'
 import ReviewModal from '../../../../components/Modal/ReviewModal'
 import Button from '../../../../components/Button/Button'
 import { Rating } from '@mui/material'
+import { AnimatePresence } from 'framer-motion'
 
 const cx = classNames.bind(styles)
 const link =
@@ -83,24 +84,34 @@ const OrderDetails = () => {
           </div>
         </div>
       </div>
-      {isModalOpen && (
-        <ReviewModal title='ĐÁNH GIÁ SẢN PHẨM' onClose={handleCloseModal} className={cx('review-modal')}>
-          <Rating value={5}/>
-          <div className={cx('product-modal')}>
-            <div className={cx('image-container')}>
-              <img src={link} alt='product' />
+      <AnimatePresence>
+        {isModalOpen && (
+          <ReviewModal title='ĐÁNH GIÁ SẢN PHẨM' onClose={handleCloseModal}>
+            <Rating className={cx('rating')} defaultValue={4} />
+            <div className={cx('product-modal')}>
+              <div className={cx('image-container')}>
+                <img src={link} alt='product' />
+              </div>
+              <div className={cx('product-details')}>
+                <p>Kids' Manchester City Home Jersey 2023/24 With Custom Printing</p>
+                <p>Size: XL</p>
+                <p>Số lượng: 1</p>
+              </div>
             </div>
-            <div className={cx('product-details')}>
-              <p>Kids' Manchester City Home Jersey 2023/24 With Custom Printing</p>
-              <p>Size: XL</p>
-              <p>Số lượng: 1</p>
+            <div className={cx('input')}>
+              <textarea cols='30' rows='10'></textarea>
             </div>
-          </div>
-          <div className={cx('input')}>
-            <textarea cols='30' rows='10'></textarea>
-          </div>
-        </ReviewModal>
-      )}
+            <div className={cx('action')}>
+              <Button grey_outline onClick={handleCloseModal}>
+                Huỷ
+              </Button>
+              <Button secondary onClick={handleCloseModal}>
+                Đánh giá
+              </Button>
+            </div>
+          </ReviewModal>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

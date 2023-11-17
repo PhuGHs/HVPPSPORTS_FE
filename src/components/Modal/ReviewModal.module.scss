@@ -2,7 +2,7 @@
   position: fixed;
   top: 50%;  /* Center vertically */
   left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Center the modal based on its own dimensions */
+  transform: translate(-50%, -50%) !important; /* Center the modal based on its own dimensions */
   border-radius: 6px;
   border: none;
   padding: 1.5rem;

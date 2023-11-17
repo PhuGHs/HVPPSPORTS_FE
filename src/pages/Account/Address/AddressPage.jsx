@@ -4,6 +4,7 @@ import Button from '../../../components/Button/Button'
 import Address from '../../../components/Address/Address'
 import Modal from '../../../components/Modal/Modal'
 import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 
 const cx = classNames.bind(styles)
 
@@ -52,29 +53,31 @@ const AddressPage = () => {
         <Address list={list} />
       </div>
 
-      {isModalOpen && (
-        <Modal title='Địa chỉ mới' onClose={handleCloseModal}>
-          <form>
-            <div className={cx('first-row')}>
-              <input type='text' placeholder='Họ và tên' />
-              <input type='text' placeholder='Số điện thoại' />
-            </div>
-            <div className={cx('second-row')}>
-              <input type='text' placeholder='Địa chỉ cụ thể' />
-            </div>
-            <div className={cx('action-row')}>
-              <Button grey_outline onClick={handleCloseModal}>
-                Huỷ
-              </Button>
-              <Button secondary onClick={handleCloseModal}>
-                Lưu
-              </Button>
-            </div>
-          </form>
-        </Modal>
-      )}
+      <AnimatePresence>
+        {isModalOpen && (
+          <Modal title='Địa chỉ mới' onClose={handleCloseModal}>
+            <form>
+              <div className={cx('first-row')}>
+                <input type='text' placeholder='Họ và tên' />
+                <input type='text' placeholder='Số điện thoại' />
+              </div>
+              <div className={cx('second-row')}>
+                <input type='text' placeholder='Địa chỉ cụ thể' />
+              </div>
+              <div className={cx('action-row')}>
+                <Button grey_outline onClick={handleCloseModal}>
+                  Huỷ
+                </Button>
+                <Button secondary onClick={handleCloseModal}>
+                  Lưu
+                </Button>
+              </div>
+            </form>
+          </Modal>
+        )}
+      </AnimatePresence>
     </div>
-  );
-};
+  )
+}
 
-export default AddressPage;
+export default AddressPage
