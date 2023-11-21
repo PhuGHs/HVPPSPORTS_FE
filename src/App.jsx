@@ -12,6 +12,7 @@ import MyOrder from './pages/Account/MyOrder/MyOrder'
 import MyReviews from './pages/Account/MyReviews/MyReviews'
 import VoucherWallet from './pages/Account/VoucherWallet/VoucherWallet'
 import OrderDetails from './pages/Account/MyOrder/OrderDetails/OrderDetails'
+import ScrollToTop from './components/ScrollToTop'
 
 const router = createBrowserRouter([
   {
@@ -63,7 +64,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <CartContext.Provider value={[]}>
-      <RouterProvider router={router} />
+      <RouterProvider router={router}>
+        <ScrollToTop />
+      </RouterProvider>
     </CartContext.Provider>
   )
 }
