@@ -93,7 +93,7 @@ const OrderDetails = () => {
                 <img src={link} alt='product' />
               </div>
               <div className={cx('product-details')}>
-                <p>Kids' Manchester City Home Jersey 2023/24 With Custom Printing</p>
+                <p className={cx('product-name')}>Kids' Manchester City Home Jersey 2023/24 With Custom Printing</p>
                 <p>Size: XL</p>
                 <p>Số lượng: 1</p>
               </div>

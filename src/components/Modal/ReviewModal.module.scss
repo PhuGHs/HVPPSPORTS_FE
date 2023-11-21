@@ -1,19 +1,18 @@
 .modal {
-  position: fixed;
-  top: 50%;  /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%) !important; /* Center the modal based on its own dimensions */
+  left: 30%;
+  top: 15%;
   border-radius: 6px;
-  border: none;
   padding: 1.5rem;
-  width: 35%;
-  max-width: 90%;
+  width: 40%;
   z-index: 10;
-  background-color: white; /* Set a background color */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Add a box shadow */
+  border: none;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .modal .header {

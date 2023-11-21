@@ -192,7 +192,13 @@
     .product-details {
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: space-between;
+      color: var(--blue);
+
+      .product-name {
+        font-weight: 600;
+        font-size: large;
+      }
     }
   }
 

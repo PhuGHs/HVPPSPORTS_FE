@@ -10,6 +10,29 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import Reviews from '../../components/Reviews/Reviews'
 import ProductItem from '../../components/ProductItem/ProductItem'
+import { AnimatePresence, motion } from 'framer-motion'
+
+const variants = {
+  initial: (direction) => {
+    return {
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+      transition: { ease: 'easeInOut', duration: 0.5 }
+    }
+  },
+  animate: {
+    x: 0,
+    opacity: 1,
+    transition: { ease: 'easeInOut', duration: 0.5 }
+  },
+  exit: (direction) => {
+    return {
+      x: direction > 0 ? -100 : 100,
+      opacity: 0,
+      transition: { ease: 'easeInOut', duration: 0.5 }
+    }
+  }
+}
 
 const data = [
   {
@@ -82,40 +105,82 @@ const images = [
 
 const cx = classNames.bind(styles)
 const ProductDetails = () => {
+  const [index, setIndex] = useState(0)
   const [mainImage, setMainImage] = useState(images[0])
   const [imageList, setImageList] = useState(images)
+  const [direction, setDirection] = useState(0)
 
-  const handleImageClick = (image) => {
-    setMainImage(image)
-    setImageList((prevList) => prevList.filter((img) => img !== image))
-    setImageList((prevList) => [image, ...prevList])
+  const handleImageClick = (clickedIndex) => {
+    console.log('clickedIndex', clickedIndex)
+    console.log('currentIndex', index)
+    if (clickedIndex > index) {
+      setDirection(1)
+    } else if (clickedIndex < index) {
+      setDirection(-1)
+    }
+    setMainImage(imageList[clickedIndex])
+    setIndex(clickedIndex)
+  }
+
+  const handleMoveForward = () => {
+    setDirection(1)
+    if (index < imageList.length - 1) {
+      setIndex(index + 1)
+      setMainImage(imageList[index + 1])
+    } else {
+      setIndex(0)
+      setMainImage(imageList[0])
+    }
+  }
+
+  const handleMoveBackward = () => {
+    setDirection(-1)
+    if (index > 0) {
+      setIndex(index - 1)
+      setMainImage(imageList[index - 1])
+    } else {
+      setIndex(imageList.length - 1)
+      setMainImage(imageList[imageList.length - 1])
+    }
   }
   return (
     <div className={cx('container')}>
       <div className={cx('product')}>
         <div className={cx('image-container')}>
           <div className={cx('main-image')}>
-            <img src={mainImage.image} alt='item' />
+            <motion.img
+              variants={variants}
+              animate='animate'
+              initial='initial'
+              exit='exit'
+              transition={{ type: 'spring', stiffness: 300, damping: 20, duration: 0.2 }}
+              src={mainImage.image}
+              alt='item'
+              key={mainImage.image}
+              custom={direction}
+            />
             <div className={cx('next-prev-action')}>
-              <div className={cx('action')}>
+              <div className={cx('action')} onClick={handleMoveBackward}>
                 <FontAwesomeIcon icon={faArrowLeft} />
               </div>
               <div className={cx('current-image')}>
                 <p>
-                  <b>1/4</b>
+                  <b>
+                    {index + 1}/{imageList.length}
+                  </b>
                 </p>
               </div>
-              <div className={cx('action')}>
+              <div className={cx('action')} onClick={handleMoveForward}>
                 <FontAwesomeIcon icon={faArrowRight} />
               </div>
             </div>
           </div>
           <div className={cx('side-images')}>
-            {imageList.map((image) => (
+            {imageList.map((image, index) => (
               <div
                 key={image.id}
                 className={mainImage.id === image.id ? cx('sub-image-active') : cx('sub-image')}
-                onClick={() => handleImageClick(image)}
+                onClick={() => handleImageClick(index)}
               >
                 <img src={image.image} alt='item' />
               </div>
