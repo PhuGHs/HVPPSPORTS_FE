@@ -270,10 +270,6 @@ const ProductDetails = () => {
           <ProductItem />
           <ProductItem />
           <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem />
         </div>
       </div>
     </div>

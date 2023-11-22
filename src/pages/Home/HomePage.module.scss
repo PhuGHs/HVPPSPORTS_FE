@@ -64,7 +64,7 @@
 
 @include mixin.mobile {
   .home {
-    width: 90%;
+    width: 95%;
     .product-list {
       grid-template-columns: repeat(2, 1fr);
     }
