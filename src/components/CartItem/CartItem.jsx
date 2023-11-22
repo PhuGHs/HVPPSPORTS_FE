@@ -28,9 +28,26 @@ const CartItem = ({ name, src, quantity, price }) => {
         <input type='checkbox' />
       </div>
       <div className={cx('second-col')}>
-        <img src={src} alt='product' />
+        <div className={cx('image-container')}>
+          <img src={src} alt='product' />
+        </div>
         <div className={cx('product-details')}>
           <p>{name}</p>
+          <div className={cx('quantity-btn-mb')}>
+            <FontAwesomeIcon
+              onClick={decreaseNumberByOneHandler}
+              icon={faMinus}
+              style={{ color: 'gray', cursor: 'pointer' }}
+            />
+            <p>
+              <b>{number}</b>
+            </p>
+            <FontAwesomeIcon
+              onClick={increaseNumberByOneHandler}
+              icon={faPlus}
+              style={{ color: 'gray', cursor: 'pointer' }}
+            />
+          </div>
           <p>
             <b>{toVND(price)}</b>
           </p>

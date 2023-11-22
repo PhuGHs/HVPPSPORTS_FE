@@ -57,6 +57,8 @@ const HomePage = () => {
           <ProductItem />
           <ProductItem />
           <ProductItem />
+          <ProductItem />
+          <ProductItem />
         </div>
       </section>
       <section id='recommendation' style={{ margin: '2% 0' }}>

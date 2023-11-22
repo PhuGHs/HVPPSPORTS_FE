@@ -6,6 +6,7 @@ import { faAngleRight, faTags } from '@fortawesome/free-solid-svg-icons'
 import Button from '../../components/Button/Button'
 import CartItem from '../../components/CartItem/CartItem'
 import { CartContext } from '../../store/cart-context'
+import { toVND } from '../../helpers/vndCurrency'
 
 const cx = classNames.bind(styles)
 const dummyProductData = [
@@ -102,6 +103,12 @@ function CartPage() {
             </Button>
           </div>
         </div>
+      </div>
+      <div className={cx('footer-checkout')}>
+        <p>
+          Tổng thanh toán: <b>{toVND(960000)}</b>
+        </p>
+        <div className={cx('checkout')}>Thanh Toán</div>
       </div>
     </Fragment>
   )

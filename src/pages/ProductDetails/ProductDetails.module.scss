@@ -1,3 +1,4 @@
+@use '../../assets/styles/mixin';
 .container {
   height: 100%;
   width: 80%;
@@ -210,10 +211,10 @@
     }
 
     .product-list {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      flex-wrap: wrap;
+      display: grid;
+      row-gap: 2rem;
+      column-gap: 2rem;
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 }

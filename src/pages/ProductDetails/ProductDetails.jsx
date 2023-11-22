@@ -7,10 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faShareNodes } from '@fortawesome/free-solid-svg-icons'
 import Accordion from '../../components/Accordion/Accordion'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Reviews from '../../components/Reviews/Reviews'
 import ProductItem from '../../components/ProductItem/ProductItem'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useCallback } from 'react'
 
 const variants = {
   initial: (direction) => {
@@ -122,7 +123,7 @@ const ProductDetails = () => {
     setIndex(clickedIndex)
   }
 
-  const handleMoveForward = () => {
+  const handleMoveForward = useCallback(() => {
     setDirection(1)
     if (index < imageList.length - 1) {
       setIndex(index + 1)
@@ -131,7 +132,7 @@ const ProductDetails = () => {
       setIndex(0)
       setMainImage(imageList[0])
     }
-  }
+  })
 
   const handleMoveBackward = () => {
     setDirection(-1)
@@ -143,6 +144,16 @@ const ProductDetails = () => {
       setMainImage(imageList[imageList.length - 1])
     }
   }
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      handleMoveForward()
+    }, 3000)
+
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [handleMoveForward, index, mainImage])
   return (
     <div className={cx('container')}>
       <div className={cx('product')}>

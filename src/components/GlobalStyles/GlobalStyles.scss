@@ -13,7 +13,8 @@
   //heading
   --dark-yellow: #ffaa06;
   --hover-background: rgb(255, 255, 240);
-    --default-bg-color: #efefef;
+  --default-bg-color: #efefef;
+  --red: rgba(254, 44, 85, 1);
 }
 
 * {
@@ -64,3 +65,4 @@ textarea {
     border: 2px solid var(--blue);
   }
 }
+
