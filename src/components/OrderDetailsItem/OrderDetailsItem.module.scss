@@ -1,3 +1,5 @@
+@use '../../assets/styles/mixin' as mixin;
+
 .container {
   width: 100%;
   display: flex;
@@ -29,6 +31,10 @@
       flex-direction: column;
       justify-content: space-between;
 
+      .mb-product-info {
+        display: none;
+      }
+
       button {
         font-weight: 300;
         font-size: 1.3rem;
@@ -50,5 +56,35 @@
 
   .discount {
     width: 10%;
+  }
+}
+
+@include mixin.mobile {
+  .container {
+    .product {
+      width: 100%;
+
+      .product-name-actions {
+        gap: 1rem;
+
+        .product-name {
+          font-weight: 500;
+          font-size: 1.7rem;
+        }
+
+        button {
+          font-size: 1.6rem;
+        }
+        .mb-product-info {
+          display: flex;
+          flex-direction: row;
+          gap: 1.5rem;
+        }
+      }
+    }
+
+    .price, .size, .quantity, .discount, .totalPrice {
+      display: none;
+    }
   }
 }

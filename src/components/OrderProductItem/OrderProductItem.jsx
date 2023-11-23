@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import styles from './OrderProductItem.module.scss'
 import classNames from 'classnames/bind'
 import { toVND } from '../../helpers/vndCurrency'
@@ -21,7 +22,7 @@ const OrderProductItem = () => {
         <p>{toVND(300000)}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OrderProductItem;
+export default OrderProductItem

@@ -1,3 +1,5 @@
+@use '../../assets/styles/mixin' as mixin;
+
 .tabs {
   list-style: none;
   margin: 0;
@@ -7,7 +9,7 @@
   gap: 1rem;
 
   button {
-    padding: 0.5rem 0.25rem 0.5rem 0.25rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
     text-align: left;
     cursor: pointer;
     border-radius: 4px 4px 0 0;
@@ -26,5 +28,17 @@
   .active-tab-indicator {
     border: 1.5px solid var(--dark-yellow);
     border-radius: 8px;
+  }
+}
+
+@include mixin.mobile {
+  .tabs {
+    overflow-x: scroll;
+    white-space: nowrap;
+    padding: 10px 0;
+
+    .tab {
+      display: inline-block;
+    }
   }
 }

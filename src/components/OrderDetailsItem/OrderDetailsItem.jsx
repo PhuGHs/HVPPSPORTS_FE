@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-unescaped-entities */
 import { toVND } from '../../helpers/vndCurrency'
 import Button from '../Button/Button'
 import styles from './OrderDetailsItem.module.scss'
@@ -14,7 +16,11 @@ const OrderDetailsItem = ({ onOpen }) => {
           <img src={link} alt='product' />
         </div>
         <div className={cx('product-name-actions')}>
-          <p>Kids' Manchester City Home Jersey 2023/24 With Custom Printing</p>
+          <p className={cx('product-name')}>Kids' Manchester City Home Jersey 2023/24 With Custom Printing</p>
+          <div className={cx('mb-product-info')}>
+            <p>x1</p>
+            <p>{toVND(320000)}</p>
+          </div>
           <div>
             <Button secondary_outline small onClick={onOpen}>
               Viết nhận xét

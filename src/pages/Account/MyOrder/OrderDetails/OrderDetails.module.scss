@@ -1,3 +1,5 @@
+@use '../../../../assets/styles/mixin' as mixin;
+
 .container {
   display: flex;
   width: 100%;
@@ -162,8 +164,6 @@
         }
       }
     }
-
-
   }
 
   .rating {
@@ -215,5 +215,72 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@include mixin.mobile {
+  .container {
+    .order-info {
+      border-radius: 0px;
+      gap: 1rem;
+
+      .details {
+        gap: 1rem;
+        .info {
+          label {
+            width: 35%;
+          }
+
+          b {
+            width: 65%;
+          }
+        }
+      }
+    }
+    
+    .order-2 {
+      flex-direction: column;
+      .recipient-info {
+        border-radius: 0px;
+        width: 100%;
+      }
+
+      .delivery-method {
+        border-radius: 0px;
+        width: 100%;
+      }
+
+      .payment-method {
+        border-radius: 0px;
+        width: 100%;
+      }
+    }
+
+    .product-details {
+      border-radius: 0px;
+
+      .table-header {
+        padding: 10px;
+        p {
+          color: var(--dark-yellow);
+          font-weight: 500;
+          font-size: 1.7rem;
+        }
+        .first {
+          width: 100%;
+        }
+        .second, .third, .fourth, .fifth, .sixth {
+          display: none;
+        }
+      }
+
+      .checkout-info {
+        .info {
+          p,span {
+            width: 35%;
+          }
+        }
+      }
+    }
   }
 }

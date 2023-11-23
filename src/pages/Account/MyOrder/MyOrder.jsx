@@ -14,7 +14,7 @@ const MyOrder = () => {
   return (
     <div className={cx('container')}>
       <p className={cx('header')}>Đơn hàng của tôi</p>
-      <Tabs items={items} selectedType={selectedType} onSelectType={handleSelectType}>
+      <Tabs items={items} selectedType={selectedType} onSelectType={handleSelectType} className={cx('tabs')}>
         {selectedType === items[0] && (
           <div>
             <OrderItem /> <OrderItem />

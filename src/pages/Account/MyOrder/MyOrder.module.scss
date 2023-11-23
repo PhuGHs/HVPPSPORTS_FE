@@ -1,9 +1,10 @@
+@use '../../../assets/styles/mixin' as mixin;
 .container {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   background-color: white;
-  padding: 20px;
+  padding: 10px;
   gap: 2rem;
   width: 100%;
 
@@ -13,3 +14,4 @@
     font-size: 2rem;
   }
 }
+

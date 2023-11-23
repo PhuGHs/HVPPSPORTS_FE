@@ -21,7 +21,7 @@ const Tabs = ({ selectedType, onSelectType, items, children }) => {
     <>
       <menu className={cx('tabs')}>
         {items.map((item, index) => (
-          <Tab key={index} isSelected={selectedType === item} onSelect={() => onSelectType(item)}>
+          <Tab className={cx('tab')} key={index} isSelected={selectedType === item} onSelect={() => onSelectType(item)}>
             {item}
           </Tab>
         ))}
