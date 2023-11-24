@@ -28,7 +28,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 0.5rem;
-    
+
     .reviewer-name {
       font-weight: 600;
     }
@@ -66,5 +66,4 @@
 }
 
 @include mixin.mobile {
-
 }

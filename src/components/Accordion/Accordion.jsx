@@ -28,7 +28,7 @@ const Accordion = ({ item }) => {
     <div className={cx('accordion')}>
       <div className={cx('first')} onClick={handleClick}>
         <span>{key}</span>
-        <FontAwesomeIcon icon={isExpanded ? faAngleUp : faAngleDown}/>
+        <FontAwesomeIcon icon={isExpanded ? faAngleUp : faAngleDown} />
       </div>
       <div className={cx('second', { expanded: isExpanded })} ref={secondSectionRef}>
         <p>{value}</p>

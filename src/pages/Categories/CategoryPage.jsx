@@ -6,7 +6,6 @@ import { Link, useParams } from 'react-router-dom'
 import { categories } from '../Home/HomePage'
 import { useState } from 'react'
 
-
 const cx = classNames.bind(styles)
 const CategoryPage = () => {
   const { type } = useParams()

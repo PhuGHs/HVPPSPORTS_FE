@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import styles from './Voucher.module.scss'
 import classNames from 'classnames/bind'
-import VoucherItem from '../VoucherItem/VoucherItem';
+import VoucherItem from '../VoucherItem/VoucherItem'
 
 const cx = classNames.bind(styles)
 const Voucher = ({ data }) => {
@@ -14,4 +14,4 @@ const Voucher = ({ data }) => {
   )
 }
 
-export default Voucher;
+export default Voucher

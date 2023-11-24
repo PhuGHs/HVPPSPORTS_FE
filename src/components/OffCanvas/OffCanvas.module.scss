@@ -1,0 +1,19 @@
+.container {
+  z-index: 2147483647;
+  background-color: rgba(0,0,0,0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .menu {
+    float: right;
+    min-width: 17.1815rem;
+    width: 85%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: white;
+    transition: transform 700ms ease;
+  }
+}

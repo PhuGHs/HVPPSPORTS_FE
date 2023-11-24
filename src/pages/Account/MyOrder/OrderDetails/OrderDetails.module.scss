@@ -25,8 +25,8 @@
       width: fit-content;
       padding: 2.5px 5px;
       border-radius: 10px;
-      background-color: #95FFAD;
-      color: #00AB11;
+      background-color: #95ffad;
+      color: #00ab11;
     }
 
     .details {
@@ -38,7 +38,7 @@
       .info {
         display: flex;
         flex-direction: row;
-        
+
         label {
           width: 15%;
         }
@@ -149,7 +149,8 @@
         justify-content: flex-end;
         align-items: center;
 
-        p, span {
+        p,
+        span {
           width: 20%;
           display: flex;
           flex-direction: row;
@@ -237,7 +238,7 @@
         }
       }
     }
-    
+
     .order-2 {
       flex-direction: column;
       .recipient-info {
@@ -269,14 +270,19 @@
         .first {
           width: 100%;
         }
-        .second, .third, .fourth, .fifth, .sixth {
+        .second,
+        .third,
+        .fourth,
+        .fifth,
+        .sixth {
           display: none;
         }
       }
 
       .checkout-info {
         .info {
-          p,span {
+          p,
+          span {
             width: 35%;
           }
         }

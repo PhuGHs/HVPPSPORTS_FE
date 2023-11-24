@@ -28,7 +28,7 @@ const MyCommentItem = ({ item }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MyCommentItem;
+export default MyCommentItem

@@ -155,7 +155,9 @@ h1 {
         .second-col {
           width: 95%;
         }
-        .third-col, .fourth-col, .fifth-col {
+        .third-col,
+        .fourth-col,
+        .fifth-col {
           display: none;
         }
       }
@@ -175,7 +177,7 @@ h1 {
       }
     }
   }
-  
+
   .footer-checkout {
     position: fixed;
     left: 0;
@@ -270,4 +272,3 @@ h1 {
     display: none;
   }
 }
-

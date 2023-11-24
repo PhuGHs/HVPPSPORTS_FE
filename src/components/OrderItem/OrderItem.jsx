@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 const OrderItem = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   return (
     <div className={cx('container')}>
       <div className={cx('order-status')}>
@@ -27,7 +27,7 @@ const OrderItem = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default OrderItem;
+export default OrderItem

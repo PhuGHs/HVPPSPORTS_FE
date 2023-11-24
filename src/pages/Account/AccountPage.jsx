@@ -34,7 +34,7 @@ const AccountPage = () => {
         <Outlet />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default AccountPage;
+export default AccountPage

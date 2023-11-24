@@ -21,7 +21,8 @@
     align-items: center;
   }
 
-  button:hover, button.selected {
+  button:hover,
+  button.selected {
     color: var(--dark-yellow);
   }
 

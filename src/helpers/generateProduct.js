@@ -21,5 +21,5 @@ export function generateFakeItem() {
       createdAt: faker.date.past(),
       size: faker.helpers.arrayElement(['S', 'M', 'L', 'XL'])
     }))
-  };
+  }
 }

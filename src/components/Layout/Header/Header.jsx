@@ -5,6 +5,7 @@ import classNames from 'classnames/bind'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faCartShopping, faClose, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import Offcanvas from '../../../components/OffCanvas/Offcanvas'
 
 const cx = classNames.bind(styles)
 
@@ -74,6 +75,7 @@ function Header() {
           <Link onClick={handleClick}>
             <FontAwesomeIcon icon={isClicked ? faClose : faBars} />
           </Link>
+          {isClicked && <Offcanvas handleClose={handleClick} />}
         </div>
       )}
     </header>

@@ -3,7 +3,7 @@ import classNames from 'classnames/bind'
 import voucherImage from '../../assets/images/gift.svg'
 
 const cx = classNames.bind(styles)
-const VoucherItem = ( { item } ) => {
+const VoucherItem = ({ item }) => {
   return (
     <div className={cx('container')}>
       <div className={cx('image-container')}>
@@ -22,7 +22,7 @@ const VoucherItem = ( { item } ) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default VoucherItem;
+export default VoucherItem
