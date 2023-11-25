@@ -12,7 +12,10 @@ const Offcanvas = ({ handleClose }) => {
     <div className={cx('container')}>
       <div className={cx('menu')}>
         <div className={cx('brand-container')}>
-          <p>HVPP SPORTS</p>
+          <h2>
+            <span className={cx('first-logo')}>HVPP </span>
+            <span className={cx('second-logo')}>SPORTS</span>
+          </h2>
         </div>
         <div className={cx('links')}>
           {categories.map((item, index) => {
@@ -25,7 +28,7 @@ const Offcanvas = ({ handleClose }) => {
           })}
         </div>
       </div>
-      <div className='close-btn' onClick={handleClose}>
+      <div className={cx('close-btn')} onClick={handleClose}>
         <FontAwesomeIcon icon={faClose} />
       </div>
     </div>

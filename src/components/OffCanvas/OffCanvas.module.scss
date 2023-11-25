@@ -1,6 +1,6 @@
 .container {
   z-index: 2147483647;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
   top: 0;
   left: 0;
@@ -14,6 +14,66 @@
     height: 100%;
     overflow-y: auto;
     background-color: white;
-    transition: transform 700ms ease;
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    animation: slideIn 0.5s ease;
+
+    .brand-container {
+      background-color: var(--default-bg-color);
+      min-height: 70px;
+      height: 70px;
+      border-bottom: 1px solid rgb(200, 200, 200);
+      h2 {
+        height: 100%;
+        margin-left: 5%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.4rem;
+        .first-logo {
+          color: #2a2a86;
+        }
+
+        .second-logo {
+          color: #fcaf17;
+        }
+      }
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+
+      .link-item {
+        display: flex;
+        height: 50px;
+        padding-left: 10px;
+        padding-right: 5px;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid var(--default-bg-color);
+
+        &:hover {
+          background-color: var(--hover-background);
+        }
+      }
+    }
+  }
+
+  .close-btn {
+    width: 15%;
+    height: 6%;
+    font-size: 3rem;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
   }
 }
