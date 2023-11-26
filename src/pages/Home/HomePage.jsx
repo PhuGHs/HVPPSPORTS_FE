@@ -30,11 +30,14 @@ const HomePage = () => {
         <img src={Banner} alt='banner.png' />
       </div>
       <section id='categories' style={{ margin: '2% 0' }}>
+        <p className={cx('cate-header')}>Chọn giải đấu yêu thích của bạn</p>
         <ul>
           {categories.map((item) => (
             <li key={item.id}>
               <Link to={item.route}>
-                <img src={item.src} alt={item.name} />
+                <div className={cx('image-holder')}>
+                  <img src={item.src} alt={item.name} />
+                </div>
                 <p>{item.name}</p>
               </Link>
             </li>

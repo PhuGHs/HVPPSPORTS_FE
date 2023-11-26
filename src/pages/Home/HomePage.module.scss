@@ -7,20 +7,48 @@
   display: flex;
   flex-direction: column;
 
+  .cate-header {
+    font-weight: 500;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
   ul {
     width: 60%;
     display: flex;
     flex-direction: row;
     margin: auto;
     text-align: center;
+    justify-content: space-between;
     font-weight: 600;
 
     li {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
-    }
+      
+      p {
+        text-wrap: nowrap;
+      }
 
-    li img {
-      width: 70%;
+      .image-holder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        box-shadow: 0.0625rem 0.0625rem 0.25rem #979798;
+
+        img {
+          max-width: calc(100% - 30px);
+          max-height: calc(100% - 30px);
+        }
+      }
     }
   }
 
@@ -64,13 +92,18 @@
 
 @include mixin.mobile {
   .home {
+    ul {
+      overflow-x: auto;
+      width: 100%;
+      gap: 2rem;
+
+      li {
+        width: 100%;
+      }
+    }
     width: 95%;
     .product-list {
       grid-template-columns: repeat(2, 1fr);
-    }
-
-    ul {
-      display: none;
     }
   }
 }
