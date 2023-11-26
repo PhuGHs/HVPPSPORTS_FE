@@ -2,6 +2,8 @@
 import styles from './AddressItem.module.scss'
 import classNames from 'classnames/bind'
 import Button from '../Button/Button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 const cx = classNames.bind(styles)
 const AddressItem = ({ item }) => {
@@ -13,7 +15,12 @@ const AddressItem = ({ item }) => {
         </p>
         <div className={cx('actions')}>
           <Button small>Cập nhật</Button>
-          {!item.isDefault && <Button small>Xoá</Button>}
+          <FontAwesomeIcon className={cx('mb-ic-btn')} icon={faEdit} />
+          {!item.isDefault && <>
+            <Button small>Xoá</Button>
+              <FontAwesomeIcon className={cx('mb-ic-btn')} icon={faTrashCan} />
+            </>
+          }
         </div>
       </div>
       <div className={cx('second-row')}>

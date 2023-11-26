@@ -15,9 +15,12 @@ const MyReviews = () => {
   }
   return (
     <div className={cx('container')}>
-      <p className={cx('header')}>Nhận xét của tôi</p>
+      <p className={cx('head-name')}>Đánh giá của tôi</p>
       <Tabs onSelectType={handleSelectType} selectedType={selectedType} items={items}></Tabs>
       <MyComment data={data} />
+      {/* <p className={cx('header')}>Nhận xét của tôi</p>
+      <Tabs onSelectType={handleSelectType} selectedType={selectedType} items={items}></Tabs>
+      <MyComment data={data} /> */}
     </div>
   )
 }

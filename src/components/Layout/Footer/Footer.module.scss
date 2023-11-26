@@ -1,4 +1,11 @@
+@use '../../../assets/styles/mixin' as mixin;
 .container {
   height: 300px;
   background-color: white;
+}
+
+@include mixin.mobile {
+  .container {
+    display: none;
+  }
 }

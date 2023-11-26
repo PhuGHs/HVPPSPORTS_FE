@@ -23,7 +23,20 @@
       }
     }
 
-    animation: slideIn 0.5s ease;
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(100%);
+      }
+    }
+
+    &.closing {
+      animation: slideOut 0.5s ease-in-out;
+    }
+
+    animation: slideIn 0.5s ease-in-out;
 
     .brand-container {
       background-color: var(--default-bg-color);

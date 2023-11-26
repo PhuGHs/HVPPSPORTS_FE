@@ -1,3 +1,4 @@
+@use '../../../assets/styles/mixin' as mixin;
 .container {
   width: 100%;
   display: flex;
@@ -65,5 +66,11 @@
       color: var(--blue);
       font-weight: 500;
     }
+  }
+}
+
+@include mixin.mobile {
+  .container {
+    padding: 10px;
   }
 }

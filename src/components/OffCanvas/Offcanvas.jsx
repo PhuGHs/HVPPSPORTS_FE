@@ -5,12 +5,21 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faClose } from '@fortawesome/free-solid-svg-icons'
 import { categories } from '../../pages/Home/HomePage'
+import { useState } from 'react'
 
 const cx = classNames.bind(styles)
 const Offcanvas = ({ handleClose }) => {
+  const [closing, setClosing] = useState(false)
+  const handleClosing = () => {
+    setClosing(true)
+    setTimeout(() => {
+      handleClose();
+      setClosing(false);
+    }, 500)
+  }
   return (
     <div className={cx('container')}>
-      <div className={cx('menu')}>
+      <div className={cx('menu', { closing })}>
         <div className={cx('brand-container')}>
           <h2>
             <span className={cx('first-logo')}>HVPP </span>
@@ -28,7 +37,7 @@ const Offcanvas = ({ handleClose }) => {
           })}
         </div>
       </div>
-      <div className={cx('close-btn')} onClick={handleClose}>
+      <div className={cx('close-btn')} onClick={handleClosing}>
         <FontAwesomeIcon icon={faClose} />
       </div>
     </div>

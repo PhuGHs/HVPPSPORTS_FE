@@ -1,3 +1,4 @@
+@use '../../assets/styles/mixin' as mixin;
 .container {
   width: 100%;
   display: flex;
@@ -16,6 +17,10 @@
         font-weight: 200;
         font-size: 1.3rem;
       }
+    }
+
+    .mb-ic-btn {
+      display: none;
     }
 
     button {
@@ -53,6 +58,25 @@
       p {
         padding: 4px 15px;
         color: var(--blue);
+      }
+    }
+  }
+}
+
+@include mixin.mobile {
+  .container {
+    .first-row {
+      .actions {
+        button {
+          display: none;
+        }
+
+        .mb-ic-btn {
+          padding: 5px;
+          color: var(--light-blue);
+          margin: 0 10px;
+          cursor: pointer;
+        }
       }
     }
   }

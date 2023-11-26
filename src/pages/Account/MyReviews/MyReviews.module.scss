@@ -1,15 +1,25 @@
+@use '../../../assets/styles/mixin' as mixin;
+
 .container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   justify-content: center;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
+  gap: 1rem;
 
-  .header {
+  .head-name {
+    padding: 20px;
+    background-color: white;
     color: var(--dark-yellow);
     font-weight: 500;
     font-size: 2rem;
+    border-radius: 10px;
+  }
+}
+
+@include mixin.mobile {
+  .container {
+    .head-name {
+      border-radius: 0;
+    }
   }
 }

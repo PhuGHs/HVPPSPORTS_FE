@@ -1,5 +1,12 @@
+@use '../../assets/styles/mixin' as mixin;
 .container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+@include mixin.mobile {
+  .container {
+    margin: 0 20px;
+  }
 }
