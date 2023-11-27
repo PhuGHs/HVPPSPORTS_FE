@@ -62,12 +62,12 @@
         display: flex;
         flex-direction: row;
         gap: 1.2rem;
-  
+
         .chip-btn {
           font-size: 1.3rem;
           color: var(--blue);
         }
-  
+
         .chip-btn-active {
           font-size: 1.3rem;
           background-color: var(--yellow);
@@ -164,11 +164,11 @@
           overflow-x: scroll;
           width: 100%;
           background-color: white;
-  
+
           .chip-btn {
             font-size: 1.5rem;
           }
-  
+
           .chip-btn-active {
             font-size: 1.5rem;
           }

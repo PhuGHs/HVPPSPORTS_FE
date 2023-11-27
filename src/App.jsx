@@ -13,6 +13,7 @@ import MyReviews from './pages/Account/MyReviews/MyReviews'
 import VoucherWallet from './pages/Account/VoucherWallet/VoucherWallet'
 import OrderDetails from './pages/Account/MyOrder/OrderDetails/OrderDetails'
 import ScrollToTop from './components/ScrollToTop'
+import Checkout from './pages/Checkout/Checkout'
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
         ]
       },
       { path: '/cart', element: <CartPage /> },
+      { path: '/cart/checkout', element: <Checkout /> },
       { path: '/', element: <HomePage /> },
       { path: '/categories/:type', element: <CategoryPage /> },
       { path: '/products/:id', element: <ProductDetails /> }

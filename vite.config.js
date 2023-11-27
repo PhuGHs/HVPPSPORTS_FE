@@ -12,6 +12,8 @@ export default defineConfig({
     devSourcemap: true
   },
   resolve: {
-    alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+    alias: {
+      '~/': path.resolve(__dirname, 'src') + '/',
+    }
   },
 })

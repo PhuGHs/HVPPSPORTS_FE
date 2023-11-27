@@ -7,9 +7,10 @@ import Button from '../../components/Button/Button'
 import CartItem from '../../components/CartItem/CartItem'
 import { CartContext } from '../../store/cart-context'
 import { toVND } from '../../helpers/vndCurrency'
+import { useNavigate } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
-const dummyProductData = [
+export const dummyProductData = [
   {
     id: 1,
     src: 'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw21a150b7/images/large/701225667001_pp_01_mcfc.png?sw=400&sh=400&sm=fit',
@@ -35,6 +36,10 @@ const dummyProductData = [
 
 function CartPage() {
   const cartCtx = useContext(CartContext)
+  const navigate = useNavigate()
+  const handleNavigation = () => {
+    navigate('/cart/checkout')
+  }
   return (
     <Fragment>
       <h1>Giỏ hàng</h1>
@@ -98,7 +103,7 @@ function CartPage() {
                 <b style={{ fontSize: '2.5rem', color: 'rgba(254, 44, 85, 1)' }}>0đ</b>
               </p>
             </div>
-            <Button large primary>
+            <Button large primary onClick={handleNavigation}>
               THANH TOÁN
             </Button>
           </div>
@@ -108,7 +113,9 @@ function CartPage() {
         <p>
           Tổng thanh toán: <b>{toVND(960000)}</b>
         </p>
-        <div className={cx('checkout')}>Thanh Toán</div>
+        <div className={cx('checkout')} onClick={handleNavigation}>
+          Thanh Toán
+        </div>
       </div>
     </Fragment>
   )

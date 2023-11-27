@@ -1,0 +1,235 @@
+@use '../../assets/styles/mixin' as mixin;
+
+.container {
+  width: 80%;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 200px;
+
+  .header {
+    font-weight: 600;
+    font-size: 1.6rem;
+  }
+
+  .address-container {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+    .address {
+      padding: 10px 0;
+      border-top: 1px solid var(--blue);
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      flex-direction: column;
+
+      .list {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .address-item {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          gap: 1rem;
+
+          input {
+            transform: scale(1.2);
+          }
+        }
+
+        .action {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+    }
+  }
+
+  .delivery-method-container {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+    .delivery-method {
+      padding: 10px 0;
+      border-top: 1px solid var(--blue);
+
+      .delivery-method-item {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+      }
+    }
+  }
+
+  .payment-method-container {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+    .payment-method {
+      padding: 10px 0;
+      border-top: 1px solid var(--blue);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .payment-item {
+        display: flex;
+        flex-direction: row;
+        min-width: 40px;
+        min-height: 24px;
+        gap: 1rem;
+
+        .momo {
+          width: 40px;
+          height: auto;
+          background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_momopay.svg?q=10330)
+            no-repeat center center;
+        }
+
+        .atm {
+          width: 40px;
+          height: auto;
+          background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_zalopayatm.svg?q=10330)
+            no-repeat center center;
+        }
+
+        .cash {
+          width: 40px;
+          height: auto;
+          background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_cashondelivery.svg?q=10330)
+            no-repeat center center;
+        }
+      }
+    }
+  }
+
+  .discount-container {
+    padding: 10px 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+  }
+
+  .re-examine-container {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+    .products {
+      border-top: 1px solid var(--blue);
+      padding: 10px 0;
+    }
+  }
+
+  .footer-checkout {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 1% 10%;
+    height: fit-content;
+    box-shadow: 1px -4px 3px rgb(208, 208, 208);
+    background-color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .order-info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      border-bottom: 1px solid rgb(173, 173, 173);
+      gap: 1rem;
+      .item {
+        width: 30%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .actions {
+      padding: 1% 0 0 0;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .return {
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+  }
+}
+
+@include mixin.mobile {
+  .container {
+    width: 100%;
+    .footer-checkout {
+      padding: 0;
+
+      .order-info {
+        padding: 2% 5%;
+        .item {
+          width: 60%;
+        }
+      }
+
+      .actions {
+        padding: 5%;
+      }
+    }
+  }
+}
+
+@include mixin.tablet {
+  .container {
+    width: 100%;
+    .footer-checkout {
+      padding: 0;
+
+      .order-info {
+        padding: 2% 5%;
+        .item {
+          width: 60%;
+        }
+      }
+
+      .actions {
+        padding: 5%;
+      }
+    }
+  }
+}
