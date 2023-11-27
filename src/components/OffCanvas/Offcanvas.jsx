@@ -13,8 +13,8 @@ const Offcanvas = ({ handleClose }) => {
   const handleClosing = () => {
     setClosing(true)
     setTimeout(() => {
-      handleClose();
-      setClosing(false);
+      handleClose()
+      setClosing(false)
     }, 500)
   }
   return (
@@ -35,6 +35,14 @@ const Offcanvas = ({ handleClose }) => {
               </div>
             )
           })}
+        </div>
+        <div className={cx('footer')}>
+          <Link>About us</Link>
+          <Link>Helps</Link>
+          <Link>Term and Conditions</Link>
+          <div className={cx('social')}>
+            <FontAwesomeIcon icon={'facebook'} />
+          </div>
         </div>
       </div>
       <div className={cx('close-btn')} onClick={handleClosing}>

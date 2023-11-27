@@ -16,11 +16,13 @@ const AddressItem = ({ item }) => {
         <div className={cx('actions')}>
           <Button small>Cập nhật</Button>
           <FontAwesomeIcon className={cx('mb-ic-btn')} icon={faEdit} />
-          {!item.isDefault && <>
-            <Button small>Xoá</Button>
+
+          {!item.isDefault && (
+            <>
+              <Button small>Xoá</Button>
               <FontAwesomeIcon className={cx('mb-ic-btn')} icon={faTrashCan} />
             </>
-          }
+          )}
         </div>
       </div>
       <div className={cx('second-row')}>
