@@ -3,6 +3,7 @@ import Header from '../components/Layout/Header/Header'
 import styles from './Root.module.scss'
 import classNames from 'classnames/bind'
 import Footer from '../components/Layout/Footer/Footer'
+import FloatingButton from '~/components/FloatingButton/FloatingButton'
 
 const cx = classNames.bind(styles)
 function RootLayout() {
@@ -14,6 +15,7 @@ function RootLayout() {
       <main className={cx('content')}>
         <Outlet />
       </main>
+      <FloatingButton />
       {pathname !== '/cart/checkout' && <Footer />}
     </>
   )

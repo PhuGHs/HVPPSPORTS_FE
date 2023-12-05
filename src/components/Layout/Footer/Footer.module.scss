@@ -1,7 +1,148 @@
 @use '../../../assets/styles/mixin' as mixin;
 .container {
   height: 300px;
+  padding: 2%;
   background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+  .about {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 20%;
+
+    .payment {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+      .payment-item {
+        display: flex;
+        flex-direction: row;
+        min-width: 40px;
+        min-height: 24px;
+        gap: 1rem;
+
+        .momo {
+          width: 40px;
+          height: auto;
+          background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_momopay.svg?q=10330)
+            no-repeat center center;
+        }
+
+        .atm {
+          width: 40px;
+          height: auto;
+          background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_zalopayatm.svg?q=10330)
+            no-repeat center center;
+        }
+
+        .cash {
+          width: 40px;
+          height: auto;
+          background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_cashondelivery.svg?q=10330)
+            no-repeat center center;
+        }
+      }
+    }
+
+    .security {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  .categories {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      li {
+        a {
+          &:hover {
+            color: var(--dark-yellow);
+          }
+        }
+      }
+    }
+  }
+
+  .information {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      li {
+        a {
+          &:hover {
+            color: var(--dark-yellow);
+          }
+        }
+      }
+    }
+  }
+
+  .contact {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .address {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--blue);
+
+      p {
+        span {
+          margin-right: 1rem;
+        }
+      }
+    }
+
+    .phone-email {
+      padding-top: 10px;
+      .item {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        
+        .left-item {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+    }
+
+    .social {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: row;
+      padding: 0px;
+      gap: 1rem;
+
+      img {
+        width: 35px;
+        height: auto;
+      }
+    }
+  }
 }
 
 @include mixin.mobile {

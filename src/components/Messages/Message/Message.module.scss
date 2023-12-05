@@ -1,0 +1,29 @@
+.message-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 5px 0;
+
+  .message {
+    display: flex;
+    padding: 10px;
+    max-width: 80%;
+    background-color: var(--yellow);
+    border-radius: 20px 0px 20px 20px;
+  }
+}
+
+.message-container-admin {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 5px 0;
+
+  .message-admin {
+    display: flex;
+    padding: 10px;
+    max-width: 80%;
+    background-color: #EDEDED;
+    border-radius: 0 20px 20px 20px;
+  }
+}
