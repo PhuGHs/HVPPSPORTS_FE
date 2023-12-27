@@ -14,6 +14,11 @@ import VoucherWallet from './pages/Account/VoucherWallet/VoucherWallet'
 import OrderDetails from './pages/Account/MyOrder/OrderDetails/OrderDetails'
 import ScrollToTop from './components/ScrollToTop'
 import Checkout from './pages/Checkout/Checkout'
+import SignIn from './pages/Authentication/SignIn/SignIn'
+import AuthLayout from './pages/Authentication/AuthLayout'
+import SignUp from './pages/Authentication/SignUp/SignUp'
+import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPassword'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const router = createBrowserRouter([
   {
@@ -58,17 +63,46 @@ const router = createBrowserRouter([
       { path: '/cart/checkout', element: <Checkout /> },
       { path: '/', element: <HomePage /> },
       { path: '/categories/:type', element: <CategoryPage /> },
-      { path: '/products/:id', element: <ProductDetails /> }
+      { path: '/products/:id', element: <ProductDetails /> },
+    ]
+  },
+  {
+    path: '/auth',
+    element: <AuthLayout />,
+    children: [
+      {
+        path: 'signin',
+        element: <SignIn />
+      },
+      {
+        path: 'signup',
+        element: <SignUp />
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPassword />
+      }
     ]
   }
 ])
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false
+    }
+  }
+})
+
 function App() {
   return (
     <CartContext.Provider value={[]}>
-      <RouterProvider router={router}>
-        <ScrollToTop />
-      </RouterProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router}>
+          <ScrollToTop />
+        </RouterProvider>
+      </QueryClientProvider>
     </CartContext.Provider>
   )
 }
