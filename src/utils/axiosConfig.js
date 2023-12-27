@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { baseURL } from './sharedResource'
-import { getTokenFromLS, removeTokenFromLS, setTokenToLS } from './lsMethod'
+import { getTokenFromLS, setTokenToLS, removeTokenFromLS } from './auth'
 import { SIGN_IN_URL, SIGN_OUT_URL } from '~/api/auth.api'
 
 class Http {
@@ -11,27 +11,37 @@ class Http {
       timeout: 15000,
       headers: {
         'Content-Type': 'application/json'
+      }
+    })
+
+    this.instance.interceptors.request.use(
+      (config) => {
+        if (this._token && config.headers) {
+          config.headers.Authorization = this._token
+        }
+        return config
       },
-      withCredentials: true
-    })
-
-    this.instance.interceptors.request.use((config) => {
-      if (this._token && config.headers) {
-        config.headers.Authorization = this._token
+      (error) => {
+        return Promise.reject(error)
       }
-    })
+    )
 
-    this.instance.interceptors.response.use((response) => {
-      const { url } = response.config
-      if (url === SIGN_IN_URL) {
-        const data = response.data
-        setTokenToLS(data.token)
-      } else if (url === SIGN_OUT_URL) {
-        this._token = ''
-        removeTokenFromLS()
+    this.instance.interceptors.response.use(
+      (response) => {
+        const { url } = response.config
+        if (url === SIGN_IN_URL) {
+          const data = response.data
+          setTokenToLS(data.token)
+        } else if (url === SIGN_OUT_URL) {
+          this._token = ''
+          removeTokenFromLS()
+        }
+        return response
+      },
+      (error) => {
+        return Promise.reject(error)
       }
-      return response
-    })
+    )
   }
 }
 

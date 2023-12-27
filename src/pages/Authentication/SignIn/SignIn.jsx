@@ -1,8 +1,12 @@
 import classNames from 'classnames/bind'
 import styles from './SignIn.module.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useInput } from '~/hooks/useInput'
 import { Helper } from '~/utils/helper'
+import { AuthApi } from '~/api/auth.api'
+import { useEffect } from 'react'
+import { useRef } from 'react'
+import { setTokenToLS } from '~/utils/auth'
 
 const cx = classNames.bind(styles)
 const SignIn = () => {
@@ -20,9 +24,23 @@ const SignIn = () => {
     hasError: emailHasError
   } = useInput('', Helper.validateEmail)
 
-  const handleSubmit = () => {
-    if (!passwordHasError && !emailHasError) {
-      console.log('submitted')
+  const emailRef = useRef()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    emailRef.current.focus()
+  }, [])
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const response = await AuthApi.signin({
+      email: emailValue,
+      password: passwordValue
+    })
+
+    if (response.status === 200) {
+      setTokenToLS(response.data.access_token)
+      navigate('/')
     }
   }
 
@@ -43,6 +61,7 @@ const SignIn = () => {
             type='email'
             name='email'
             placeholder='Email'
+            ref={emailRef}
             onChange={handleEmailChange}
             onBlur={handleEmailBlur}
             value={emailValue}
@@ -69,7 +88,9 @@ const SignIn = () => {
           </div>
         </div>
 
-        <button type='submit'>Đăng nhập</button>
+        <button type='submit' disabled={emailHasError || passwordHasError}>
+          Đăng nhập
+        </button>
       </form>
 
       <p className={cx('signup-suggestion')}>

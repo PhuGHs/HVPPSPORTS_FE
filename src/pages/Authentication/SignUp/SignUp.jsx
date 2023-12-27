@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind'
 import styles from './SignUp.module.scss'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 import { useInput } from '~/hooks/useInput'
 import { Helper } from '~/utils/helper'
+import { AuthApi } from '~/api/auth.api'
+import { useEffect, useRef } from 'react'
 
 const cx = classNames.bind(styles)
 const SignUp = () => {
@@ -31,10 +33,23 @@ const SignUp = () => {
     hasError: phoneNumberHasError
   } = useInput('', Helper.validatePhoneNumber)
 
-  const handleSubmit = (event) => {
-    console.log('submitted')
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    const response = await AuthApi.signup({
+      userName: usernameValue,
+      email: emailValue,
+      password: passwordValue,
+      phone: phonenumberValue
+    })
+    console.log(response.message)
+    if (response.message === 'success') redirect('/auth/signin')
   }
+
+  const usernameRef = useRef()
+
+  useEffect(() => {
+    usernameRef.current.focus()
+  }, [])
 
   return (
     <div className={cx('container')}>
@@ -52,6 +67,7 @@ const SignUp = () => {
             <label htmlFor='username'>Username</label>
             <input
               type='text'
+              ref={usernameRef}
               name='username'
               placeholder='Username'
               onChange={handleUsernameChange}
@@ -106,7 +122,9 @@ const SignUp = () => {
           </div>
         </div>
 
-        <button type='submit'>Đăng ký</button>
+        <button type='submit' disabled={usernameHasError || passwordHasError || emailHasError || phoneNumberHasError}>
+          Đăng ký
+        </button>
       </form>
 
       <p className={cx('signup-suggestion')}>

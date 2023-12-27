@@ -8,13 +8,22 @@ import Offcanvas from '../../../components/OffCanvas/Offcanvas'
 
 const cx = classNames.bind(styles)
 
-//https://react-bootstrap.netlify.app/docs/components/offcanvas, use this for dropdown button, when the screen is getting smaller.
-
 function Header() {
   const [isClicked, setIsClicked] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
   const handleClick = () => {
     setIsClicked((prevIsClicked) => !prevIsClicked)
   }
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+  }
+
+  //https://www.robinwieruch.de/react-dropdown/
 
   return (
     <>
@@ -52,10 +61,15 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link to='/account'>
+                <Link to='/account' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className={cx('header-btn')}>
                     <FontAwesomeIcon icon={faUser} className={cx('icon')} />
                     <p>Tài khoản</p>
+                    {isHovered && (
+                      <div className={cx('logout-button-container')}>
+                        <button>Logout</button>
+                      </div>
+                    )}
                   </div>
                 </Link>
               </li>

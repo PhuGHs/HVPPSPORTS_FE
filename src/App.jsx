@@ -19,11 +19,14 @@ import AuthLayout from './pages/Authentication/AuthLayout'
 import SignUp from './pages/Authentication/SignUp/SignUp'
 import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPassword'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { checkAuthLoader } from './utils/auth'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    loader: checkAuthLoader,
     children: [
       {
         path: '/account',
@@ -102,6 +105,7 @@ function App() {
         <RouterProvider router={router}>
           <ScrollToTop />
         </RouterProvider>
+        <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider>
     </CartContext.Provider>
   )

@@ -1,3 +1,6 @@
+import { redirect } from 'react-router-dom'
+import { SIGN_IN_URL } from '~/api/auth.api'
+
 export const getTokenFromLS = () => {
   const token = localStorage.getItem('token')
   return token
@@ -9,4 +12,14 @@ export const setTokenToLS = (token) => {
 
 export const removeTokenFromLS = (token) => {
   localStorage.removeItem('token', token)
+}
+
+export const checkAuthLoader = () => {
+  const token = getTokenFromLS()
+
+  if (!token) {
+    return redirect(SIGN_IN_URL)
+  }
+
+  return null
 }
