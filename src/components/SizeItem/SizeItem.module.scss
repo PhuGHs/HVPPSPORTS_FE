@@ -1,0 +1,44 @@
+.size-item {
+  background-color: white;
+  border: 1px solid var(--blue);
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.size-item-selected {
+  background-color: white;
+  border: 2px solid var(--blue);
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.size-item-disabled {
+  background-color: white;
+  border: 1px solid var(--blue);
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.5;
+
+  span {
+    cursor: default;
+  }
+}

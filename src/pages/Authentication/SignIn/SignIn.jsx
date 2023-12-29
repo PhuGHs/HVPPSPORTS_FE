@@ -6,7 +6,7 @@ import { Helper } from '~/utils/helper'
 import { AuthApi } from '~/api/auth.api'
 import { useEffect } from 'react'
 import { useRef } from 'react'
-import { setTokenToLS } from '~/utils/auth'
+import { setTokenToLS, setUserToLS } from '~/utils/auth'
 
 const cx = classNames.bind(styles)
 const SignIn = () => {
@@ -39,7 +39,8 @@ const SignIn = () => {
     })
 
     if (response.status === 200) {
-      setTokenToLS(response.data.access_token)
+      setTokenToLS(response.data.data.access_token)
+      setUserToLS(response.data.data.customer)
       navigate('/')
     }
   }

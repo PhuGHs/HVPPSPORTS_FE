@@ -3,7 +3,7 @@ import HomePage from './pages/Home/HomePage'
 import RootLayout from './pages/Root'
 import AccountPage from './pages/Account/AccountPage'
 import CartPage from './pages/Cart/CartPage'
-import { CartContext } from './store/cart-context'
+import { CartProvider } from './store/cart-context'
 import CategoryPage from './pages/Categories/CategoryPage'
 import ProductDetails from './pages/ProductDetails/ProductDetails'
 import AccountInfo from './pages/Account/AccountInfo/AccountInfo'
@@ -21,6 +21,9 @@ import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPassword
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { checkAuthLoader } from './utils/auth'
+import { UserProvider } from './store/user-context'
+
+const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
 
 const router = createBrowserRouter([
   {
@@ -93,21 +96,26 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      retry: false
+      retry: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      staleTime: twentyFourHoursInMs
     }
   }
 })
 
 function App() {
   return (
-    <CartContext.Provider value={[]}>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router}>
-          <ScrollToTop />
-        </RouterProvider>
-        <ReactQueryDevtools initialIsOpen={true} />
-      </QueryClientProvider>
-    </CartContext.Provider>
+    <UserProvider>
+      <CartProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router}>
+            <ScrollToTop />
+          </RouterProvider>
+          <ReactQueryDevtools initialIsOpen={true} />
+        </QueryClientProvider>
+      </CartProvider>
+    </UserProvider>
   )
 }
 

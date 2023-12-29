@@ -6,6 +6,19 @@ export const getTokenFromLS = () => {
   return token
 }
 
+export const setUserToLS = (user) => {
+  localStorage.setItem('user', JSON.stringify(user))
+}
+
+export const getUserFromLS = () => {
+  const user = localStorage.getItem('user')
+  return JSON.parse(user)
+}
+
+export const removeUserFromLS = () => {
+  localStorage.removeItem('user')
+}
+
 export const setTokenToLS = (token) => {
   localStorage.setItem('token', token)
 }

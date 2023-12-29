@@ -3,7 +3,7 @@ import classNames from 'classnames/bind'
 import { Chip, Pagination } from '@mui/material'
 import ProductItem from '../../components/ProductItem/ProductItem'
 import { Link, useParams } from 'react-router-dom'
-import { categories } from '../Home/HomePage'
+import { categories } from '~/utils/sharedResource'
 import { useEffect, useState, useCallback } from 'react'
 import Dropdown from '../../components/Dropdown/Dropdown'
 

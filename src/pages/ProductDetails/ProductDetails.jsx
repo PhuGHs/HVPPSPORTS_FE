@@ -12,6 +12,11 @@ import Reviews from '../../components/Reviews/Reviews'
 import ProductItem from '../../components/ProductItem/ProductItem'
 import { motion } from 'framer-motion'
 import { useCallback } from 'react'
+import { useParams } from 'react-router-dom'
+import { ProductApi } from '~/api/product.api'
+import { sizeKeys } from '~/utils/sharedResource'
+import SizeItem from '~/components/SizeItem/SizeItem'
+import Spinner from '~/components/Spinner/Spinner'
 
 const variants = {
   initial: (direction) => {
@@ -34,21 +39,6 @@ const variants = {
     }
   }
 }
-
-const data = [
-  {
-    id: 1,
-    key: 'Mô tả',
-    value:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-  },
-  {
-    id: 2,
-    key: 'Hướng dẫn sử dụng',
-    value:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-  }
-]
 
 const reviews = [
   {
@@ -81,39 +71,21 @@ const reviews = [
   }
 ]
 
-const images = [
-  {
-    id: 1,
-    image:
-      'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw21a150b7/images/large/701225667001_pp_01_mcfc.png?sw=400&sh=400&sm=fit'
-  },
-  {
-    id: 2,
-    image:
-      'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog/default/dw34725556/product-sets/mancity-23/away_kids_set_bg2324.png?sw=1600&sh=1600&sm=fit'
-  },
-  {
-    id: 3,
-    image:
-      'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dwe19c4448/images/large/701225698001_pp_01_mcfc.png?sw=1600&sh=1600&sm=fit'
-  },
-  {
-    id: 4,
-    image:
-      'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw78dae72f/images/large/701225658001_pp_01_mcfc.png?sw=1600&sh=1600&sm=fit'
-  }
-]
-
 const cx = classNames.bind(styles)
 const ProductDetails = () => {
+  const [product, setProduct] = useState(null)
+  const [description, setDescription] = useState([])
+  const [feedbacks, setFeedbacks] = useState(null)
+  const [sizes, setSizes] = useState([])
+  const [selectedSize, setSelectedSize] = useState()
   const [index, setIndex] = useState(0)
-  const [mainImage, setMainImage] = useState(images[0])
-  const [imageList, setImageList] = useState(images)
+  const [imageList, setImageList] = useState(null)
+  const [mainImage, setMainImage] = useState(null)
   const [direction, setDirection] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+  const { id } = useParams()
 
   const handleImageClick = (clickedIndex) => {
-    console.log('clickedIndex', clickedIndex)
-    console.log('currentIndex', index)
     if (clickedIndex > index) {
       setDirection(1)
     } else if (clickedIndex < index) {
@@ -121,6 +93,10 @@ const ProductDetails = () => {
     }
     setMainImage(imageList[clickedIndex])
     setIndex(clickedIndex)
+  }
+
+  const handleSizeItemClick = (item) => {
+    setSelectedSize(item)
   }
 
   const handleMoveForward = useCallback(() => {
@@ -132,7 +108,7 @@ const ProductDetails = () => {
       setIndex(0)
       setMainImage(imageList[0])
     }
-  })
+  }, [imageList, index])
 
   const handleMoveBackward = () => {
     setDirection(-1)
@@ -153,7 +129,48 @@ const ProductDetails = () => {
     return () => {
       clearInterval(intervalId)
     }
-  }, [handleMoveForward, index, mainImage])
+  }, [handleMoveForward, index])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const productData = await ProductApi.getProductById(id)
+        const { urlThumb, urlMain, urlSub1, urlSub2, description } = productData
+        setProduct(productData)
+        setImageList([
+          { id: 1, image: urlThumb },
+          { id: 2, image: urlMain },
+          { id: 3, image: urlSub1 },
+          { id: 4, image: urlSub2 }
+        ])
+        setMainImage({ id: 1, image: urlThumb })
+        setDescription([{ id: 1, key: 'Mô tả sản phẩm', value: description }])
+        const sizes = sizeKeys.map((sizeKey) => ({
+          size: sizeKey,
+          quantity: productData[`size${sizeKey}`]
+        }))
+        setSizes(sizes)
+        setSelectedSize(sizes[0])
+        const feedbacksData = await ProductApi.getFeedBacks(id)
+        setFeedbacks(feedbacksData)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    if (isLoading) {
+      fetchData()
+    }
+  }, [id, isLoading])
+
+  if (isLoading) {
+    return (
+      <div className={cx('spinner-container')}>
+        <Spinner />
+      </div>
+    )
+  }
   return (
     <div className={cx('container')}>
       <div className={cx('product')}>
@@ -199,20 +216,22 @@ const ProductDetails = () => {
           </div>
         </div>
         <div className={cx('details')}>
-          <p className={cx('product-name')}>Kids Manchester City Home Jersey 2023/24 With Custom Printing</p>
-          <Rating className={cx('rating-comp')} readOnly value={4} />
-          <h2>{toVND(320000)}</h2>
-          <p>Kích cỡ: S | Số lượng: 30</p>
+          <p className={cx('product-name')}>{!isLoading && product.name}</p>
+          <Rating className={cx('rating-comp')} readOnly value={!isLoading && product.point} />
+          <h2>{toVND(!isLoading && product.price)}</h2>
+          <p>
+            Kích cỡ: {!isLoading && selectedSize.size} | Số lượng: {!isLoading && selectedSize.quantity}
+          </p>
           <div className={cx('size-container')}>
-            <div className={cx('size-item')}>
-              <span>M</span>
-            </div>
-            <div className={cx('size-item')}>
-              <span>L</span>
-            </div>
-            <div className={cx('size-item')}>
-              <span>XL</span>
-            </div>
+            {sizes.map((size, index) => (
+              <SizeItem
+                item={size}
+                key={index}
+                isSoldOut={size.quantity < 1}
+                selected={selectedSize.size === size.size}
+                handleClick={() => handleSizeItemClick(size)}
+              />
+            ))}
           </div>
           <div className={cx('quantity-btn')}>
             <div className={cx('quantity-action')}>
@@ -234,7 +253,7 @@ const ProductDetails = () => {
             </Button>
           </div>
           <div className={cx('guidances')}>
-            {data.map((item, index) => {
+            {description.map((item, index) => {
               if (index !== 0) {
                 return (
                   <>
@@ -251,25 +270,22 @@ const ProductDetails = () => {
       <div className={cx('reviews')}>
         <h2>KHÁCH HÀNG ĐÁNH GIÁ</h2>
         <div className={cx('overall-figure')}>
-          <p>4.0</p>
-          <Rating className={cx('rating-comp')} readOnly value={4} />
+          <p>{product.point}</p>
+          <Rating className={cx('rating-comp')} readOnly value={product.point} />
         </div>
-        <p>(3 đánh giá)</p>
+        <p>({feedbacks.length} đánh giá)</p>
         <hr style={{ margin: '30px' }} />
         <div className={cx('reviews-list')}>
-          <Reviews reviews={reviews} />
+          <Reviews reviews={feedbacks} />
         </div>
-        {/* <div className={cx('pagination-container')}>
-          <Pagination className={cx('pagination-item')} count={1} shape='rounded' />
-        </div> */}
       </div>
       <div className={cx('discover-more')}>
         <h2>KHÁM PHÁ THÊM</h2>
         <div className={cx('product-list')}>
+          {/* <ProductItem />
           <ProductItem />
           <ProductItem />
-          <ProductItem />
-          <ProductItem />
+          <ProductItem /> */}
         </div>
       </div>
     </div>
