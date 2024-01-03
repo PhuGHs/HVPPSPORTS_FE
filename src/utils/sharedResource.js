@@ -54,3 +54,53 @@ export const description = [
 //       'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw78dae72f/images/large/701225658001_pp_01_mcfc.png?sw=1600&sh=1600&sm=fit'
 //   }
 // ]
+
+// const reviews = [
+//   {
+//     id: 1,
+//     username: 'Lê Văn Phú',
+//     userAvatar:
+//       'https://scontent.fsgn5-2.fna.fbcdn.net/v/t39.30808-6/334570789_2749937308476053_1930244561718576836_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=-tKVcyBjZ5oAX-_rsBu&_nc_oc=AQkcgvcgaK5YoNKZEV3kgGAhTR48jhN2G078jztCbJ8JKajxARHKl_D9SfwSncs9XNU&_nc_ht=scontent.fsgn5-2.fna&oh=00_AfAkvQwjRShQUd3r68D4F9FmdbYyWYJ67A_S4xx7cHDuvA&oe=654DF2DB',
+//     rating: 4,
+//     comment: 'Chất vải tốt so với giá tiền. 2 màu 2 chất vải khác nhau, cái tối màu vải mát hơn',
+//     createdAt: '2023-09-22 11:48',
+//     size: 'XL'
+//   },
+//   {
+//     id: 2,
+//     username: 'Trần Tuấn Vũ',
+//     userAvatar: 'https://i.natgeofe.com/k/6d301bfc-ff93-4f6f-9179-b1f66b19b9b3/pig-young-closeup_3x4.jpg',
+//     rating: 4,
+//     comment: 'Chất vải tốt so với giá tiền. 2 màu 2 chất vải khác nhau, cái tối màu vải mát hơn',
+//     createdAt: '2023-09-22 11:48',
+//     size: 'XL'
+//   },
+//   {
+//     id: 3,
+//     username: 'Hoàng Phúc',
+//     userAvatar: 'https://i.natgeofe.com/k/6d301bfc-ff93-4f6f-9179-b1f66b19b9b3/pig-young-closeup_3x4.jpg',
+//     rating: 4,
+//     comment: 'Chất vải tốt so với giá tiền. 2 màu 2 chất vải khác nhau, cái tối màu vải mát hơn',
+//     createdAt: '2023-09-22 11:48',
+//     size: 'XL'
+//   }
+// ]
+
+export const addresses = [
+  { name: 'Tỉnh/Thành phố', disabled: false },
+  { name: 'Quận/Huyện', disabled: true },
+  { name: 'Phường/Xã', disabled: true }
+]
+
+export const myOrders = [
+  { name: 'Tất cả', disabled: false },
+  { name: 'Xác nhận', disabled: false },
+  { name: 'Vận chuyển', disabled: false },
+  { name: 'Đang giao', disabled: false },
+  { name: 'Hoàn thành', disabled: false }
+]
+
+export const myReviews = [
+  { name: 'Chờ đánh giá', disabled: false },
+  { name: 'Đã đánh giá', disabled: false }
+]

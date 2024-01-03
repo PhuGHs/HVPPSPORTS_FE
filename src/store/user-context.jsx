@@ -1,19 +1,18 @@
-import { createContext } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { getUserFromLS } from '~/utils/auth'
 
-const initialValue = {
-  user: getUserFromLS(),
-  setUser: () => null
-}
+export const UserContext = createContext()
 
-export const UserContext = createContext(initialValue)
+export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(() => getUserFromLS())
 
-export const UserProvider = ({ children, defaultValue }) => {
-  return <UserContext.Provider value={defaultValue || initialValue}>{children}</UserContext.Provider>
+  useEffect(() => {
+    // If needed, perform additional logic related to user state here
+  }, [user])
+  return <UserContext.Provider value={{ user: user }}>{children}</UserContext.Provider>
 }
 
 UserProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-  defaultValue: PropTypes.object
+  children: PropTypes.node.isRequired
 }

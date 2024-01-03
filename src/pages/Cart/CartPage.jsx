@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import styles from './CartPage.module.scss'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -35,8 +35,8 @@ export const dummyProductData = [
 ]
 
 function CartPage() {
-  const cartCtx = useContext(CartContext)
   const navigate = useNavigate()
+  const { items } = useContext(CartContext)
   const handleNavigation = () => {
     navigate('/cart/checkout')
   }
@@ -61,16 +61,17 @@ function CartPage() {
             <div className={cx('fifth-col')}></div>
           </div>
           <div className={cx('product-list')}>
-            {dummyProductData.map((product, index) => {
+            {items.map((item, index) => {
               return (
                 <>
                   {index ? <hr style={{ margin: '10px 30px' }} /> : null}
                   <CartItem
                     key={index}
-                    src={product.src}
-                    price={product.price}
-                    name={product.name}
-                    quantity={product.quantity}
+                    src={item.product.urlThumb}
+                    price={item.product.price}
+                    name={item.product.name}
+                    size={item.size}
+                    quantity={item.quantity}
                   />
                 </>
               )

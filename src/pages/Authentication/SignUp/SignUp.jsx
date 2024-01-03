@@ -122,6 +122,21 @@ const SignUp = () => {
           </div>
         </div>
 
+        <div className={cx('user-input-out')}>
+          <label htmlFor='password'>Xác nhận mật khẩu</label>
+          <input
+            type='password'
+            name='password'
+            placeholder='Xác nhận mật khẩu'
+            onChange={handlePasswordChange}
+            onBlur={handlePasswordBlur}
+            value={passwordValue}
+          />
+          <div className={cx('error-container')}>
+            {passwordHasError && <p className={cx('error-text')}>Mật khẩu phải từ 6 ký tự trở lên</p>}
+          </div>
+        </div>
+
         <button type='submit' disabled={usernameHasError || passwordHasError || emailHasError || phoneNumberHasError}>
           Đăng ký
         </button>

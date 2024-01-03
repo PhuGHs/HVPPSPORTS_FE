@@ -8,7 +8,7 @@ import { toVND } from '../../helpers/vndCurrency'
 
 const cx = classNames.bind(styles)
 
-const CartItem = ({ name, src, quantity, price }) => {
+const CartItem = ({ name, src, quantity, price, size }) => {
   const [number, setNumber] = useState(quantity)
   const [totalPrice, setTotalPrice] = useState(price * quantity)
   const increaseNumberByOneHandler = () => {
@@ -21,6 +21,13 @@ const CartItem = ({ name, src, quantity, price }) => {
       setNumber((prevNumber) => prevNumber - 1)
       setTotalPrice(price * (number - 1))
     }
+  }
+
+  const getActualSize = (size) => {
+    if (size === 'sizeL') return 'L'
+    if (size === 'sizeM') return 'M'
+    if (size === 'sizeXL') return 'XL'
+    return 'S'
   }
   return (
     <div className={cx('main-content')}>
@@ -48,6 +55,7 @@ const CartItem = ({ name, src, quantity, price }) => {
               style={{ color: 'gray', cursor: 'pointer' }}
             />
           </div>
+          <span>Size: {getActualSize(size)}</span>
           <p>
             <b>{toVND(price)}</b>
           </p>

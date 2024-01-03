@@ -31,7 +31,7 @@ class Http {
         const { url } = response.config
         if (url === SIGN_IN_URL) {
           const data = response.data
-          setTokenToLS(data.token)
+          setTokenToLS('Bearer ' + data.token)
         } else if (url === SIGN_OUT_URL) {
           this._token = ''
           removeTokenFromLS()

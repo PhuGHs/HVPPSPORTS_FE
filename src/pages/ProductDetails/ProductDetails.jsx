@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight, faShareNodes } from '@fortawesome/free-solid-svg-icons'
 import Accordion from '../../components/Accordion/Accordion'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Reviews from '../../components/Reviews/Reviews'
 import ProductItem from '../../components/ProductItem/ProductItem'
 import { motion } from 'framer-motion'
@@ -17,6 +17,7 @@ import { ProductApi } from '~/api/product.api'
 import { sizeKeys } from '~/utils/sharedResource'
 import SizeItem from '~/components/SizeItem/SizeItem'
 import Spinner from '~/components/Spinner/Spinner'
+import { CartContext } from '~/store/cart-context'
 
 const variants = {
   initial: (direction) => {
@@ -40,37 +41,6 @@ const variants = {
   }
 }
 
-const reviews = [
-  {
-    id: 1,
-    username: 'Lê Văn Phú',
-    userAvatar:
-      'https://scontent.fsgn5-2.fna.fbcdn.net/v/t39.30808-6/334570789_2749937308476053_1930244561718576836_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=-tKVcyBjZ5oAX-_rsBu&_nc_oc=AQkcgvcgaK5YoNKZEV3kgGAhTR48jhN2G078jztCbJ8JKajxARHKl_D9SfwSncs9XNU&_nc_ht=scontent.fsgn5-2.fna&oh=00_AfAkvQwjRShQUd3r68D4F9FmdbYyWYJ67A_S4xx7cHDuvA&oe=654DF2DB',
-    rating: 4,
-    comment: 'Chất vải tốt so với giá tiền. 2 màu 2 chất vải khác nhau, cái tối màu vải mát hơn',
-    createdAt: '2023-09-22 11:48',
-    size: 'XL'
-  },
-  {
-    id: 2,
-    username: 'Trần Tuấn Vũ',
-    userAvatar: 'https://i.natgeofe.com/k/6d301bfc-ff93-4f6f-9179-b1f66b19b9b3/pig-young-closeup_3x4.jpg',
-    rating: 4,
-    comment: 'Chất vải tốt so với giá tiền. 2 màu 2 chất vải khác nhau, cái tối màu vải mát hơn',
-    createdAt: '2023-09-22 11:48',
-    size: 'XL'
-  },
-  {
-    id: 3,
-    username: 'Hoàng Phúc',
-    userAvatar: 'https://i.natgeofe.com/k/6d301bfc-ff93-4f6f-9179-b1f66b19b9b3/pig-young-closeup_3x4.jpg',
-    rating: 4,
-    comment: 'Chất vải tốt so với giá tiền. 2 màu 2 chất vải khác nhau, cái tối màu vải mát hơn',
-    createdAt: '2023-09-22 11:48',
-    size: 'XL'
-  }
-]
-
 const cx = classNames.bind(styles)
 const ProductDetails = () => {
   const [product, setProduct] = useState(null)
@@ -83,7 +53,9 @@ const ProductDetails = () => {
   const [mainImage, setMainImage] = useState(null)
   const [direction, setDirection] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
+  const [quantity, setQuantity] = useState(1)
   const { id } = useParams()
+  const { addItem } = useContext(CartContext)
 
   const handleImageClick = (clickedIndex) => {
     if (clickedIndex > index) {
@@ -121,6 +93,20 @@ const ProductDetails = () => {
     }
   }
 
+  const handleChangeQuantity = (type) => {
+    if (type === 'increase') {
+      if (selectedSize.quantity - quantity < 1) return
+      setQuantity((prev) => prev + 1)
+    } else {
+      if (quantity <= 1) return
+      setQuantity((prev) => prev - 1)
+    }
+  }
+
+  const handleAddToCart = () => {
+    addItem({ product: product, productID: product.id, size: `Size${selectedSize.size}`, quantity: quantity })
+  }
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       handleMoveForward()
@@ -150,7 +136,12 @@ const ProductDetails = () => {
           quantity: productData[`size${sizeKey}`]
         }))
         setSizes(sizes)
-        setSelectedSize(sizes[0])
+        for (const size of sizes) {
+          if (size.quantity >= 1) {
+            setSelectedSize(size)
+            break
+          }
+        }
         const feedbacksData = await ProductApi.getFeedBacks(id)
         setFeedbacks(feedbacksData)
       } catch (error) {
@@ -216,11 +207,11 @@ const ProductDetails = () => {
           </div>
         </div>
         <div className={cx('details')}>
-          <p className={cx('product-name')}>{!isLoading && product.name}</p>
-          <Rating className={cx('rating-comp')} readOnly value={!isLoading && product.point} />
-          <h2>{toVND(!isLoading && product.price)}</h2>
+          <p className={cx('product-name')}>{product.name}</p>
+          <Rating className={cx('rating-comp')} readOnly value={product.point} />
+          <h2>{toVND(product.price)}</h2>
           <p>
-            Kích cỡ: {!isLoading && selectedSize.size} | Số lượng: {!isLoading && selectedSize.quantity}
+            Kích cỡ: {selectedSize.size} | Số lượng: {selectedSize.quantity}
           </p>
           <div className={cx('size-container')}>
             {sizes.map((size, index) => (
@@ -234,20 +225,22 @@ const ProductDetails = () => {
             ))}
           </div>
           <div className={cx('quantity-btn')}>
-            <div className={cx('quantity-action')}>
+            <div className={cx('quantity-action')} onClick={() => handleChangeQuantity('decrease')}>
               <FontAwesomeIcon icon={faMinus} style={{ color: 'gray' }} />
             </div>
             <div className={cx('quantity-text')}>
               <p>
-                <b>1</b>
+                <b>{quantity}</b>
               </p>
             </div>
-            <div className={cx('quantity-action')}>
+            <div className={cx('quantity-action')} onClick={() => handleChangeQuantity('increase')}>
               <FontAwesomeIcon icon={faPlus} style={{ color: 'gray' }} />
             </div>
           </div>
           <div className={cx('action')}>
-            <Button secondary>Thêm vào giỏ hàng</Button>
+            <Button secondary onClick={handleAddToCart}>
+              Thêm vào giỏ hàng
+            </Button>
             <Button grey_outline rightIcon={<FontAwesomeIcon icon={faShareNodes} />}>
               Chia sẻ
             </Button>

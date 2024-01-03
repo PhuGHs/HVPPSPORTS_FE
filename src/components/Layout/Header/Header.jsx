@@ -1,14 +1,17 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import styles from './Header.module.scss'
 import classNames from 'classnames/bind'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import Offcanvas from '../../../components/OffCanvas/Offcanvas'
+import { Badge } from '@mui/material'
+import { CartContext } from '~/store/cart-context'
 
 const cx = classNames.bind(styles)
 
 function Header() {
+  const { items } = useContext(CartContext)
   const [isClicked, setIsClicked] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const handleClick = () => {
@@ -55,8 +58,9 @@ function Header() {
               <li>
                 <Link to='/cart'>
                   <div className={cx('header-btn')}>
-                    <FontAwesomeIcon icon={faCartShopping} className={cx('icon')} />
-                    <p>Giỏ hàng</p>
+                    <Badge badgeContent={items.length} color='error' className={cx('cart-badge')} max={9}>
+                      <FontAwesomeIcon icon={faCartShopping} className={cx('icon')} />
+                    </Badge>
                   </div>
                 </Link>
               </li>
@@ -64,12 +68,6 @@ function Header() {
                 <Link to='/account' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className={cx('header-btn')}>
                     <FontAwesomeIcon icon={faUser} className={cx('icon')} />
-                    <p>Tài khoản</p>
-                    {isHovered && (
-                      <div className={cx('logout-button-container')}>
-                        <button>Logout</button>
-                      </div>
-                    )}
                   </div>
                 </Link>
               </li>
