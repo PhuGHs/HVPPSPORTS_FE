@@ -2,12 +2,12 @@ import { createContext, useContext, useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import { CartApi } from '~/api/cart.api'
 import { UserContext } from './user-context'
+import { toast } from 'react-toastify';
 
 export const CartContext = createContext()
 
 function cartReducer(state, action) {
   if (action.type === 'ADD_ITEM') {
-    console.log(action)
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.productID === action.item.productID && item.size === action.item.size
     )
@@ -26,23 +26,19 @@ function cartReducer(state, action) {
     return { ...state, items: updatedItems }
   }
   if (action.type === 'REMOVE_ITEM') {
-    const existingCartItemIndex = state.items.findIndex((item) => item.id === action.id)
-    const existingItem = state.items[existingCartItemIndex]
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.productID === action.item.productID && item.size === action.item.size
+    )
     const updatedItems = [...state.items]
-    if (existingItem.quantity === 1) {
-      updatedItems.splice(existingCartItemIndex, 1)
-    } else {
-      const updatedItem = {
-        ...existingItem,
-        quantity: existingItem.quantity - 1
-      }
-      updatedItems[existingCartItemIndex] = updatedItem
-    }
+    updatedItems.splice(existingCartItemIndex, 1)
 
     return { ...state, items: updatedItems }
   }
   if (action.type === 'SET_ITEMS') {
     return { ...state, items: action.items }
+  }
+  if (action.type === 'CLEAR') {
+    return { ...state, items: [] }
   }
 
   return state
@@ -78,18 +74,38 @@ export const CartProvider = ({ children }) => {
         customer: user,
         product: item.product
       }
-      console.log(data)
       dispatchCartAction({ type: 'ADD_ITEM', item: data })
+      const notify = () => toast('Add to cart successfully')
+      notify()
     }
   }
 
-  function removeItem(id) {
-    dispatchCartAction({ type: 'REMOVE_ITEM', id })
+  async function removeItem(id, size) {
+    try {
+      await CartApi.removeFromCart(user.id, id, size)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      const item = { productID: id, size: size }
+      dispatchCartAction({ type: 'REMOVE_ITEM', item })
+    }
   }
+
+  async function clearCart() {
+    try {
+      await CartApi.clear(user.id)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      dispatchCartAction({ type: 'CLEAR' })
+    }
+  }
+
   const cartContext = {
     items: cart.items,
     addItem,
-    removeItem
+    removeItem,
+    clearCart
   }
   return <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>
 }

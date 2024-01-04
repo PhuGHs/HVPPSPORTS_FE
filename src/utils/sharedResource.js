@@ -104,3 +104,27 @@ export const myReviews = [
   { name: 'Chờ đánh giá', disabled: false },
   { name: 'Đã đánh giá', disabled: false }
 ]
+
+export const dummyProductData = [
+  {
+    id: 1,
+    src: 'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw21a150b7/images/large/701225667001_pp_01_mcfc.png?sw=400&sh=400&sm=fit',
+    name: "Kids' Manchester City Home Jersey 2023/24 With Custom Printing",
+    price: 230000,
+    quantity: 1
+  },
+  {
+    id: 2,
+    src: 'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw21a150b7/images/large/701225667001_pp_01_mcfc.png?sw=400&sh=400&sm=fit',
+    name: "Kids' Manchester City Home Jersey 2023/24 With Custom Printing",
+    price: 280000,
+    quantity: 1
+  },
+  {
+    id: 3,
+    src: 'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw21a150b7/images/large/701225667001_pp_01_mcfc.png?sw=400&sh=400&sm=fit',
+    name: "Kids' Manchester City Home Jersey 2023/24 With Custom Printing",
+    price: 300000,
+    quantity: 1
+  }
+]

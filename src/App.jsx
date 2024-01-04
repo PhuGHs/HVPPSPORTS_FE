@@ -22,8 +22,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { checkAuthLoader } from './utils/auth'
 import { UserProvider } from './store/user-context'
+import { ToastContainer } from 'react-toastify'
 
-const twentyFourHoursInMs = 1000 * 60 * 60 * 24;
+const twentyFourHoursInMs = 1000 * 60 * 60 * 24
 
 const router = createBrowserRouter([
   {
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
       { path: '/cart/checkout', element: <Checkout /> },
       { path: '/', element: <HomePage /> },
       { path: '/categories/:type', element: <CategoryPage /> },
-      { path: '/products/:id', element: <ProductDetails /> },
+      { path: '/products/:id', element: <ProductDetails /> }
     ]
   },
   {
@@ -112,7 +113,8 @@ function App() {
           <RouterProvider router={router}>
             <ScrollToTop />
           </RouterProvider>
-          <ReactQueryDevtools initialIsOpen={true} />
+          <ToastContainer />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         </QueryClientProvider>
       </CartProvider>
     </UserProvider>

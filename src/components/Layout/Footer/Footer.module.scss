@@ -150,3 +150,9 @@
     display: none;
   }
 }
+
+@include mixin.tablet {
+  .container {
+    display: none;
+  }
+}

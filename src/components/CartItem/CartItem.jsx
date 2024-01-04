@@ -1,45 +1,70 @@
 /* eslint-disable react/prop-types */
 import classNames from 'classnames/bind'
 import styles from './CartItem.module.scss'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinus, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { toVND } from '../../helpers/vndCurrency'
+import { CartContext } from '~/store/cart-context'
+import { CartApi } from '~/api/cart.api'
+import { UserContext } from '~/store/user-context'
+import { useNavigate } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 
-const CartItem = ({ name, src, quantity, price, size }) => {
+const CartItem = ({ id, name, src, quantity, price, size, handleChecked, item, isSelected }) => {
   const [number, setNumber] = useState(quantity)
+  const { user } = useContext(UserContext)
+  const { removeItem } = useContext(CartContext)
   const [totalPrice, setTotalPrice] = useState(price * quantity)
-  const increaseNumberByOneHandler = () => {
-    setNumber((prevNumber) => prevNumber + 1)
-    setTotalPrice(price * (number + 1))
-  }
-
-  const decreaseNumberByOneHandler = () => {
-    if (number > 1) {
-      setNumber((prevNumber) => prevNumber - 1)
-      setTotalPrice(price * (number - 1))
+  const navigate = useNavigate()
+  const increaseNumberByOneHandler = async () => {
+    try {
+      await CartApi.increase(user.id, id, size)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setNumber((prevNumber) => prevNumber + 1)
+      setTotalPrice(price * (number + 1))
     }
   }
 
+  const decreaseNumberByOneHandler = async () => {
+    try {
+      if (number > 1) {
+        await CartApi.decrease(user.id, id, size)
+      }
+    } catch (error) {
+      console.error(error)
+    } finally {
+      if (number > 1) {
+        setNumber((prevNumber) => prevNumber - 1)
+        setTotalPrice(price * (number - 1))
+      }
+    }
+  }
+
+  const navigateToProductDetails = () => {
+    navigate(`/products/${id}`)
+  }
+
   const getActualSize = (size) => {
-    if (size === 'sizeL') return 'L'
-    if (size === 'sizeM') return 'M'
-    if (size === 'sizeXL') return 'XL'
+    if (size === 'SizeL') return 'L'
+    if (size === 'SizeM') return 'M'
+    if (size === 'SizeXL') return 'XL'
     return 'S'
   }
   return (
     <div className={cx('main-content')}>
       <div className={cx('first-col')}>
-        <input type='checkbox' />
+        <input type='checkbox' checked={isSelected} onChange={(event) => handleChecked(item, event.target.checked)} />
       </div>
       <div className={cx('second-col')}>
-        <div className={cx('image-container')}>
+        <div className={cx('image-container')} style={{ cursor: 'pointer' }} onClick={navigateToProductDetails}>
           <img src={src} alt='product' />
         </div>
         <div className={cx('product-details')}>
-          <p>{name}</p>
+          <p onClick={navigateToProductDetails}>{name}</p>
           <div className={cx('quantity-btn-mb')}>
             <FontAwesomeIcon
               onClick={decreaseNumberByOneHandler}
@@ -83,7 +108,7 @@ const CartItem = ({ name, src, quantity, price, size }) => {
           <b style={{ color: 'rgba(254, 44, 85, 1)' }}>{toVND(totalPrice)}</b>
         </p>
       </div>
-      <div className={cx('fifth-col')}>
+      <div className={cx('fifth-col')} onClick={() => removeItem(id, size)}>
         <FontAwesomeIcon icon={faTrashCan} />
       </div>
     </div>

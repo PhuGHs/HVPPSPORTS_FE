@@ -1,11 +1,13 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext } from 'react'
 import Button from '../../../components/Button/Button'
 import styles from './AccountInfo.module.scss'
 import classNames from 'classnames/bind'
+import { UserContext } from '~/store/user-context'
 
 const cx = classNames.bind(styles)
 const AccountInfo = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { user } = useContext(UserContext)
   const inp = useRef()
   const handleToggle = () => {
     setIsOpen(!isOpen)
@@ -17,30 +19,30 @@ const AccountInfo = () => {
         <div className={cx('row-container')}>
           <label htmlFor='username'>Họ và tên: </label>
           <div className={cx('input-container')}>
-            <input type='text' id='username' />
+            <input type='text' id='username' value={user.name} />
           </div>
         </div>
         <div className={cx('row-container')}>
           <label htmlFor='phonenumber'>Số điện thoại: </label>
           <div className={cx('input-container')}>
-            <input type='tel' id='phonenumber' />
+            <input type='tel' id='phonenumber' value={user.phone} />
           </div>
         </div>
         <div className={cx('row-container')}>
           <label htmlFor='email'>Email: </label>
           <div className={cx('input-container')}>
-            <input type='email' id='email' />
+            <input type='email' id='email' value={user.email} />
           </div>
         </div>
         <div className={cx('row-container')}>
           <label htmlFor='email'>Giới tính: </label>
           <div className={cx('rad-btns')}>
             <div className={cx('rad-btn')}>
-              <input type='radio' id='male' name='sex' checked />
+              <input type='radio' id='male' name='sex' checked={user.male} />
               <label htmlFor='male'>Nam</label>
             </div>
             <div className={cx('rad-btn')}>
-              <input type='radio' id='female' name='sex' />
+              <input type='radio' id='female' name='sex' checked={!user.male} />
               <label htmlFor='female'>Nữ</label>
             </div>
           </div>

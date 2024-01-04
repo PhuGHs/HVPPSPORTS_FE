@@ -27,4 +27,49 @@ export class CartApi {
       console.log(error)
     }
   }
+
+  static async removeFromCart(customerId, productId, size) {
+    try {
+      const response = await http.delete(`/Carts/remove/${customerId}/${productId}/${size}`)
+      return response
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  static async increase(customerId, productId, size) {
+    try {
+      const response = await http.put(`/Carts/increase/${customerId}/${productId}/${size}`)
+      return response
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  static async decrease(customerId, productId, size) {
+    try {
+      const response = await http.put(`/Carts/decrease/${customerId}/${productId}/${size}`)
+      return response
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  static async clear(customerId) {
+    try {
+      const response = await http.delete(`/Carts/clear/${customerId}`)
+      return response
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  static async getCheckoutInfo(customerId) {
+    try {
+      const response = await http.get(`/Carts/get-checkout-info/${customerId}`)
+      return response.data
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
