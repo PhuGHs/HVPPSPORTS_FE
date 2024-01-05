@@ -1,3 +1,5 @@
+import { http } from "~/utils/axiosConfig"
+
 export class AddressApi {
   static async getProvinces() {
     try {
@@ -21,6 +23,15 @@ export class AddressApi {
     try {
       const response = await fetch(`https://provinces.open-api.vn/api/d/${district_code}?depth=2`)
       return response.json()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  static async getUserAddresses(customerId) {
+    try {
+      const response = await http.get(`/DeliveryInfoes/get-all/${customerId}`)
+      return response.data
     } catch (error) {
       console.error(error)
     }

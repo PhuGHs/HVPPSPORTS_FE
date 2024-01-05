@@ -18,7 +18,7 @@ function CartPage() {
   const [selectedItems, setSelectedItems] = useState([])
   const [overallPrice, setOverallPrice] = useState(0)
   const handleNavigation = () => {
-    navigate('/cart/checkout')
+    navigate('/cart/checkout', { state: { items: selectedItems, price: overallPrice } })
   }
 
   const handleCheckboxChange = (item, isChecked) => {
@@ -57,7 +57,11 @@ function CartPage() {
           <div className={cx('product-container')}>
             <div className={cx('product-header')}>
               <div className={cx('first-col')}>
-                <input type='checkbox' onChange={(event) => handleCheckAllChange(event.target.checked)} />
+                <input
+                  type='checkbox'
+                  checked={selectedItems.length === items.length}
+                  onChange={(event) => handleCheckAllChange(event.target.checked)}
+                />
               </div>
               <div className={cx('second-col')}>
                 <p>Chọn tất cả ({items.length} sản phẩm)</p>
@@ -105,7 +109,7 @@ function CartPage() {
                 <b style={{ fontSize: '2.5rem', color: 'rgba(254, 44, 85, 1)' }}>{toVND(overallPrice)}</b>
               </p>
             </div>
-            <Button large primary onClick={handleNavigation}>
+            <Button large primary onClick={handleNavigation} disabled={selectedItems.length === 0}>
               THANH TOÁN
             </Button>
           </div>

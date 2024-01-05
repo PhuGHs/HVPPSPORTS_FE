@@ -68,6 +68,9 @@
     .delivery-method {
       padding: 10px 0;
       border-top: 1px solid var(--blue);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
 
       .delivery-method-item {
         display: flex;
@@ -98,10 +101,10 @@
         min-height: 24px;
         gap: 1rem;
 
-        .momo {
+        .vnpay {
           width: 40px;
           height: auto;
-          background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_momopay.svg?q=10330)
+          background: url(../../assets/images/vnpay.png)
             no-repeat center center;
         }
 

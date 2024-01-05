@@ -3,10 +3,10 @@ import styles from './OrderDetails.module.scss'
 import classNames from 'classnames/bind'
 import OrderDetailsItem from '../../../../components/OrderDetailsItem/OrderDetailsItem'
 import { useState } from 'react'
-import ReviewModal from '../../../../components/Modal/ReviewModal'
 import Button from '../../../../components/Button/Button'
 import { Rating } from '@mui/material'
 import { AnimatePresence } from 'framer-motion'
+import Modal from '~/components/Modal/Modal'
 
 const cx = classNames.bind(styles)
 const link =
@@ -86,16 +86,18 @@ const OrderDetails = () => {
       </div>
       <AnimatePresence>
         {isModalOpen && (
-          <ReviewModal title='ĐÁNH GIÁ SẢN PHẨM' onClose={handleCloseModal}>
+          <Modal title='ĐÁNH GIÁ SẢN PHẨM' onClose={handleCloseModal} className={cx('modal-content')}>
             <Rating className={cx('rating')} defaultValue={4} />
             <div className={cx('product-modal')}>
               <div className={cx('image-container')}>
                 <img src={link} alt='product' />
               </div>
               <div className={cx('product-details')}>
-                <p className={cx('product-name')}>Kids' Manchester City Home Jersey 2023/24 With Custom Printing</p>
-                <p>Size: XL</p>
-                <p>Số lượng: 1</p>
+                <span className={cx('product-name')}>
+                  Kids Manchester City Home Jersey 2023/24 With Custom Printing
+                </span>
+                <span>Size: XL</span>
+                <span>Số lượng: 1</span>
               </div>
             </div>
             <div className={cx('input')}>
@@ -109,7 +111,7 @@ const OrderDetails = () => {
                 Đánh giá
               </Button>
             </div>
-          </ReviewModal>
+          </Modal>
         )}
       </AnimatePresence>
     </div>

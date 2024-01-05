@@ -12,7 +12,7 @@ function RootLayout() {
   return (
     <>
       <Header />
-      <main className={cx('content')}>
+      <main className={cx('content')} id='modal'>
         <Outlet />
       </main>
       <FloatingButton />

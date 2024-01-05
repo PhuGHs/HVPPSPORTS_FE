@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind'
 import styles from './AddressPage.module.scss'
+import modalStyles from '../../../components/Modal/Modal.module.scss'
 import Button from '../../../components/Button/Button'
 import Address from '../../../components/Address/Address'
 import Modal from '../../../components/Modal/Modal'
@@ -152,7 +153,7 @@ const AddressPage = () => {
   }, [index, isLoading, selectedDistrict, selectedProvince, selectedType])
 
   return (
-    <div className={cx('container')} id='modal'>
+    <div className={cx('container')}>
       <div className={cx('header')}>
         <p>Sổ địa chỉ</p>
         <Button secondary onClick={handleOpenModal}>
@@ -165,8 +166,8 @@ const AddressPage = () => {
 
       <AnimatePresence>
         {isModalOpen && (
-          <Modal title='Địa chỉ mới' onClose={handleCloseModal}>
-            <form method='post' onSubmit={handleSubmit}>
+          <Modal title='Địa chỉ mới' onClose={handleCloseModal} className={cx('form-data')}>
+            <form method='post' onSubmit={handleSubmit} className={cx('form-data')}>
               <div className={cx('first-row')}>
                 <input type='text' placeholder='Họ và tên' onFocus={handleFocusOnOthers} />
                 <input type='text' placeholder='Số điện thoại' onFocus={handleFocusOnOthers} />

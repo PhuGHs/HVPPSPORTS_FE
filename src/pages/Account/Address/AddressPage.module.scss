@@ -20,87 +20,87 @@
       font-size: 2rem;
     }
   }
+}
 
-  form {
-    width: 100%;
+.form-data {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  .first-row {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    input {
+      width: 45%;
+      border: 1px solid grey;
+      padding: 8px 5px;
+      border-radius: 5px;
+    }
+  }
+
+  .second-row {
+    display: flex;
+    align-items: center;
+
+    input {
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid grey;
+      padding: 8px 5px;
+    }
+  }
+
+  .second-row-1 {
+    display: flex;
+    align-items: center;
     flex-direction: column;
-    gap: 2rem;
-    .first-row {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+    // position: relative;
 
-      input {
-        width: 45%;
-        border: 1px solid grey;
-        padding: 8px 5px;
-        border-radius: 5px;
-      }
+    input {
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid grey;
+      padding: 8px 5px;
     }
 
-    .second-row {
-      display: flex;
-      align-items: center;
+    .choose-address {
+      margin-top: 2rem;
+      border: 1px solid grey;
+      width: 100%;
+      border-radius: 5px;
+      color: var(--blue);
 
-      input {
-        width: 100%;
-        border-radius: 5px;
-        border: 1px solid grey;
-        padding: 8px 5px;
-      }
-    }
+      .dropdown-list {
+        max-height: 200px;
+        overflow-y: scroll;
 
-    .second-row-1 {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      // position: relative;
-
-      input {
-        width: 100%;
-        border-radius: 5px;
-        border: 1px solid grey;
-        padding: 8px 5px;
-      }
-
-      .choose-address {
-        margin-top: 2rem;
-        border: 1px solid grey;
-        width: 100%;
-        border-radius: 5px;
-        color: var(--blue);
-
-        .dropdown-list {
-          max-height: 200px;
-          overflow-y: scroll;
-
-          li {
-            cursor: pointer;
-            padding: 8px;
-            &:hover {
-              background-color: rgb(224, 224, 224);
-            }
+        li {
+          cursor: pointer;
+          padding: 8px;
+          &:hover {
+            background-color: rgb(224, 224, 224);
           }
         }
       }
     }
+  }
 
-    .action-row {
-      display: flex;
-      width: 100%;
-      justify-content: space-evenly;
-      align-items: center;
-    }
+  .action-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 
-    input:focus {
-      border: 1px solid var(--blue);
-    }
+  input:focus {
+    border: 1px solid var(--blue);
+  }
 
-    input {
-      color: var(--blue);
-      font-weight: 500;
-    }
+  input {
+    color: var(--blue);
+    font-weight: 500;
   }
 }
 
