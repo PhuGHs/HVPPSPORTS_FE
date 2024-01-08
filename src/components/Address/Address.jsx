@@ -4,12 +4,12 @@ import styles from './Address.module.scss'
 import classNames from 'classnames/bind'
 
 const cx = classNames.bind(styles)
-const Address = ({ list }) => {
+const Address = ({ list, handleOpenModal, setIsLoading }) => {
   return (
     <div className={cx('address-list')}>
       {list.map((item, index) => {
         if (index === 0) {
-          return <AddressItem key={index} item={item} />
+          return <AddressItem key={index} item={item} handleOpenModal={handleOpenModal} setIsLoading={setIsLoading} />
         }
         return (
           <>

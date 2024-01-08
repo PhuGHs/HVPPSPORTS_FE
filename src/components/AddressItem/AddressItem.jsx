@@ -4,9 +4,22 @@ import classNames from 'classnames/bind'
 import Button from '../Button/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { AddressApi } from '~/api/address.api'
+import { useContext } from 'react'
+import { UserContext } from '~/store/user-context'
 
 const cx = classNames.bind(styles)
-const AddressItem = ({ item }) => {
+const AddressItem = ({ item, handleOpenModal, setIsLoading }) => {
+  const { user } = useContext(UserContext)
+  const setDefault = async () => {
+    await AddressApi.setAnAddressAsDefault(user.id, item.priority)
+    setIsLoading(true)
+  }
+
+  const deleteAnAddress = async () => {
+    await AddressApi.deleteAnAddress(user.id, item.priority)
+    setIsLoading(true)
+  }
   return (
     <div className={cx('container')}>
       <div className={cx('first-row')}>
@@ -14,12 +27,16 @@ const AddressItem = ({ item }) => {
           {item.name} | <span>{item.phone}</span>
         </p>
         <div className={cx('actions')}>
-          <Button small>Cập nhật</Button>
+          <Button small onClick={handleOpenModal}>
+            Cập nhật
+          </Button>
           <FontAwesomeIcon className={cx('mb-ic-btn')} icon={faEdit} />
 
-          {!item.isDefault && (
+          {item.priority !== 1 && (
             <>
-              <Button small>Xoá</Button>
+              <Button small onClick={deleteAnAddress}>
+                Xoá
+              </Button>
               <FontAwesomeIcon className={cx('mb-ic-btn')} icon={faTrashCan} />
             </>
           )}
@@ -28,7 +45,7 @@ const AddressItem = ({ item }) => {
       <div className={cx('second-row')}>
         <p>{item.address}</p>
       </div>
-      {item.isDefault ? (
+      {item.priority === 1 ? (
         <div className={cx('last-row')}>
           <div className={cx('outline-rectangle')}>
             <p>Mặc định</p>
@@ -36,7 +53,7 @@ const AddressItem = ({ item }) => {
         </div>
       ) : (
         <div className={cx('last-row-end')}>
-          <div className={cx('outline-rectangle-end')}>
+          <div className={cx('outline-rectangle-end')} onClick={setDefault}>
             <p>Thiết lập mặc định</p>
           </div>
         </div>

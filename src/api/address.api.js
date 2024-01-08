@@ -36,4 +36,31 @@ export class AddressApi {
       console.error(error)
     }
   }
+
+  static async createNewAddress(body) {
+    try {
+      const response = await http.post(`/DeliveryInfoes/new-info`, body)
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  static async setAnAddressAsDefault(customerId, priority) {
+    try {
+      const response = await http.put(`/DeliveryInfoes/set-default/${customerId}/${priority}`)
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  static async deleteAnAddress(customerId, priority) {
+    try {
+      const response = await http.delete(`/DeliveryInfoes/delete/${customerId}/${priority}`)
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }

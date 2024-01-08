@@ -9,8 +9,6 @@ const Dropdown = () => {
     <select name='filters' className={cx('content')}>
       <option value='acsending-price'>Giá tăng dần</option>
       <option value='descending-price'>Giá giảm dần</option>
-      <option value='descending-price'>Bán chạy</option>
-      <option value='descending-price'>Hàng mới</option>
     </select>
   )
 }

@@ -1,7 +1,11 @@
 @use '../../assets/styles/mixin' as mixin;
 .modal {
   position: fixed;
-  left: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   border-radius: 6px;
   padding: 1.5rem;
   width: 30%;
@@ -33,7 +37,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9;

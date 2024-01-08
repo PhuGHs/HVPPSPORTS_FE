@@ -19,13 +19,20 @@ const CartItem = ({ id, name, src, quantity, price, size, handleChecked, item, i
   const [totalPrice, setTotalPrice] = useState(price * quantity)
   const navigate = useNavigate()
   const increaseNumberByOneHandler = async () => {
+    let shoudUpdateOnUI = true
     try {
       await CartApi.increase(user.id, id, size)
     } catch (error) {
+      shoudUpdateOnUI = false
+      console.log('come in error')
       console.error(error)
     } finally {
-      setNumber((prevNumber) => prevNumber + 1)
-      setTotalPrice(price * (number + 1))
+      console.log('come in finally')
+      if (shoudUpdateOnUI) {
+        console.log('come in should update if statement')
+        setNumber((prevNumber) => prevNumber + 1)
+        setTotalPrice(price * (number + 1))
+      }
     }
   }
 

@@ -1,11 +1,19 @@
 @use '../../assets/styles/mixin' as mixin;
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
 .container {
   height: 100%;
   width: 80%;
   display: flex;
   flex-direction: row;
   margin: auto;
+  min-height: 80vh;
 
   .sidebar {
     width: 20%;
@@ -66,37 +74,53 @@
         .chip-btn {
           font-size: 1.3rem;
           color: var(--blue);
+          cursor: pointer;
         }
 
         .chip-btn-active {
           font-size: 1.3rem;
           background-color: var(--yellow);
           color: white;
+          cursor: not-allowed;
         }
       }
     }
 
-    .sort-button {
-      padding: 15px;
+    .sort-and-filter {
       width: 100%;
-      background-color: white;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 1rem;
-      border-radius: 5px;
 
-      p {
-        font-size: 2rem;
-        color: var(--dark-yellow);
-        font-weight: 400;
-      }
-
-      .list-dropdown {
-        width: 100%;
+      .sort-button {
+        padding: 15px;
+        width: 50%;
+        background-color: white;
         display: flex;
-        flex-direction: row;
-        gap: 1.5rem;
-        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+        border-radius: 5px;
+  
+        p {
+          font-size: 2rem;
+          color: var(--dark-yellow);
+          font-weight: 400;
+        }
+  
+        .list-dropdown {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          gap: 1.5rem;
+          align-items: center;
+
+          input {
+            border: 1px solid var(--blue);
+            width: 50%;
+            padding: 8px;
+            border-radius: 5px;
+          }
+        }
       }
     }
 

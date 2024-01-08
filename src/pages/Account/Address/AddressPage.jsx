@@ -4,50 +4,77 @@ import modalStyles from '../../../components/Modal/Modal.module.scss'
 import Button from '../../../components/Button/Button'
 import Address from '../../../components/Address/Address'
 import Modal from '../../../components/Modal/Modal'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import Tabs from '~/components/Tab/Tab'
 import { addresses } from '~/utils/sharedResource'
 import { AddressApi } from '~/api/address.api'
+import { UserContext } from '~/store/user-context'
+import { useInput } from '~/hooks/useInput'
+import { Helper } from '~/utils/helper'
 
 const cx = classNames.bind(styles)
 
-const list = [
-  {
-    id: 1,
-    name: 'Lê Văn Phú',
-    phone: '0814321006',
-    address: 'Đông Hoà, Dĩ An, Bình Dương',
-    isDefault: true
-  },
-  {
-    id: 2,
-    name: 'Lê Văn Phi',
-    phone: '0814321005',
-    address: 'Quảng Trị',
-    isDefault: false
-  },
-  {
-    id: 3,
-    name: 'Lê Văn Phong',
-    phone: '0814321004',
-    address: 'Quảng Trị',
-    isDefault: false
-  }
-]
+// const list = [
+//   {
+//     id: 1,
+//     name: 'Lê Văn Phú',
+//     phone: '0814321006',
+//     address: 'Đông Hoà, Dĩ An, Bình Dương',
+//     isDefault: true
+//   },
+//   {
+//     id: 2,
+//     name: 'Lê Văn Phi',
+//     phone: '0814321005',
+//     address: 'Quảng Trị',
+//     isDefault: false
+//   },
+//   {
+//     id: 3,
+//     name: 'Lê Văn Phong',
+//     phone: '0814321004',
+//     address: 'Quảng Trị',
+//     isDefault: false
+//   }
+// ]
 const AddressPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { user } = useContext(UserContext)
   const [index, setIndex] = useState(0)
   const [isInputFocused, setIsInputFocused] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isAddressLoading, setIsAddressLoading] = useState(true)
   const [tabItems, setTabItems] = useState(addresses)
   const [selectedType, setSelectedType] = useState(tabItems[index])
+  const [data, setData] = useState([])
   const [addressList, setAddressList] = useState([])
   const dropdownRef = useRef()
   const [value, setValue] = useState('')
   const [selectedProvince, setSelectedProvince] = useState({})
   const [selectedDistrict, setSelectedDistrict] = useState({})
   const [selectedWard, setSelectedWard] = useState({})
+
+  const {
+    value: usernameValue,
+    handleInputChange: handleUsernameValueChange,
+    handleInputBlur: handleUsernameBlur,
+    hasError: usernamehasError
+  } = useInput('', Helper.validateUsername)
+
+  const {
+    value: phonenumberValue,
+    handleInputChange: handlePhoneNumberChange,
+    handleInputBlur: handlePhoneNumberBlur,
+    hasError: phonenumberHasError
+  } = useInput('', Helper.validatePhoneNumber)
+
+  const {
+    value: moreDetailAddressValue,
+    handleInputChange: handleMoreDetailAddressValueChange,
+    handleInputBlur: handleMoreDetailAddressValueBlur,
+    hasError: moreDetailAddressHasError
+  } = useInput('', () => true)
 
   const handleOpenModal = () => {
     setIsModalOpen(true)
@@ -110,8 +137,17 @@ const AddressPage = () => {
     setValue(event.target.value)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    const body = {
+      customerID: user.id,
+      name: usernameValue,
+      address: `${moreDetailAddressValue}, ${selectedWard.name}, ${selectedDistrict.name}, ${selectedProvince.name}`,
+      phone: phonenumberValue
+    }
+    const response = await AddressApi.createNewAddress(body)
+    console.log(response)
+    setIsAddressLoading(true)
   }
 
   const handleSelectType = (item) => {
@@ -147,10 +183,25 @@ const AddressPage = () => {
       }
     }
 
+    const fetchAddress = async () => {
+      try {
+        const data = await AddressApi.getUserAddresses(user.id)
+        setData(data)
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setIsAddressLoading(false)
+      }
+    }
+
+    if (isAddressLoading) {
+      fetchAddress()
+    }
+
     if (isLoading) {
       fetch()
     }
-  }, [index, isLoading, selectedDistrict, selectedProvince, selectedType])
+  }, [index, isAddressLoading, isLoading, selectedDistrict, selectedProvince, selectedType, user.id])
 
   return (
     <div className={cx('container')}>
@@ -161,7 +212,7 @@ const AddressPage = () => {
         </Button>
       </div>
       <div className={cx('address-list')}>
-        <Address list={list} />
+        <Address list={data} handleOpenModal={handleOpenModal} setIsLoading={setIsAddressLoading} />
       </div>
 
       <AnimatePresence>
@@ -169,8 +220,22 @@ const AddressPage = () => {
           <Modal title='Địa chỉ mới' onClose={handleCloseModal} className={cx('form-data')}>
             <form method='post' onSubmit={handleSubmit} className={cx('form-data')}>
               <div className={cx('first-row')}>
-                <input type='text' placeholder='Họ và tên' onFocus={handleFocusOnOthers} />
-                <input type='text' placeholder='Số điện thoại' onFocus={handleFocusOnOthers} />
+                <input
+                  type='text'
+                  placeholder='Họ và tên'
+                  value={usernameValue}
+                  onChange={handleUsernameValueChange}
+                  onBlur={handleUsernameBlur}
+                  onFocus={handleFocusOnOthers}
+                />
+                <input
+                  type='text'
+                  placeholder='Số điện thoại'
+                  value={phonenumberValue}
+                  onChange={handlePhoneNumberChange}
+                  onBlur={handlePhoneNumberBlur}
+                  onFocus={handleFocusOnOthers}
+                />
               </div>
               <div className={cx('second-row-1')}>
                 <input
@@ -202,7 +267,14 @@ const AddressPage = () => {
                 )}
               </div>
               <div className={cx('second-row')}>
-                <input type='text' placeholder='Địa chỉ cụ thể' onFocus={handleFocusOnOthers} />
+                <input
+                  type='text'
+                  placeholder='Địa chỉ cụ thể'
+                  value={moreDetailAddressValue}
+                  onChange={handleMoreDetailAddressValueChange}
+                  onBlur={handleMoreDetailAddressValueBlur}
+                  onFocus={handleFocusOnOthers}
+                />
               </div>
               <div className={cx('action-row')}>
                 <Button grey_outline onClick={handleCloseModal}>

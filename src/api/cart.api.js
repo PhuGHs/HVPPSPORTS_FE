@@ -38,12 +38,14 @@ export class CartApi {
   }
 
   static async increase(customerId, productId, size) {
-    try {
-      const response = await http.put(`/Carts/increase/${customerId}/${productId}/${size}`)
-      return response
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   const response = await http.put(`/Carts/increase/${customerId}/${productId}/${size}`)
+    //   return response
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    const response = await http.put(`/Carts/increase/${customerId}/${productId}/${size}`)
+    return response
   }
 
   static async decrease(customerId, productId, size) {

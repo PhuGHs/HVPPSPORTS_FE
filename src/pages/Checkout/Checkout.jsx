@@ -39,16 +39,21 @@ const Checkout = () => {
   const buy = async () => {
     try {
       const data = {
-        CustomerID: user.id,
-        Value: price,
-        PayMethod: paymentMethod,
-        DeliveryMethod: deliveryMethod,
-        Note: '',
-        Shipping: '',
-        VoucherID: '',
-        Name: user.name,
-        Phone: user.phone,
-        Address: user.Address
+        customerID: user.id,
+        value: price,
+        payMethod: paymentMethod,
+        deliveryMethod: deliveryMethod,
+        note: 'please deliver for me in the afternoon',
+        shipping: deliveryPrice,
+        voucherID: '',
+        name: user.name,
+        phone: user.phone,
+        address: '43 Tân Lập, Đông Hoà, Dĩ An, Bình Dương',
+        selectedProducts: items.map((item) => ({
+          productID: item.productID,
+          size: item.size,
+          quantity: item.quantity
+        }))
       }
       await OrderApi.newOrder(data)
     } catch (error) {
@@ -163,7 +168,9 @@ const Checkout = () => {
             <FontAwesomeIcon icon={faArrowLeft} />
             <span>Trở về giỏ hàng</span>
           </div>
-          <Button primary>Xác nhận thanh toán</Button>
+          <Button primary onClick={buy}>
+            Xác nhận thanh toán
+          </Button>
         </div>
       </div>
     </div>

@@ -56,7 +56,6 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    // position: relative;
 
     input {
       width: 100%;
@@ -74,6 +73,7 @@
 
       .dropdown-list {
         max-height: 200px;
+        min-height: 200px;
         overflow-y: scroll;
 
         li {

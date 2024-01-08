@@ -41,7 +41,7 @@ const HomePage = () => {
         <ul>
           {categories.map((item) => (
             <li key={item.id}>
-              <Link to={item.route}>
+              <Link to={item.route} state={{ key: item.key }}>
                 <div className={cx('image-holder')}>
                   <img src={item.src} alt={item.name} />
                 </div>

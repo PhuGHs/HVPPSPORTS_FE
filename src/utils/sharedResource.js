@@ -7,12 +7,26 @@ import SerieA from '../assets/images/serieA.png'
 import PremierLeague from '../assets/images/premierleague.png'
 
 export const categories = [
-  { id: '1', route: '/categories/premier-league', name: 'Premier League', src: PremierLeague, isActive: false },
-  { id: '2', route: '/categories/laliga', name: 'Laliga', src: Laliga, isActive: false },
-  { id: '3', route: '/categories/bundesliga', name: 'Bundesliga', src: Bundesliga, isActive: false },
-  { id: '4', route: '/categories/ligue1', name: 'Ligue 1', src: Ligue1, isActive: false },
-  { id: '5', route: '/categories/serieA', name: 'Serie A', src: SerieA, isActive: false },
-  { id: '6', route: '/categories/international', name: 'International', src: International, isActive: false }
+  {
+    id: '1',
+    route: '/categories/premier-league',
+    name: 'Premier League',
+    key: 'PremierLeague',
+    src: PremierLeague,
+    isActive: false
+  },
+  { id: '2', route: '/categories/laliga', name: 'Laliga', key: 'Laliga', src: Laliga, isActive: false },
+  { id: '3', route: '/categories/bundesliga', name: 'Bundesliga', key: 'Bundesliga', src: Bundesliga, isActive: false },
+  { id: '4', route: '/categories/ligue1', name: 'Ligue 1', key: 'Ligue1', src: Ligue1, isActive: false },
+  { id: '5', route: '/categories/serieA', name: 'Serie A', key: 'SerieA', src: SerieA, isActive: false },
+  {
+    id: '6',
+    route: '/categories/international',
+    name: 'International',
+    key: 'International',
+    src: International,
+    isActive: false
+  }
 ]
 
 export const sizeKeys = ['S', 'M', 'L', 'XL']

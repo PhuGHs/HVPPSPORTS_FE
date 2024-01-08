@@ -9,4 +9,13 @@ export class OrderApi {
       console.error(error)
     }
   }
+
+  static async addDetails(body) {
+    try {
+      const response = await http.post('/OrderDetails/add-detail', body)
+      return response
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
