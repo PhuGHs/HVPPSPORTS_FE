@@ -19,7 +19,6 @@ import Spinner from '~/components/Spinner/Spinner'
 import { CartContext } from '~/store/cart-context'
 import { UserContext } from '~/store/user-context'
 import ProductItem from '~/components/ProductItem/ProductItem'
-import NotificationContext from '~/store/notification-context'
 
 const variants = {
   initial: (direction) => {

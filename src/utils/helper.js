@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 export class Helper {
   static validateEmail(email) {
     return String(email)
@@ -21,5 +22,11 @@ export class Helper {
 
   static validateUsername(username) {
     return username.length > 5
+  }
+
+  static convertToDMY(inputDate) {
+    const parsedDate = new Date(inputDate)
+    const formattedDate = format(parsedDate, 'dd/MM/yyyy')
+    return formattedDate
   }
 }

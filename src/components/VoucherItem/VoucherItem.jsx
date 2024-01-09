@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import styles from './VoucherItem.module.scss'
 import classNames from 'classnames/bind'
 import voucherImage from '../../assets/images/gift.svg'
+import { Helper } from '~/utils/helper'
 
 const cx = classNames.bind(styles)
 const VoucherItem = ({ item }) => {
@@ -11,14 +13,16 @@ const VoucherItem = ({ item }) => {
       </div>
       <div className={cx('voucher-details')}>
         <div className={cx('voucher-name')}>
-          <h3>VOUCHER#1</h3>
+          <h3>{item.name}</h3>
         </div>
         <div className={cx('discount-value')}>
-          <p>Giảm 10%</p>
+          <p>Giảm {item.value}%</p>
           <p className={cx('condition-btn')}>Điều kiện</p>
         </div>
         <div className={cx('applicable-date')}>
-          <p>Từ ngày 8/10 - 15/10</p>
+          <p>
+            Từ ngày {Helper.convertToDMY(item.dateBegin)} - {Helper.convertToDMY(item.dateEnd)}
+          </p>
         </div>
       </div>
     </div>

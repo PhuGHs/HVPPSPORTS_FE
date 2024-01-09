@@ -11,11 +11,17 @@ import { useContext, useEffect, useState } from 'react'
 import { OrderApi } from '~/api/order.api'
 import { UserContext } from '~/store/user-context'
 import { AddressApi } from '~/api/address.api'
+import NotificationContext from '~/store/notification-context'
+import { VoucherApi } from '~/api/voucher.api'
+import { CartContext } from '~/store/cart-context'
 
 const cx = classNames.bind(styles)
 const Checkout = () => {
+  const { removeItem } = useContext(CartContext)
+  const notificationCtx = useContext(NotificationContext)
   const [deliveryInfo, setDeliveryInfo] = useState([])
   const [deliveryMethod, setDeliveryMethod] = useState('normal')
+  const [selectedVoucher, setSelectedVoucher] = useState({})
   const [deliveryPrice, setDeliveryPrice] = useState(30000)
   const [paymentMethod, setPaymentMethod] = useState('cash')
   const [note, setNote] = useState('')
@@ -54,6 +60,11 @@ const Checkout = () => {
       try {
         const data = await AddressApi.getUserAddresses(user.id)
         setDeliveryInfo(data.map((item) => ({ selected: item.priority === 1, item })))
+        const vouchers = await VoucherApi.getVouchers()
+        const voucherWithMaxValue = vouchers.reduce((maxVoucher, currentVoucher) => {
+          return currentVoucher.value > maxVoucher.value ? currentVoucher : maxVoucher
+        }, vouchers[0])
+        setSelectedVoucher(voucherWithMaxValue)
       } catch (error) {
         console.error(error)
       }
@@ -71,7 +82,7 @@ const Checkout = () => {
         deliveryMethod: deliveryMethod,
         note: note,
         shipping: deliveryPrice,
-        voucherID: '',
+        voucherID: selectedVoucher.id,
         name: selectedDeliveryAddress.item.name,
         phone: selectedDeliveryAddress.item.phone,
         address: selectedDeliveryAddress.item.address,
@@ -85,6 +96,10 @@ const Checkout = () => {
     } catch (error) {
       console.error(error)
     } finally {
+      for (const item of items) {
+        removeItem(item.id, item.size)
+      }
+      notificationCtx.success('Đã đặt hàng thành công')
       navigate('/')
     }
   }
@@ -176,10 +191,6 @@ const Checkout = () => {
           </div>
         </div>
       </div>
-      <div className={cx('discount-container')}>
-        <p className={cx('header')}>MÃ KHUYẾN MÃI</p>
-        <FontAwesomeIcon icon={faAngleRight} />
-      </div>
       <div className={cx('re-examine-container')}>
         <p className={cx('header')}>KIỂM TRA LẠI ĐƠN HÀNG</p>
         <div className={cx('products')}>
@@ -199,8 +210,12 @@ const Checkout = () => {
             <p>{toVND(deliveryPrice)}</p>
           </div>
           <div className={cx('item')}>
+            <p>Giảm giá ({selectedVoucher.name}): </p>
+            <p>-{toVND((price * selectedVoucher.value) / 100)}</p>
+          </div>
+          <div className={cx('item')}>
             <p className={cx('total')}>Tổng số tiền: </p>
-            <b>{toVND(price + deliveryPrice)}</b>
+            <b>{toVND(price + deliveryPrice - (price * selectedVoucher.value) / 100)}</b>
           </div>
           <div className={cx('item')}>
             <p>Note: </p>
