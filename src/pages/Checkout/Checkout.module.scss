@@ -34,14 +34,21 @@
       .list {
         width: 100%;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
+        gap: 1rem;
 
         .address-item {
           display: flex;
           flex-direction: row;
-          justify-content: center;
+          justify-content: space-between;
           gap: 1rem;
+
+          .input-label {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+          }
 
           input {
             transform: scale(1.2);
@@ -50,7 +57,6 @@
 
         .action {
           display: flex;
-          justify-content: center;
           align-items: center;
           gap: 1rem;
         }
@@ -169,12 +175,21 @@
       flex-direction: column;
       align-items: flex-end;
       border-bottom: 1px solid rgb(173, 173, 173);
+      padding-bottom: 1rem;
       gap: 1rem;
       .item {
         width: 30%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
+        input {
+          width: 70%;
+          border: 1px solid grey;
+          padding: 5px;
+          border-radius: 4px;
+          color: var(--blue);
+        }
       }
     }
 

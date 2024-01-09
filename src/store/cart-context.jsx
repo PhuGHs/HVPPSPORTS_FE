@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import { CartApi } from '~/api/cart.api'
 import { UserContext } from './user-context'
-import { toast } from 'react-toastify';
+import NotificationContext from './notification-context'
 
 export const CartContext = createContext()
 
@@ -46,6 +46,7 @@ function cartReducer(state, action) {
 
 export const CartProvider = ({ children }) => {
   const { user } = useContext(UserContext)
+  const notificationCtx = useContext(NotificationContext)
   const [cart, dispatchCartAction] = useReducer(cartReducer, { items: [] })
   useEffect(() => {
     const fetch = async () => {
@@ -75,8 +76,7 @@ export const CartProvider = ({ children }) => {
         product: item.product
       }
       dispatchCartAction({ type: 'ADD_ITEM', item: data })
-      const notify = () => toast('Add to cart successfully')
-      notify()
+      notificationCtx.success('Đã thêm vào giỏ hàng')
     }
   }
 

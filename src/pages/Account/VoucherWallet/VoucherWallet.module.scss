@@ -6,12 +6,20 @@
   padding: 20px;
   border-radius: 10px;
   gap: 2rem;
+  min-height: 60vh;
 
   .header {
     color: var(--dark-yellow);
     font-weight: 500;
     font-size: 2rem;
   }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
 }
 
 @include mixin.mobile {

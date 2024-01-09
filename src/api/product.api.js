@@ -20,4 +20,9 @@ export class ProductApi {
     const response = await http.get(`/Feedbacks/get-all/${id}`)
     return response.data
   }
+
+  static async getRecommendedProducts(customerId) {
+    const response = await http.get(`/Products/product-recommendation/${customerId}`)
+    return response.data
+  }
 }

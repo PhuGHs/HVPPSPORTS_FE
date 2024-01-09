@@ -17,6 +17,9 @@ import { sizeKeys } from '~/utils/sharedResource'
 import SizeItem from '~/components/SizeItem/SizeItem'
 import Spinner from '~/components/Spinner/Spinner'
 import { CartContext } from '~/store/cart-context'
+import { UserContext } from '~/store/user-context'
+import ProductItem from '~/components/ProductItem/ProductItem'
+import NotificationContext from '~/store/notification-context'
 
 const variants = {
   initial: (direction) => {
@@ -42,7 +45,9 @@ const variants = {
 
 const cx = classNames.bind(styles)
 const ProductDetails = () => {
+  const { user } = useContext(UserContext)
   const [product, setProduct] = useState(null)
+  const [recommendedProducts, setRecommendedProducts] = useState([])
   const [description, setDescription] = useState([])
   const [feedbacks, setFeedbacks] = useState(null)
   const [sizes, setSizes] = useState([])
@@ -117,6 +122,7 @@ const ProductDetails = () => {
   }, [handleMoveForward, index])
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     const fetchData = async () => {
       try {
         const productData = await ProductApi.getProductById(id)
@@ -143,16 +149,16 @@ const ProductDetails = () => {
         }
         const feedbacksData = await ProductApi.getFeedBacks(id)
         setFeedbacks(feedbacksData)
+        const data = await ProductApi.getRecommendedProducts(user.id)
+        setRecommendedProducts(data)
       } catch (error) {
         console.log(error)
       } finally {
         setIsLoading(false)
       }
     }
-    if (isLoading) {
-      fetchData()
-    }
-  }, [id, isLoading])
+    fetchData()
+  }, [id, user.id])
 
   if (isLoading) {
     return (
@@ -274,10 +280,9 @@ const ProductDetails = () => {
       <div className={cx('discover-more')}>
         <h2>KHÁM PHÁ THÊM</h2>
         <div className={cx('product-list')}>
-          {/* <ProductItem />
-          <ProductItem />
-          <ProductItem />
-          <ProductItem /> */}
+          {recommendedProducts.map((item, index) => (
+            <ProductItem product={item.product} key={index} />
+          ))}
         </div>
       </div>
     </div>

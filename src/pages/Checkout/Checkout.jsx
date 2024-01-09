@@ -7,21 +7,23 @@ import { toVND } from '../../helpers/vndCurrency'
 import CheckoutItem from '~/components/CheckoutItem/CheckoutItem'
 import Button from '~/components/Button/Button'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { OrderApi } from '~/api/order.api'
 import { UserContext } from '~/store/user-context'
+import { AddressApi } from '~/api/address.api'
 
 const cx = classNames.bind(styles)
 const Checkout = () => {
+  const [deliveryInfo, setDeliveryInfo] = useState([])
   const [deliveryMethod, setDeliveryMethod] = useState('normal')
   const [deliveryPrice, setDeliveryPrice] = useState(30000)
   const [paymentMethod, setPaymentMethod] = useState('cash')
+  const [note, setNote] = useState('')
   const { user } = useContext(UserContext)
   const navigate = useNavigate()
   const handleNavigation = () => {
     navigate('/cart')
   }
-
   const { state } = useLocation()
   const { items = [], price = 0 } = state
 
@@ -36,19 +38,43 @@ const Checkout = () => {
     setPaymentMethod(event.target.id)
   }
 
+  const handleDeliveryAddressChange = (event, priority) => {
+    const updatedDelivery = deliveryInfo.map((item) => ({
+      ...item,
+      selected: item.item.priority === priority ? true : false
+    }))
+
+    console.log(updatedDelivery)
+
+    setDeliveryInfo(updatedDelivery)
+  }
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const data = await AddressApi.getUserAddresses(user.id)
+        setDeliveryInfo(data.map((item) => ({ selected: item.priority === 1, item })))
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetch()
+  }, [user.id])
+
   const buy = async () => {
     try {
+      const selectedDeliveryAddress = deliveryInfo.find((item) => item.selected)
       const data = {
         customerID: user.id,
         value: price,
         payMethod: paymentMethod,
         deliveryMethod: deliveryMethod,
-        note: 'please deliver for me in the afternoon',
+        note: note,
         shipping: deliveryPrice,
         voucherID: '',
-        name: user.name,
-        phone: user.phone,
-        address: '43 Tân Lập, Đông Hoà, Dĩ An, Bình Dương',
+        name: selectedDeliveryAddress.item.name,
+        phone: selectedDeliveryAddress.item.phone,
+        address: selectedDeliveryAddress.item.address,
         selectedProducts: items.map((item) => ({
           productID: item.productID,
           size: item.size,
@@ -58,6 +84,8 @@ const Checkout = () => {
       await OrderApi.newOrder(data)
     } catch (error) {
       console.error(error)
+    } finally {
+      navigate('/')
     }
   }
   return (
@@ -66,11 +94,23 @@ const Checkout = () => {
         <p className={cx('header')}>ĐỊA CHỈ GIAO HÀNG</p>
         <div className={cx('address')}>
           <div className={cx('list')}>
-            <div className={cx('address-item')}>
-              <input type='radio' id='addressItem' checked={true} />
-              <label htmlFor='addressItem'>Lê Văn Phú | 43 Tân Lập, Đông Hoà, Dĩ An, Bình Dương | 0814321006</label>
-            </div>
-            <b>Sửa</b>
+            {deliveryInfo.map((item, index) => (
+              <div key={index} className={cx('address-item')}>
+                <div className={cx('input-label')}>
+                  <input
+                    type='radio'
+                    id={`addressItem${index}`}
+                    name='address'
+                    checked={item.selected}
+                    onChange={(event) => handleDeliveryAddressChange(event, item.item.priority)}
+                  />
+                  <label htmlFor={`addressItem${index}`}>
+                    {item.item.name} | {item.item.address} | {item.item.phone}
+                  </label>
+                </div>
+                <b>Sửa</b>
+              </div>
+            ))}
           </div>
           <div className={cx('list')}>
             <div className={cx('action')}>
@@ -161,6 +201,10 @@ const Checkout = () => {
           <div className={cx('item')}>
             <p className={cx('total')}>Tổng số tiền: </p>
             <b>{toVND(price + deliveryPrice)}</b>
+          </div>
+          <div className={cx('item')}>
+            <p>Note: </p>
+            <input type='text' value={note} onChange={(event) => setNote(event.target.value)} />
           </div>
         </div>
         <div className={cx('actions')}>

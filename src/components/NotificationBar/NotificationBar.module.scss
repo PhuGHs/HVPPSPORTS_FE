@@ -1,0 +1,37 @@
+.container {
+  width: 20%;
+  min-height: 20%;
+  top: 50%;
+  left: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.589);
+  position: fixed;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .success {
+    font-size: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #65B741;
+  }
+
+  .error {
+    font-size: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FF1700;
+  }
+
+  p {
+    font-size: 2rem;
+    color: white;
+  }
+}

@@ -22,7 +22,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { checkAuthLoader } from './utils/auth'
 import { UserProvider } from './store/user-context'
-import { ToastContainer } from 'react-toastify'
+import { NotificationProvider } from './store/notification-context'
+import NotificationBar from './components/NotificationBar/NotificationBar'
 
 const twentyFourHoursInMs = 1000 * 60 * 60 * 24
 
@@ -107,17 +108,19 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <UserProvider>
-      <CartProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router}>
-            <ScrollToTop />
-          </RouterProvider>
-          <ToastContainer />
-          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-        </QueryClientProvider>
-      </CartProvider>
-    </UserProvider>
+    <NotificationProvider>
+      <UserProvider>
+        <CartProvider>
+          <NotificationBar />
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router}>
+              <ScrollToTop />
+            </RouterProvider>
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          </QueryClientProvider>
+        </CartProvider>
+      </UserProvider>
+    </NotificationProvider>
   )
 }
 
