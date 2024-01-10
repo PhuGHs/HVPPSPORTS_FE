@@ -9,6 +9,7 @@ import { CartContext } from '~/store/cart-context'
 import { CartApi } from '~/api/cart.api'
 import { UserContext } from '~/store/user-context'
 import { useNavigate } from 'react-router-dom'
+import { Helper } from '~/utils/helper'
 
 const cx = classNames.bind(styles)
 
@@ -55,12 +56,6 @@ const CartItem = ({ id, name, src, quantity, price, size, handleChecked, item, i
     navigate(`/products/${id}`)
   }
 
-  const getActualSize = (size) => {
-    if (size === 'SizeL') return 'L'
-    if (size === 'SizeM') return 'M'
-    if (size === 'SizeXL') return 'XL'
-    return 'S'
-  }
   return (
     <div className={cx('main-content')}>
       <div className={cx('first-col')}>
@@ -87,7 +82,7 @@ const CartItem = ({ id, name, src, quantity, price, size, handleChecked, item, i
               style={{ color: 'gray', cursor: 'pointer' }}
             />
           </div>
-          <span>Size: {getActualSize(size)}</span>
+          <span>Size: {Helper.getActualSize(size)}</span>
           <p>
             <b>{toVND(price)}</b>
           </p>

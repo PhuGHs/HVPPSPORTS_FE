@@ -19,6 +19,7 @@ import Spinner from '~/components/Spinner/Spinner'
 import { CartContext } from '~/store/cart-context'
 import { UserContext } from '~/store/user-context'
 import ProductItem from '~/components/ProductItem/ProductItem'
+import { FeedbackApi } from '~/api/feedback.api'
 
 const variants = {
   initial: (direction) => {
@@ -146,7 +147,7 @@ const ProductDetails = () => {
             break
           }
         }
-        const feedbacksData = await ProductApi.getFeedBacks(id)
+        const feedbacksData = await FeedbackApi.getFeedBacks(id)
         setFeedbacks(feedbacksData)
         const data = await ProductApi.getRecommendedProducts(user.id)
         setRecommendedProducts(data)

@@ -14,3 +14,10 @@
     font-size: 2rem;
   }
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}

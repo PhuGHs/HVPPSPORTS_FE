@@ -1,41 +1,45 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
+import { Helper } from '~/utils/helper'
 import { toVND } from '../../helpers/vndCurrency'
 import Button from '../Button/Button'
 import styles from './OrderDetailsItem.module.scss'
 import classNames from 'classnames/bind'
 
 const cx = classNames.bind(styles)
-const link =
-  'https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw21a150b7/images/large/701225667001_pp_01_mcfc.png?sw=400&sh=400&sm=fit'
-const OrderDetailsItem = ({ onOpen }) => {
+const OrderDetailsItem = ({ product, status, onOpen, handleSelect }) => {
+  const handleClick = () => {
+    onOpen()
+    handleSelect()
+  }
   return (
     <div className={cx('container')}>
       <div className={cx('product')}>
         <div className={cx('image-container')}>
-          <img src={link} alt='product' />
+          <img src={product.product.urlThumb} alt='product' />
         </div>
         <div className={cx('product-name-actions')}>
-          <p className={cx('product-name')}>Kids' Manchester City Home Jersey 2023/24 With Custom Printing</p>
+          <p className={cx('product-name')}>{product.product.name}</p>
           <div className={cx('mb-product-info')}>
-            <p>x1</p>
-            <p>{toVND(320000)}</p>
+            <p>x{product.quantity}</p>
+            <p>{toVND(product.product.price)}</p>
           </div>
-          <div>
-            <Button secondary_outline small onClick={onOpen}>
-              Viết nhận xét
-            </Button>
-            <Button secondary_outline small>
-              Mua lại
-            </Button>
-          </div>
+          {status === 'completed' && (
+            <div>
+              <Button secondary_outline small onClick={handleClick}>
+                Viết nhận xét
+              </Button>
+              <Button secondary_outline small>
+                Mua lại
+              </Button>
+            </div>
+          )}
         </div>
       </div>
-      <div className={cx('price')}>{toVND(320000)}</div>
-      <div className={cx('size')}>XL</div>
-      <div className={cx('quantity')}>1</div>
-      <div className={cx('discount')}>{toVND(0)}</div>
-      <div className={cx('totalPrice')}>{toVND(320000)}</div>
+      <div className={cx('price')}>{toVND(product.product.price)}</div>
+      <div className={cx('size')}>{Helper.getActualSize(product.size)}</div>
+      <div className={cx('quantity')}>{product.quantity}</div>
+      <div className={cx('totalPrice')}>{toVND(product.product.price * product.quantity)}</div>
     </div>
   )
 }

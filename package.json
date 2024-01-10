@@ -34,6 +34,7 @@
     "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-modal-image": "^2.6.0",
     "react-router-dom": "^6.17.0",
     "sass": "^1.69.4"
   },

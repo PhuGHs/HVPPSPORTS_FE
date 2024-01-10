@@ -108,8 +108,8 @@ export const addresses = [
 
 export const myOrders = [
   { name: 'Tất cả', disabled: false },
-  { name: 'Xác nhận', disabled: false },
-  { name: 'Vận chuyển', disabled: false },
+  { name: 'Đang chờ', disabled: false },
+  { name: 'Đóng gói', disabled: false },
   { name: 'Đang giao', disabled: false },
   { name: 'Hoàn thành', disabled: false }
 ]
