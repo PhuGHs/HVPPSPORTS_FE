@@ -35,7 +35,7 @@ export default function Chatbot({ setIsChatBotVisible }) {
     await setChatbotMessages((prev) => [
       ...prev,
       {
-        IsCustomerSend: true,
+        isCustomerSend: true,
         content: message
       }
     ])
@@ -51,7 +51,7 @@ export default function Chatbot({ setIsChatBotVisible }) {
           setChatbotMessages((prev) => [
             ...prev,
             {
-              IsCustomerSend: false,
+              isCustomerSend: false,
               content: data.chatbotResponse
             }
           ])

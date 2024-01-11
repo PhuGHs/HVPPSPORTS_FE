@@ -3,10 +3,12 @@ import styles from './Header.module.scss'
 import classNames from 'classnames/bind'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCartShopping, faRightFromBracket, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import Offcanvas from '../../../components/OffCanvas/Offcanvas'
 import { Badge } from '@mui/material'
 import { CartContext } from '~/store/cart-context'
+import { AuthApi } from '~/api/auth.api'
+import { removeTokenFromLS, removeUserFromLS } from '~/utils/auth'
 
 const cx = classNames.bind(styles)
 
@@ -24,6 +26,16 @@ function Header() {
 
   const handleMouseLeave = () => {
     setIsHovered(false)
+  }
+
+  const handleLogout = async () => {
+    try {
+      await AuthApi.logout()
+      removeTokenFromLS()
+      removeUserFromLS()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   //https://www.robinwieruch.de/react-dropdown/
@@ -45,16 +57,16 @@ function Header() {
             <a href='/#recommendation'>HÀNG BÁN CHẠY</a>
           </ul>
           <div className={cx('end-items')}>
-            <div className={cx('search-bar')}>
+            {/* <div className={cx('search-bar')}>
               <FontAwesomeIcon icon={faSearch} className={cx('icon')} />
               <input type='text' value='Manchester City' />
-            </div>
+            </div> */}
             <ul className={cx('second-list')}>
-              <li>
+              {/* <li>
                 <div className={cx('header-btn-mb')}>
                   <FontAwesomeIcon icon={faSearch} className={cx('icon')} />
                 </div>
-              </li>
+              </li> */}
               <li>
                 <Link to='/cart'>
                   <div className={cx('header-btn')}>
@@ -68,6 +80,13 @@ function Header() {
                 <Link to='/account' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                   <div className={cx('header-btn')}>
                     <FontAwesomeIcon icon={faUser} className={cx('icon')} />
+                  </div>
+                </Link>
+              </li>
+              <li>
+                <Link to='/' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleLogout}>
+                  <div className={cx('header-btn')}>
+                    <FontAwesomeIcon icon={faRightFromBracket} className={cx('icon')} />
                   </div>
                 </Link>
               </li>

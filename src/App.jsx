@@ -19,14 +19,17 @@ import AuthLayout from './pages/Authentication/AuthLayout'
 import SignUp from './pages/Authentication/SignUp/SignUp'
 import ForgotPassword from './pages/Authentication/ForgotPassword/ForgotPassword'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { checkAuthLoader } from './utils/auth'
+import { checkAuthLoader, getTokenFromLS } from './utils/auth'
 import { UserProvider } from './store/user-context'
 import { NotificationProvider } from './store/notification-context'
 import NotificationBar from './components/NotificationBar/NotificationBar'
 import { ChatbotProvider } from './store/chat-context'
+import { createSignalRContext } from 'react-signalr'
 
 const twentyFourHoursInMs = 1000 * 60 * 60 * 24
+
+export const SignalRContext = createSignalRContext()
+export const OrderStatusHubContext = createSignalRContext()
 
 const router = createBrowserRouter([
   {

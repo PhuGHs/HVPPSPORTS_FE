@@ -7,6 +7,7 @@ import { myOrders } from '~/utils/sharedResource'
 import { OrderApi } from '~/api/order.api'
 import { UserContext } from '~/store/user-context'
 import Spinner from '~/components/Spinner/Spinner'
+import { HubConnectionBuilder } from '@microsoft/signalr'
 
 const cx = classNames.bind(styles)
 const MyOrder = () => {
@@ -18,7 +19,42 @@ const MyOrder = () => {
     setSelectedType(item)
   }
 
+  // OrderStatusHubContext.useSignalREffect('ReceiveMessage', (order) => {
+  //   const index = orders.findIndex((currentOrder) => currentOrder.id === order.id)
+
+  //   if (index != -1) {
+  //     const updatedOrders = [...orders]
+  //     updatedOrders[index] === order
+  //     setOrders(updatedOrders)
+  //   }
+  // })
+
+  const [connection, setConnection] = useState(null)
+
   useEffect(() => {
+    const connect = new HubConnectionBuilder()
+      .withUrl('https://localhost:7030/chathub')
+      .withAutomaticReconnect()
+      .build()
+
+    setConnection(connect)
+  }, [])
+
+  useEffect(() => {
+    if (connection) {
+      connection
+        .start()
+        .then(() => {
+          console.log('SignalR connected in OrderStatus')
+        })
+        .catch((error) => {
+          console.error('Error starting SignalR connection:', error)
+        })
+
+      connection.on('ReceiveMessage', () => {
+        setIsLoading(true)
+      })
+    }
     let isMounted = true
 
     const fetchOrders = async () => {
@@ -30,7 +66,6 @@ const MyOrder = () => {
             fetchedOrders.map(async (order) => await OrderApi.getOrderDetailsById(order.id))
           )
           setOrders(ordersDetails)
-          console.log(ordersDetails)
           setIsLoading(false)
         }
       } catch (error) {

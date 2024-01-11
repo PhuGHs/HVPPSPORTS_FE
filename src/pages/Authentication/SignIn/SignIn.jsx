@@ -4,12 +4,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useInput } from '~/hooks/useInput'
 import { Helper } from '~/utils/helper'
 import { AuthApi } from '~/api/auth.api'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useRef } from 'react'
 import { setTokenToLS, setUserToLS } from '~/utils/auth'
+import NotificationContext from '~/store/notification-context'
 
 const cx = classNames.bind(styles)
 const SignIn = () => {
+  const notificationCtx = useContext(NotificationContext)
   const {
     value: passwordValue,
     handleInputChange: handlePasswordChange,
@@ -33,17 +35,21 @@ const SignIn = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const response = await AuthApi.signin({
-      email: emailValue,
-      password: passwordValue
-    })
+    try {
+      const response = await AuthApi.signin({
+        email: emailValue,
+        password: passwordValue
+      })
 
-    if (response.status === 200) {
-      setTokenToLS('Bearer ' + response.data.data.access_token)
-      const customer = response.data.data.customer
-      customer.email = response.data.data.email
-      setUserToLS(customer)
-      navigate('/')
+      if (response.status === 200) {
+        setTokenToLS('Bearer ' + response.data.data.access_token)
+        const customer = response.data.data.customer
+        customer.email = response.data.data.email
+        setUserToLS(customer)
+        navigate('/')
+      }
+    } catch (error) {
+      notificationCtx.error('Tài khoản hoặc mật khẩu không chính xác!')
     }
   }
 
