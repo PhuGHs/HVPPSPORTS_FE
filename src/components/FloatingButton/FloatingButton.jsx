@@ -1,44 +1,47 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import styles from './FloatingButton.module.scss'
 import classNames from 'classnames/bind'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faComments, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import Messages from '../Messages/Messages';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faComments, faMessage } from '@fortawesome/free-solid-svg-icons'
+import Chatbot from '../Chat/ChatBot/ChatBot'
+import ChatNormal from '../Chat/ChatNormal/ChatNormal'
+
+const typeChat = {
+  chatNormal: 'chatNormal',
+  chatBot: 'chatBot'
+}
 
 const cx = classNames.bind(styles)
 const FloatingButton = () => {
-  const [isChatVisible, setIsChatVisible] = useState(false)
+  // const [isChatVisible, setIsChatVisible] = useState(false)
+  const [isChatNormalVisible, setIsChatNormalVisible] = useState(false)
+  const [isChatBotVisible, setIsChatBotVisible] = useState(false)
 
-  const toggle = () => {
-    setIsChatVisible(!isChatVisible)
+  const handleOpenChat = (type) => {
+    if (type === typeChat.chatNormal) {
+      setIsChatNormalVisible(true)
+    } else {
+      setIsChatBotVisible(true)
+    }
   }
+
   return (
     <div className={cx('container')}>
-      <button onClick={toggle} className={cx('float-button')}>
-        <FontAwesomeIcon icon={faComments} />
-      </button>
-
-      {isChatVisible && (
-        <div className={cx('chat-container')}>
-          <div className={cx('header')}>
-            <p>Hỗ trợ trực tuyến</p>
-            <FontAwesomeIcon icon={faClose} onClick={toggle} className={cx('close')}/>
-          </div>
-          <div className={cx('message-container')}>
-            <div className={cx('messages')}>
-              <Messages />
-            </div>
-          </div>
-          <div className={cx('action')}>
-            <textarea type='text' placeholder='Bạn muốn hỏi gì?' />
-            <div className={cx('action-send')}>
-              <FontAwesomeIcon icon={faPaperPlane} />
-            </div>
-          </div>
-        </div>
+      {!(isChatBotVisible && isChatNormalVisible) && (
+        <>
+          <button onClick={() => handleOpenChat(typeChat.chatBot)} className={cx('float-button-chatbot')}>
+            <FontAwesomeIcon icon={faMessage} />
+          </button>
+          <button onClick={() => handleOpenChat(typeChat.chatNormal)} className={cx('float-button-chat')}>
+            <FontAwesomeIcon icon={faComments} />
+          </button>
+        </>
       )}
-    </div>
-  );
-};
+      {isChatBotVisible && <Chatbot setIsChatBotVisible={setIsChatBotVisible} />}
 
-export default FloatingButton;
+      {isChatNormalVisible && <ChatNormal setIsChatNormalVisible={setIsChatNormalVisible} />}
+    </div>
+  )
+}
+
+export default FloatingButton

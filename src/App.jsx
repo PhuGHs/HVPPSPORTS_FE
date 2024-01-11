@@ -24,6 +24,7 @@ import { checkAuthLoader } from './utils/auth'
 import { UserProvider } from './store/user-context'
 import { NotificationProvider } from './store/notification-context'
 import NotificationBar from './components/NotificationBar/NotificationBar'
+import { ChatbotProvider } from './store/chat-context'
 
 const twentyFourHoursInMs = 1000 * 60 * 60 * 24
 
@@ -111,13 +112,15 @@ function App() {
     <NotificationProvider>
       <UserProvider>
         <CartProvider>
-          <NotificationBar />
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router}>
-              <ScrollToTop />
-            </RouterProvider>
-            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-          </QueryClientProvider>
+          <ChatbotProvider>
+            <NotificationBar />
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router}>
+                <ScrollToTop />
+              </RouterProvider>
+              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+            </QueryClientProvider>
+          </ChatbotProvider>
         </CartProvider>
       </UserProvider>
     </NotificationProvider>
