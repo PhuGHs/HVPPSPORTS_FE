@@ -7,18 +7,22 @@ export const RESET_PASSWORD_URL = '/auth/reset-password'
 
 export class AuthApi {
   static async signup(data) {
-    try {
-      return http.post('/Accounts/register', data)
-    } catch (error) {
-      console.log(error)
-    }
+    const response = await http.post('/Accounts/register', data)
+    return response
   }
 
-  static signin(data) {
-    return http.post('/Accounts/login', data)
+  static async signin(data) {
+    const response = await http.post('/Accounts/login', data)
+    return response
   }
 
-  static logout() {
-    return http.get('/Accounts/logout')
+  static async logout() {
+    const response = await http.get('/Accounts/logout')
+    return response
+  }
+
+  static async sendFavorites(customerID, teams) {
+    const response = await http.post(`/Accounts/set-favorite-teams/${customerID}`, teams)
+    return response
   }
 }

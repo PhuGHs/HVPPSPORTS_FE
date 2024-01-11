@@ -33,6 +33,7 @@ function Header() {
       await AuthApi.logout()
       removeTokenFromLS()
       removeUserFromLS()
+      window.location.reload()
     } catch (error) {
       console.error(error)
     }

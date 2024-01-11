@@ -1,13 +1,16 @@
 import classNames from 'classnames/bind'
 import styles from './SignUp.module.scss'
-import { Link, redirect } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useInput } from '~/hooks/useInput'
 import { Helper } from '~/utils/helper'
 import { AuthApi } from '~/api/auth.api'
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
+import NotificationContext from '~/store/notification-context'
 
 const cx = classNames.bind(styles)
 const SignUp = () => {
+  const notificationCtx = useContext(NotificationContext)
+  const navigate = useNavigate()
   const {
     value: emailValue,
     handleInputChange: handleEmailChange,
@@ -27,6 +30,12 @@ const SignUp = () => {
     hasError: passwordHasError
   } = useInput('', Helper.validatePassword)
   const {
+    value: confirmedpasswordValue,
+    handleInputChange: handleConfirmedPasswordChange,
+    handleInputBlur: handleConfirmedPasswordBlur,
+    hasError: confirmedpasswordHasError
+  } = useInput('', Helper.validatePassword)
+  const {
     value: phonenumberValue,
     handleInputChange: handlePhoneNumberChange,
     handleInputBlur: handlePhoneNumberBlur,
@@ -35,14 +44,20 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const response = await AuthApi.signup({
-      userName: usernameValue,
-      email: emailValue,
-      password: passwordValue,
-      phone: phonenumberValue
-    })
-    console.log(response.message)
-    if (response.message === 'success') redirect('/auth/signin')
+    try {
+      const response = await AuthApi.signup({
+        userName: usernameValue,
+        email: emailValue,
+        password: passwordValue,
+        phone: phonenumberValue
+      })
+      console.log(response)
+      if (response.status === 200) {
+        navigate('/auth/favorite', { state: { id: response.data.data.id } })
+      }
+    } catch (error) {
+      notificationCtx.error(error.message)
+    }
   }
 
   const usernameRef = useRef()
@@ -123,14 +138,14 @@ const SignUp = () => {
         </div>
 
         <div className={cx('user-input-out')}>
-          <label htmlFor='password'>Xác nhận mật khẩu</label>
+          <label htmlFor='password'>Mật khẩu xác nhận</label>
           <input
             type='password'
             name='password'
-            placeholder='Xác nhận mật khẩu'
-            onChange={handlePasswordChange}
-            onBlur={handlePasswordBlur}
-            value={passwordValue}
+            placeholder='Mật khẩu xác nhận'
+            onChange={handleConfirmedPasswordChange}
+            onBlur={handleConfirmedPasswordBlur}
+            value={confirmedpasswordValue}
           />
           <div className={cx('error-container')}>
             {passwordHasError && <p className={cx('error-text')}>Mật khẩu phải từ 6 ký tự trở lên</p>}

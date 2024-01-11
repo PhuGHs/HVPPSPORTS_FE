@@ -1,0 +1,65 @@
+.container {
+  background-color: white;
+  padding: 4rem;
+  width: 50%;
+  height: fit-content;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  border-radius: 0.5rem;
+
+  h2 {
+    .first-logo {
+      color: #2a2a86;
+    }
+  
+    .second-logo {
+      color: #fcaf17;
+    }
+    margin-bottom: 4rem;
+  }
+
+  .welcome-text {
+    margin-bottom: 2rem;
+    font-weight: 400;
+    font-size: 2rem;
+  }
+
+  .favorite-team-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin: 0 15%;
+
+    .favorite-team-col {
+      width: 50%;
+      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+
+      .favorite-team {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 1rem;
+      }
+    }
+  }
+
+  .row-btn-container {
+    margin: auto;
+    display: flex;
+    margin-top: 4rem;
+    justify-content: center;
+  }
+
+  label {
+    font-size: 1.8rem;
+  }
+
+  input {
+    width: 20px;
+    height: 20px;
+  }
+}

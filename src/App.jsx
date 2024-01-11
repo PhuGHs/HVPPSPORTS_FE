@@ -25,6 +25,7 @@ import { NotificationProvider } from './store/notification-context'
 import NotificationBar from './components/NotificationBar/NotificationBar'
 import { ChatbotProvider } from './store/chat-context'
 import { createSignalRContext } from 'react-signalr'
+import Favorite from './pages/Authentication/Favorite/Favorite'
 
 const twentyFourHoursInMs = 1000 * 60 * 60 * 24
 
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: 'signin',
         element: <SignIn />
+      },
+      {
+        path: 'favorite',
+        element: <Favorite />
       },
       {
         path: 'signup',
