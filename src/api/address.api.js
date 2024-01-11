@@ -1,4 +1,4 @@
-import { http } from "~/utils/axiosConfig"
+import { http } from '~/utils/axiosConfig'
 
 export class AddressApi {
   static async getProvinces() {
@@ -37,6 +37,15 @@ export class AddressApi {
     }
   }
 
+  static async getUserAddressById(customerID, addressID) {
+    try {
+      const response = await http.get(`/DeliveryInfoes/get-by-id/${customerID}/${addressID}`)
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   static async createNewAddress(body) {
     try {
       const response = await http.post(`/DeliveryInfoes/new-info`, body)
@@ -58,6 +67,15 @@ export class AddressApi {
   static async deleteAnAddress(customerId, priority) {
     try {
       const response = await http.delete(`/DeliveryInfoes/delete/${customerId}/${priority}`)
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  static async updateAddress(priority, body) {
+    try {
+      const response = await http.put(`/DeliveryInfoes/update/${priority}`, body)
       return response.data
     } catch (error) {
       console.error(error)

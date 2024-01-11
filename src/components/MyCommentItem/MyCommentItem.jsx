@@ -1,32 +1,54 @@
+/* eslint-disable react/prop-types */
 import styles from './MyCommentItem.module.scss'
 import classNames from 'classnames/bind'
 import { Rating } from '@mui/material'
+import { Helper } from '~/utils/helper'
+import ModalImage from 'react-modal-image'
+import Button from '../Button/Button'
+import { useNavigate } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 const MyCommentItem = ({ item }) => {
+  const navigate = useNavigate()
   return (
     <div className={cx('my-comment-container')}>
-      <div className={cx('image-container')}>
-        <img
-          src='https://shop.mancity.com/dw/image/v2/BDWJ_PRD/on/demandware.static/-/Sites-master-catalog-MAN/default/dw21a150b7/images/large/701225667001_pp_01_mcfc.png?sw=400&sh=400&sm=fit'
-          alt='product'
-        />
+      <div className={cx('image-container')} onClick={() => navigate(`/Products/${item.product.id}`)}>
+        <img src={item.product.urlThumb} alt='product' />
       </div>
       <div className={cx('comment-details')}>
         <div className={cx('product-name')}>
-          <h3>Manchester City 22/23</h3>
-          <p>21:55, 10/8/2023</p>
-        </div>
-        <div className={cx('quantity')}>
-          <p>Số lượng: 1</p>
+          <h3>{item.product.name}</h3>
+          <p>{item.date ? Helper.convertToDMY(item.date) : ''}</p>
         </div>
         <div className={cx('rating-star')}>
-          <Rating className={cx('star')} value={5} readOnly />
+          <Rating className={cx('star')} value={item.point ?? 0} readOnly />
         </div>
+        {item.quantity && (
+          <div className={cx('quantity')}>
+            <p>Số lượng: {item.quantity}</p>
+          </div>
+        )}
+        {item.size && (
+          <div className={cx('quantity')}>
+            <p>Size: {Helper.getActualSize(item.size)}</p>
+          </div>
+        )}
         <div className={cx('comment')}>
-          <p>Sản phẩm đẹp</p>
+          <p>{item.comment ?? ''}</p>
+        </div>
+        <div className={cx('image-container')}>
+          {item.media && (
+            <ModalImage small={item.media} large={item.media} imageBackgroundColor='transparent' alt='image' />
+          )}
         </div>
       </div>
+      {!item.date && (
+        <div className={cx('action')}>
+          <Button secondary small onClick={() => navigate(`/account/my-orders/${item.orderID}`)}>
+            Đánh giá
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

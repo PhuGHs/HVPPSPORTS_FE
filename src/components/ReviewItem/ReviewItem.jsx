@@ -5,6 +5,7 @@ import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import ModalImage from 'react-modal-image'
+import { Helper } from '~/utils/helper'
 
 const cx = classNames.bind(styles)
 const ReviewItem = ({ item }) => {
@@ -17,15 +18,13 @@ const ReviewItem = ({ item }) => {
         <div className={cx('reviewer-name')}>{item.customer.name}</div>
         <div className={cx('rating-star')}>
           <Rating className={cx('rating')} readOnly value={item.point} />
-          <p>Cực kỳ hài lòng</p>
+          <p>{Helper.feedbackRatingAsSentence(item.point)}</p>
         </div>
         <div className={cx('bought-certify')}>
           <FontAwesomeIcon icon={faCircleCheck} />
           <p>Đã mua hàng</p>
         </div>
-        <div className={cx('review-time')}>
-          {item.createdAt} | Size: {item.size}
-        </div>
+        <div className={cx('review-time')}>{Helper.convertToDMY(item.date)} | Size: M</div>
         <div className={cx('review-comment')}>{item.comment}</div>
         <div className={cx('image-container')}>
           <ModalImage small={item.media} large={item.media} imageBackgroundColor='transparent' alt='image' />

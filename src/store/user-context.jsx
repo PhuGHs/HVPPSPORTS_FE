@@ -6,10 +6,19 @@ export const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(() => getUserFromLS())
+  const handleStorageChange = (event) => {
+    if (event.key === 'user') {
+      setUser(getUserFromLS())
+    }
+  }
 
   useEffect(() => {
-    // If needed, perform additional logic related to user state here
-  }, [user])
+    window.addEventListener('storage', handleStorageChange)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+    }
+  }, [])
   return <UserContext.Provider value={{ user: user }}>{children}</UserContext.Provider>
 }
 

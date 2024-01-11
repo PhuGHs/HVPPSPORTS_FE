@@ -40,7 +40,9 @@ const SignIn = () => {
 
     if (response.status === 200) {
       setTokenToLS('Bearer ' + response.data.data.access_token)
-      setUserToLS(response.data.data.customer)
+      const customer = response.data.data.customer
+      customer.email = response.data.data.email
+      setUserToLS(customer)
       navigate('/')
     }
   }

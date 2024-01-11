@@ -14,7 +14,7 @@ const Address = ({ list, handleOpenModal, setIsLoading }) => {
         return (
           <>
             <hr />
-            <AddressItem key={index} item={item} />
+            <AddressItem key={index} handleOpenModal={handleOpenModal} setIsLoading={setIsLoading} item={item} />
           </>
         )
       })}

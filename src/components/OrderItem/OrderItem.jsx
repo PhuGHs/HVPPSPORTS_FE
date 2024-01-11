@@ -40,7 +40,6 @@ const OrderItem = ({ item }) => {
       <div className={cx('order-total-action')}>
         <div className={cx('order-total')}>Tổng tiền: {toVND(order.value + order.shipping)}</div>
         <div className={cx('order-action')}>
-          {order.status.toLowerCase() === 'completed' && <Button secondary_outline>Mua lại</Button>}
           {(order.status.toLowerCase() === 'pending' || order.status.toLowerCase() == 'packaging') && (
             <Button secondary_outline onClick={handleCancelOrder}>
               Huỷ đơn

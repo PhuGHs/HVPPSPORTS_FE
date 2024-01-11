@@ -27,7 +27,7 @@ const AddressItem = ({ item, handleOpenModal, setIsLoading }) => {
           {item.name} | <span>{item.phone}</span>
         </p>
         <div className={cx('actions')}>
-          <Button small onClick={handleOpenModal}>
+          <Button small onClick={() => handleOpenModal('edit', item.priority)}>
             Cập nhật
           </Button>
           <FontAwesomeIcon className={cx('mb-ic-btn')} icon={faEdit} />

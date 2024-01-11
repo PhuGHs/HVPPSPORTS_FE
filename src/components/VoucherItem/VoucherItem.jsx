@@ -21,7 +21,7 @@ const VoucherItem = ({ item }) => {
         </div>
         <div className={cx('applicable-date')}>
           <p>
-            Từ ngày {Helper.convertToDMY(item.dateBegin)} - {Helper.convertToDMY(item.dateEnd)}
+            Từ ngày {Helper.convertToDMYWithoutHours(item.dateBegin)} - {Helper.convertToDMYWithoutHours(item.dateEnd)}
           </p>
         </div>
       </div>

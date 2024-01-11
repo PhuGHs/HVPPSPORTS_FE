@@ -12,6 +12,10 @@ export class Helper {
     return password.length > 5
   }
 
+  static validateAddress(address) {
+    return address != ''
+  }
+
   static validatePhoneNumber(phonenumber) {
     const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
     if (phonenumber.match(phoneRegex)) {
@@ -24,7 +28,19 @@ export class Helper {
     return username.length > 5
   }
 
+  static validateDate(date) {
+    const isValidDate = Date.parse(date)
+    if (isNaN(isValidDate)) return false
+    return true
+  }
+
   static convertToDMY(inputDate) {
+    const parsedDate = new Date(inputDate)
+    const formattedDate = format(parsedDate, 'dd/MM/yyyy HH:mm:ss')
+    return formattedDate
+  }
+
+  static convertToDMYWithoutHours(inputDate) {
     const parsedDate = new Date(inputDate)
     const formattedDate = format(parsedDate, 'dd/MM/yyyy')
     return formattedDate
@@ -125,5 +141,20 @@ export class Helper {
     })
 
     return fileValue
+  }
+
+  static feedbackRatingAsSentence = (rating) => {
+    switch (rating) {
+      case 1:
+        return 'Rất không hài lòng'
+      case 2:
+        return 'Không hài lòng'
+      case 3:
+        return 'Tạm chấp nhận được'
+      case 4:
+        return 'Hài lòng'
+      case 5:
+        return 'Cực kỳ hài lòng'
+    }
   }
 }

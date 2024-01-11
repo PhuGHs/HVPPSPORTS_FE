@@ -74,7 +74,7 @@ const OrderDetails = () => {
       if (!event.target.files) return
       if (Helper.checkFile(event.target.files[0])) {
         const file = await Helper.readAsBase64(event.target.files[0])
-        setFile(file.substring('data:image/jpeg;base64,'.length))
+        setFile(file.substring('data:image/png;base64,'.length))
       }
     }
   }
@@ -85,11 +85,14 @@ const OrderDetails = () => {
       productID: selectedItemOpen.product.id,
       comment: comment,
       point: rating,
-      media: file
+      media: file,
+      orderID: id,
+      size: selectedItemOpen.size
     }
     if (comment === '' || rating === 0) return
 
     try {
+      console.log(body.media)
       await FeedbackApi.addFeedback(body)
       notificationCtx.success(`Đã đánh giá cho sản phẩm ${body.productID}`)
     } catch (error) {

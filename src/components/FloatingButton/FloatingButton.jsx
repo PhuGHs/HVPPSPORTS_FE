@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import styles from './FloatingButton.module.scss'
 import classNames from 'classnames/bind'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClose, faComments, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import Messages from '../Messages/Messages';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClose, faComments, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import Messages from '../Messages/Messages'
 
 const cx = classNames.bind(styles)
 const FloatingButton = () => {
@@ -22,7 +22,7 @@ const FloatingButton = () => {
         <div className={cx('chat-container')}>
           <div className={cx('header')}>
             <p>Hỗ trợ trực tuyến</p>
-            <FontAwesomeIcon icon={faClose} onClick={toggle} className={cx('close')}/>
+            <FontAwesomeIcon icon={faClose} onClick={toggle} className={cx('close')} />
           </div>
           <div className={cx('message-container')}>
             <div className={cx('messages')}>
@@ -38,7 +38,7 @@ const FloatingButton = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default FloatingButton;
+export default FloatingButton

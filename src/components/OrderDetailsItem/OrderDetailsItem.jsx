@@ -5,9 +5,11 @@ import { toVND } from '../../helpers/vndCurrency'
 import Button from '../Button/Button'
 import styles from './OrderDetailsItem.module.scss'
 import classNames from 'classnames/bind'
+import { useNavigate } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 const OrderDetailsItem = ({ product, status, onOpen, handleSelect }) => {
+  const navigate = useNavigate()
   const handleClick = () => {
     onOpen()
     handleSelect()
@@ -15,7 +17,7 @@ const OrderDetailsItem = ({ product, status, onOpen, handleSelect }) => {
   return (
     <div className={cx('container')}>
       <div className={cx('product')}>
-        <div className={cx('image-container')}>
+        <div className={cx('image-container')} onClick={() => navigate(`/Products/${product.product.id}`)}>
           <img src={product.product.urlThumb} alt='product' />
         </div>
         <div className={cx('product-name-actions')}>
@@ -26,12 +28,11 @@ const OrderDetailsItem = ({ product, status, onOpen, handleSelect }) => {
           </div>
           {status === 'completed' && (
             <div>
-              <Button secondary_outline small onClick={handleClick}>
-                Viết nhận xét
-              </Button>
-              <Button secondary_outline small>
-                Mua lại
-              </Button>
+              {!product.didFeedback && (
+                <Button secondary_outline small onClick={handleClick}>
+                  Viết nhận xét
+                </Button>
+              )}
             </div>
           )}
         </div>

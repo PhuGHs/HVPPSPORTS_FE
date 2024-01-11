@@ -213,7 +213,10 @@ const ProductDetails = () => {
         </div>
         <div className={cx('details')}>
           <p className={cx('product-name')}>{product.name}</p>
-          <Rating className={cx('rating-comp')} readOnly value={product.point} />
+          <div className={cx('row')}>
+            <Rating className={cx('rating-comp')} readOnly value={product.point} />
+            <p>(Đã bán: {product.sold})</p>
+          </div>
           <h2>{toVND(product.price)}</h2>
           <p>
             Kích cỡ: {selectedSize.size} | Số lượng: {selectedSize.quantity}

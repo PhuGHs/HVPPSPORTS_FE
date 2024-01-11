@@ -12,6 +12,7 @@ import { AddressApi } from '~/api/address.api'
 import { UserContext } from '~/store/user-context'
 import { useInput } from '~/hooks/useInput'
 import { Helper } from '~/utils/helper'
+import NotificationContext from '~/store/notification-context'
 
 const cx = classNames.bind(styles)
 
@@ -39,6 +40,7 @@ const cx = classNames.bind(styles)
 //   }
 // ]
 const AddressPage = () => {
+  const notificationCtx = useContext(NotificationContext)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { user } = useContext(UserContext)
   const [index, setIndex] = useState(0)
@@ -54,11 +56,14 @@ const AddressPage = () => {
   const [selectedProvince, setSelectedProvince] = useState({})
   const [selectedDistrict, setSelectedDistrict] = useState({})
   const [selectedWard, setSelectedWard] = useState({})
+  const [mode, setMode] = useState('add')
+  const [id, setId] = useState(null)
 
   const {
     value: usernameValue,
     handleInputChange: handleUsernameValueChange,
     handleInputBlur: handleUsernameBlur,
+    setValue: setUsernameValue,
     hasError: usernamehasError
   } = useInput('', Helper.validateUsername)
 
@@ -66,6 +71,7 @@ const AddressPage = () => {
     value: phonenumberValue,
     handleInputChange: handlePhoneNumberChange,
     handleInputBlur: handlePhoneNumberBlur,
+    setValue: setPhoneNumberValue,
     hasError: phonenumberHasError
   } = useInput('', Helper.validatePhoneNumber)
 
@@ -73,14 +79,33 @@ const AddressPage = () => {
     value: moreDetailAddressValue,
     handleInputChange: handleMoreDetailAddressValueChange,
     handleInputBlur: handleMoreDetailAddressValueBlur,
+    setValue: setAddressValue,
     hasError: moreDetailAddressHasError
-  } = useInput('', () => true)
+  } = useInput('', Helper.validateAddress)
 
-  const handleOpenModal = () => {
+  console.log(usernamehasError)
+
+  const handleOpenModal = async (mode, id) => {
+    if (mode === 'edit' && id) {
+      const data = await AddressApi.getUserAddressById(user.id, id)
+      const addresses = data.address.split(',').map((part) => part.trim())
+      const phone = data.phone
+      const name = data.name
+      setValue(`${addresses[3]}, ${addresses[2]}, ${addresses[1]}`)
+      setSelectedProvince({ name: addresses[3] })
+      setSelectedDistrict({ name: addresses[2] })
+      setSelectedWard({ name: addresses[1] })
+      setAddressValue(addresses[0])
+      setPhoneNumberValue(phone)
+      setUsernameValue(name)
+      setId(id)
+    }
+    setMode(mode)
     setIsModalOpen(true)
   }
 
   const handleCloseModal = () => {
+    setMode('add')
     setIsModalOpen(false)
   }
 
@@ -145,9 +170,23 @@ const AddressPage = () => {
       address: `${moreDetailAddressValue}, ${selectedWard.name}, ${selectedDistrict.name}, ${selectedProvince.name}`,
       phone: phonenumberValue
     }
-    const response = await AddressApi.createNewAddress(body)
-    console.log(response)
+    if (phonenumberHasError || usernamehasError || moreDetailAddressHasError || value === '') {
+      notificationCtx.error('Đã có lỗi xảy ra! Hãy kiểm tra lại!')
+      return
+    }
+    if (mode === 'add') {
+      await AddressApi.createNewAddress(body)
+    } else {
+      if (id) {
+        await AddressApi.updateAddress(id, body)
+      }
+    }
+    setUsernameValue('')
+    setAddressValue('')
+    setPhoneNumberValue('')
+    setValue('')
     setIsAddressLoading(true)
+    handleCloseModal()
   }
 
   const handleSelectType = (item) => {
@@ -207,7 +246,7 @@ const AddressPage = () => {
     <div className={cx('container')}>
       <div className={cx('header')}>
         <p>Sổ địa chỉ</p>
-        <Button secondary onClick={handleOpenModal}>
+        <Button secondary onClick={() => handleOpenModal('add')}>
           Thêm địa chỉ mới
         </Button>
       </div>
@@ -227,6 +266,7 @@ const AddressPage = () => {
                   onChange={handleUsernameValueChange}
                   onBlur={handleUsernameBlur}
                   onFocus={handleFocusOnOthers}
+                  style={{ borderColor: usernamehasError ? 'red' : 'grey' }}
                 />
                 <input
                   type='text'
@@ -235,6 +275,7 @@ const AddressPage = () => {
                   onChange={handlePhoneNumberChange}
                   onBlur={handlePhoneNumberBlur}
                   onFocus={handleFocusOnOthers}
+                  style={{ borderColor: phonenumberHasError ? 'red' : 'grey' }}
                 />
               </div>
               <div className={cx('second-row-1')}>
@@ -274,15 +315,14 @@ const AddressPage = () => {
                   onChange={handleMoreDetailAddressValueChange}
                   onBlur={handleMoreDetailAddressValueBlur}
                   onFocus={handleFocusOnOthers}
+                  style={{ borderColor: moreDetailAddressHasError ? 'red' : 'grey' }}
                 />
               </div>
               <div className={cx('action-row')}>
                 <Button grey_outline onClick={handleCloseModal}>
                   Huỷ
                 </Button>
-                <Button secondary onClick={handleCloseModal}>
-                  Lưu
-                </Button>
+                <Button secondary>Lưu</Button>
               </div>
             </form>
           </Modal>
