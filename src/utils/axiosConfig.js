@@ -46,3 +46,16 @@ class Http {
 }
 
 export const http = new Http().instance
+
+class HttpChatbot {
+  constructor() {
+    this.instance = axios.create({
+      baseURL: 'https://chatbot-hvpp-sports.vercel.app/',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+}
+
+export const httpChatbot = new HttpChatbot().instance

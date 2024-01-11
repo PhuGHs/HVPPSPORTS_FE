@@ -1,6 +1,7 @@
 import styles from './Messages.module.scss'
 import classNames from 'classnames/bind'
 import Message from './Message/Message'
+import PropTypes from 'prop-types'
 
 const list = [
   {
@@ -36,14 +37,18 @@ const list = [
 ]
 
 const cx = classNames.bind(styles)
-const Messages = () => {
+const Messages = ({ messages }) => {
   return (
-    <div className={cx('container')}>
-      {list.map((item, index) => (
+    <>
+      {messages.map((item, index) => (
         <Message message={item} key={index} />
       ))}
-    </div>
+    </>
   )
 }
 
-export default Messages;
+export default Messages
+
+Messages.propTypes = {
+  messages: PropTypes.array.isRequired
+}
