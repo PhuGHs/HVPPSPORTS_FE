@@ -31,12 +31,9 @@ class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        console.log('url: ', url)
         if (url === '/Accounts/login') {
           const data = response.data.data
-          console.log('data: ', data)
-          this._token('Bearer ' + data.access_token)
-          // setTokenToLS('Bearer ' + data.token)
+          this._token = 'Bearer ' + data.access_token
           setTokenToLS(this._token)
         } else if (url === SIGN_OUT_URL) {
           this._token = ''

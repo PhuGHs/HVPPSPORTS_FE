@@ -12,8 +12,7 @@ export class AuthApi {
   }
 
   static async signin(data) {
-    const response = await http.post('/Accounts/login', data)
-    return response
+    return await http.post('/Accounts/login', data)
   }
 
   static async logout() {
