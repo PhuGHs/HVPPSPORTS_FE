@@ -26,6 +26,7 @@ export default function ChatNormal({ setIsChatNormalVisible }) {
       media: file ?? '',
       isCustomerSend: true
     }
+    if (value === '') return
     try {
       await ChatApi.sendMessage(body)
       setIsLoading(true)
