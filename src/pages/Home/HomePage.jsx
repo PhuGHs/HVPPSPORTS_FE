@@ -10,6 +10,7 @@ import { categories } from '~/utils/sharedResource'
 import { useQuery } from '@tanstack/react-query'
 import { ProductApi } from '~/api/product.api'
 import Spinner from '~/components/Spinner/Spinner'
+import { useEffect } from 'react'
 const cx = classNames.bind(styles)
 
 const HomePage = () => {

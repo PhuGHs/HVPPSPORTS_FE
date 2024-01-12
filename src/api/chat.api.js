@@ -12,7 +12,7 @@ export class ChatApi {
   }
 
   static async addNewRoom(customerID) {
-    const response = await http.post(`/Chat/add-new-room`, customerID)
+    const response = await http.post(`/Chat/add-new-room`, { customerID: customerID })
     return response.data
   }
 
