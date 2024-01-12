@@ -2,7 +2,7 @@ import { redirect } from 'react-router-dom'
 import { SIGN_IN_URL } from '~/api/auth.api'
 
 export const getTokenFromLS = () => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token') || ''
   return token
 }
 

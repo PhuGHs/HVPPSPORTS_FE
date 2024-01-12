@@ -16,8 +16,10 @@ class Http {
 
     this.instance.interceptors.request.use(
       (config) => {
+        console.log('token: ', this._token)
         if (this._token && config.headers) {
           config.headers.Authorization = this._token
+          return config
         }
         return config
       },
@@ -29,9 +31,13 @@ class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        if (url === SIGN_IN_URL) {
-          const data = response.data
-          setTokenToLS('Bearer ' + data.token)
+        console.log('url: ', url)
+        if (url === '/Accounts/login') {
+          const data = response.data.data
+          console.log('data: ', data)
+          this._token('Bearer ' + data.access_token)
+          // setTokenToLS('Bearer ' + data.token)
+          setTokenToLS(this._token)
         } else if (url === SIGN_OUT_URL) {
           this._token = ''
           removeTokenFromLS()
