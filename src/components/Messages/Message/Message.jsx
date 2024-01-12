@@ -8,11 +8,13 @@ const Message = ({ message }) => {
   return (
     <>
       <div className={cx(message.isCustomerSend ? 'container' : 'container-admin')}>
-        <div className={cx(message.isCustomerSend ? 'message-container' : 'message-container-admin')}>
-          <div className={cx(message.isCustomerSend ? 'message' : 'message-admin')}>
-            <p>{message.content}</p>
+        {message.content !== '' && (
+          <div className={cx(message.isCustomerSend ? 'message-container' : 'message-container-admin')}>
+            <div className={cx(message.isCustomerSend ? 'message' : 'message-admin')}>
+              <p>{message.content}</p>
+            </div>
           </div>
-        </div>
+        )}
         <div className={cx(message.isCustomerSend ? 'message-container' : 'message-container-admin')}>
           {message.media && (
             <ModalImage small={message.media} large={message.media} imageBackgroundColor='transparent' alt='image' />

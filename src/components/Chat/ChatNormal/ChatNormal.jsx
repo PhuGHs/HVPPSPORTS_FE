@@ -30,6 +30,7 @@ export default function ChatNormal({ setIsChatNormalVisible }) {
       await ChatApi.sendMessage(body)
       setIsLoading(true)
       setValue('')
+      setFile('')
     } catch (error) {
       console.error(error)
     }
