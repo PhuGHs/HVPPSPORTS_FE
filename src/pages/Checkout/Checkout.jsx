@@ -82,7 +82,7 @@ const Checkout = () => {
         deliveryMethod: deliveryMethod,
         note: note,
         shipping: deliveryPrice,
-        voucherID: selectedVoucher.id,
+        voucherID: selectedVoucher?.id || '',
         name: selectedDeliveryAddress.item.name,
         phone: selectedDeliveryAddress.item.phone,
         address: selectedDeliveryAddress.item.address,
