@@ -17,7 +17,7 @@ import { CartContext } from '~/store/cart-context'
 
 const cx = classNames.bind(styles)
 const Checkout = () => {
-  const { removeItem } = useContext(CartContext)
+  const { removeItemNotFromDB } = useContext(CartContext)
   const notificationCtx = useContext(NotificationContext)
   const [deliveryInfo, setDeliveryInfo] = useState([])
   const [deliveryMethod, setDeliveryMethod] = useState('normal')
@@ -97,7 +97,7 @@ const Checkout = () => {
       console.error(error)
     } finally {
       for (const item of items) {
-        removeItem(item.id, item.size)
+        removeItemNotFromDB(item.id, item.size)
       }
       notificationCtx.success('Đã đặt hàng thành công')
       navigate('/')

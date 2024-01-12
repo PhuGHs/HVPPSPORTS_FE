@@ -91,6 +91,11 @@ export const CartProvider = ({ children }) => {
     }
   }
 
+  function removeItemNotFromServer(id, size) {
+    const item = { productID: id, size: size }
+    dispatchCartAction({ type: 'REMOVE_ITEM', item })
+  }
+
   async function clearCart() {
     try {
       await CartApi.clear(user.id)
@@ -105,6 +110,7 @@ export const CartProvider = ({ children }) => {
     items: cart.items,
     addItem,
     removeItem,
+    removeItemNotFromDB: removeItemNotFromServer,
     clearCart
   }
   return <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>
