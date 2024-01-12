@@ -210,12 +210,12 @@ const Checkout = () => {
             <p>{toVND(deliveryPrice)}</p>
           </div>
           <div className={cx('item')}>
-            <p>Giảm giá ({selectedVoucher.name}): </p>
+            {selectedVoucher.name && <p>Giảm giá ({selectedVoucher.name}): </p>}
             <p>-{toVND((price * selectedVoucher.value) / 100)}</p>
           </div>
           <div className={cx('item')}>
             <p className={cx('total')}>Tổng số tiền: </p>
-            <b>{toVND(price + deliveryPrice - (price * selectedVoucher.value) / 100)}</b>
+            <b>{toVND(price + deliveryPrice - (price * (selectedVoucher.value ?? 0)) / 100)}</b>
           </div>
           <div className={cx('item')}>
             <p>Note: </p>
