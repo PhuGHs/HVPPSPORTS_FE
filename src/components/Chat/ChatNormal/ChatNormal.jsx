@@ -70,7 +70,7 @@ export default function ChatNormal({ setIsChatNormalVisible }) {
 
     const fetch = async () => {
       try {
-        const data = await ChatApi.getMessages(1)
+        const data = await ChatApi.getMessages(user.id)
 
         setMessages(data)
         setIsLoading(false)
@@ -83,7 +83,7 @@ export default function ChatNormal({ setIsChatNormalVisible }) {
     if (isLoading) {
       fetch()
     }
-  }, [connection, isLoading, user.id])
+  }, [connection, isLoading])
 
   const { value, handleInputChange, handleInputBlur, setValue } = useInput('', () => true)
 

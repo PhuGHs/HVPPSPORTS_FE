@@ -5,7 +5,12 @@ import { getUserFromLS } from '~/utils/auth'
 export const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(() => getUserFromLS())
+  const [user, setUser] = useState(getUserFromLS())
+
+  const handleSetUser = (user) => {
+    setUser(user)
+  }
+
   const handleStorageChange = (event) => {
     if (event.key === 'user') {
       setUser(getUserFromLS())
@@ -18,8 +23,8 @@ export const UserProvider = ({ children }) => {
     return () => {
       window.removeEventListener('storage', handleStorageChange)
     }
-  }, [])
-  return <UserContext.Provider value={{ user: user }}>{children}</UserContext.Provider>
+  }, [user])
+  return <UserContext.Provider value={{ user: user, setUser: handleSetUser }}>{children}</UserContext.Provider>
 }
 
 UserProvider.propTypes = {

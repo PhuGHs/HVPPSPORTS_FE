@@ -152,7 +152,12 @@ const SignUp = () => {
           </div>
         </div>
 
-        <button type='submit' disabled={usernameHasError || passwordHasError || emailHasError || phoneNumberHasError}>
+        <button
+          type='submit'
+          disabled={
+            usernameHasError || passwordHasError || emailHasError || phoneNumberHasError || confirmedpasswordHasError
+          }
+        >
           Đăng ký
         </button>
       </form>

@@ -10,4 +10,9 @@ export class CustomerApi {
     const response = await http.put('/Accounts/change-password', body)
     return response
   }
+
+  static async readme() {
+    const response = await http.get('/Accounts/read-me')
+    return response
+  }
 }

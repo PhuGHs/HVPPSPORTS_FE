@@ -6,6 +6,11 @@ export class ChatApi {
     return response.data
   }
 
+  static async getAllRooms() {
+    const response = await http.get(`/Chat/get-all-rooms`)
+    return response.data
+  }
+
   static async addNewRoom(customerID) {
     const response = await http.post(`/Chat/add-new-room`, customerID)
     return response.data

@@ -126,7 +126,6 @@ function App() {
               <RouterProvider router={router}>
                 <ScrollToTop />
               </RouterProvider>
-              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             </QueryClientProvider>
           </ChatbotProvider>
         </CartProvider>

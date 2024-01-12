@@ -3,7 +3,7 @@ import styles from './Header.module.scss'
 import classNames from 'classnames/bind'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCartShopping, faRightFromBracket, faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCartShopping, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import Offcanvas from '../../../components/OffCanvas/Offcanvas'
 import { Badge } from '@mui/material'
 import { CartContext } from '~/store/cart-context'
@@ -15,17 +15,8 @@ const cx = classNames.bind(styles)
 function Header() {
   const { items } = useContext(CartContext)
   const [isClicked, setIsClicked] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
   const handleClick = () => {
     setIsClicked((prevIsClicked) => !prevIsClicked)
-  }
-
-  const handleMouseEnter = () => {
-    setIsHovered(true)
-  }
-
-  const handleMouseLeave = () => {
-    setIsHovered(false)
   }
 
   const handleLogout = async () => {
@@ -78,18 +69,16 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link to='/account' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <Link to='/account'>
                   <div className={cx('header-btn')}>
                     <FontAwesomeIcon icon={faUser} className={cx('icon')} />
                   </div>
                 </Link>
               </li>
               <li>
-                <Link to='/' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleLogout}>
-                  <div className={cx('header-btn')}>
-                    <FontAwesomeIcon icon={faRightFromBracket} className={cx('icon')} />
-                  </div>
-                </Link>
+                <div className={cx('header-btn')} onClick={handleLogout}>
+                  <FontAwesomeIcon icon={faRightFromBracket} className={cx('icon')} />
+                </div>
               </li>
               <li>
                 <div className={cx('header-btn-mb')} onClick={handleClick}>

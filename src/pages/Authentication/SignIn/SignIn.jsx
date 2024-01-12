@@ -8,10 +8,12 @@ import { useContext, useEffect } from 'react'
 import { useRef } from 'react'
 import { setTokenToLS, setUserToLS } from '~/utils/auth'
 import NotificationContext from '~/store/notification-context'
+import { UserContext } from '~/store/user-context'
 
 const cx = classNames.bind(styles)
 const SignIn = () => {
   const notificationCtx = useContext(NotificationContext)
+  const { setUser } = useContext(UserContext)
   const {
     value: passwordValue,
     handleInputChange: handlePasswordChange,
@@ -41,10 +43,13 @@ const SignIn = () => {
         password: passwordValue
       })
 
+      console.log(response)
+
       if (response.status === 200) {
         setTokenToLS('Bearer ' + response.data.data.access_token)
         const customer = response.data.data.customer
         customer.email = response.data.data.email
+        setUser(customer)
         setUserToLS(customer)
         navigate('/')
       }
