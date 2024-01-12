@@ -95,6 +95,7 @@ const OrderDetails = () => {
       console.log(body.media)
       await FeedbackApi.addFeedback(body)
       notificationCtx.success(`Đã đánh giá cho sản phẩm ${body.productID}`)
+      handleCloseModal()
     } catch (error) {
       console.error(error)
       notificationCtx.error(`Lỗi xảy ra: ${error.message}`)
@@ -184,6 +185,7 @@ const OrderDetails = () => {
             status={orderDetails.order.status.toLowerCase()}
             handleSelect={() => setSelectedItemOpen(item)}
             onOpen={handleOpenModal}
+            onClose={handleCloseModal}
             key={index}
           />
         ))}
