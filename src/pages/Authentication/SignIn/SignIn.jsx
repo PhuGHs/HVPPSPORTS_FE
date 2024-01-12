@@ -46,7 +46,7 @@ const SignIn = () => {
       console.log(response)
 
       if (response.status === 200) {
-        setTokenToLS('Bearer ' + response.data.data.access_token)
+        // setTokenToLS('Bearer ' + response.data.data.access_token)
         const customer = response.data.data.customer
         customer.email = response.data.data.email
         setUser(customer)
