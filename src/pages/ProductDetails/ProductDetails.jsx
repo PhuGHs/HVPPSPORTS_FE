@@ -219,7 +219,7 @@ const ProductDetails = () => {
           </div>
           <h2>{toVND(product.price)}</h2>
           <p>
-            Kích cỡ: {selectedSize.size} | Số lượng: {selectedSize.quantity}
+            Kích cỡ: {selectedSize?.size ? selectedSize.size : 'L'} | Số lượng: {selectedSize?.quantity ? selectedSize.quantity : 0}
           </p>
           <div className={cx('size-container')}>
             {sizes.map((size, index) => (
@@ -227,7 +227,7 @@ const ProductDetails = () => {
                 item={size}
                 key={index}
                 isSoldOut={size.quantity < 1}
-                selected={selectedSize.size === size.size}
+                selected={selectedSize?.size === size.size}
                 handleClick={() => handleSizeItemClick(size)}
               />
             ))}

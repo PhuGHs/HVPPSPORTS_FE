@@ -17,7 +17,6 @@ const VoucherItem = ({ item }) => {
         </div>
         <div className={cx('discount-value')}>
           <p>Giảm {item.value}%</p>
-          <p className={cx('condition-btn')}>Điều kiện</p>
         </div>
         <div className={cx('applicable-date')}>
           <p>
