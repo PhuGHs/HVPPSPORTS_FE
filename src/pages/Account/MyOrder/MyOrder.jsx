@@ -93,7 +93,7 @@ const MyOrder = () => {
       <p className={cx('header')}>Đơn hàng của tôi</p>
       <Tabs items={myOrders} selectedType={selectedType} onSelectType={handleSelectType} className={cx('tabs')}>
         {orders.map((item, index) => (
-          <OrderItem item={item} key={index} />
+          <OrderItem item={item} key={index} setIsLoading={setIsLoading} />
         ))}
       </Tabs>
     </div>

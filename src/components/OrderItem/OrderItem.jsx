@@ -13,7 +13,7 @@ import { useContext } from 'react'
 import NotificationContext from '~/store/notification-context'
 
 const cx = classNames.bind(styles)
-const OrderItem = ({ item }) => {
+const OrderItem = ({ item, setIsLoading }) => {
   const navigate = useNavigate()
   const notificationCtx = useContext(NotificationContext)
   const { order, products } = item
@@ -22,6 +22,7 @@ const OrderItem = ({ item }) => {
       const response = await OrderApi.cancelOrder(order.id)
       if (response.status === 200) {
         notificationCtx.success('Huỷ đơn hàng thành công')
+        setIsLoading(true)
       }
     } catch (error) {
       console.error(error)
