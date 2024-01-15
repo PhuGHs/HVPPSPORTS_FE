@@ -54,6 +54,8 @@ export class Helper {
         return 'Đóng gói'
       case 'Delivering':
         return 'Đang giao'
+      case 'Canceled':
+        return 'Đã huỷ'
       case 'Completed':
         return 'Giao hàng thành công'
     }
@@ -90,8 +92,10 @@ export class Helper {
         return 2
       case 'Đang giao':
         return 3
-      default:
+      case 'Hoàn thành':
         return 4
+      default:
+        return 5
     }
   }
 

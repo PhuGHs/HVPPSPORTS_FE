@@ -134,6 +134,7 @@ const OrderDetails = () => {
             pending: orderDetails.order.status.toLowerCase() === 'pending',
             packaging: orderDetails.order.status.toLowerCase() === 'packaging',
             delivering: orderDetails.order.status.toLowerCase() === 'delivering',
+            canceled: orderDetails.order.status.toLowerCase() === 'canceled',
             completed: orderDetails.order.status.toLowerCase() === 'completed'
           })}
         >

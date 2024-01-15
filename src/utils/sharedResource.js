@@ -111,7 +111,8 @@ export const myOrders = [
   { name: 'Đang chờ', disabled: false },
   { name: 'Đóng gói', disabled: false },
   { name: 'Đang giao', disabled: false },
-  { name: 'Hoàn thành', disabled: false }
+  { name: 'Hoàn thành', disabled: false },
+  { name: 'Đã huỷ', disabled: false }
 ]
 
 export const myReviews = [

@@ -10,7 +10,7 @@ const SizeItem = ({ item, isSoldOut, selected, handleClick }) => {
         'size-item-selected': selected,
         'size-item-disabled': isSoldOut
       })}
-      onClick={!isSoldOut && !selected && handleClick}
+      onClick={!isSoldOut && !selected ? handleClick : undefined}
     >
       <span>{item.size}</span>
     </div>

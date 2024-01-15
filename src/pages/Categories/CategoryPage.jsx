@@ -1,6 +1,6 @@
 import styles from './CategoryPage.module.scss'
 import classNames from 'classnames/bind'
-import { Chip, Pagination } from '@mui/material'
+import { Chip } from '@mui/material'
 import ProductItem from '../../components/ProductItem/ProductItem'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { categories } from '~/utils/sharedResource'
@@ -9,6 +9,7 @@ import Dropdown from '../../components/Dropdown/Dropdown'
 import { CategoryApi } from '~/api/category.api'
 import Spinner from '~/components/Spinner/Spinner'
 import Button from '~/components/Button/Button'
+import Pagination from '~/components/Pagination/Pagination'
 
 const initFilters = {
   names: [],
@@ -18,7 +19,7 @@ const initFilters = {
   nation: [],
   minPrice: 0,
   maxPrice: 10000000,
-  sortBy: 'Name',
+  sortBy: 'Price',
   descending: false,
   sizeS: false,
   sizeM: false,
@@ -40,6 +41,8 @@ const CategoryPage = () => {
   const [clubs, setClubs] = useState([])
   const [minPrice, setMinPrice] = useState(0)
   const [maxPrice, setMaxPrice] = useState(0)
+  const [selectedFilter, setSelectedFilter] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
 
   const handleMaxMinChange = (type, event) => {
     const { value } = event.target
@@ -60,13 +63,23 @@ const CategoryPage = () => {
     setIsLoading(true)
   }
 
-  const handleFilterChange = () => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      minPrice: minPrice,
-      maxPrice: maxPrice
-    }))
-    setIsLoading(true)
+  const handleFilterChange = (descending, type) => {
+    if (type === 'maxmin') {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        minPrice: minPrice,
+        maxPrice: maxPrice
+      }))
+      setIsLoading(true)
+    } else if (type === 'price-order') {
+      console.log(type, descending)
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        sortBy: 'Price',
+        descending: descending
+      }))
+      setIsLoading(true)
+    }
   }
 
   useEffect(() => {
@@ -90,7 +103,7 @@ const CategoryPage = () => {
     } catch (error) {
       console.error(error)
     } finally {
-      setIsLoading(false)
+      setTimeout(() => setIsLoading(false), 100)
     }
   }
 
@@ -148,8 +161,11 @@ const CategoryPage = () => {
           <div className={cx('sort-button')}>
             <p>Lọc và xắp sếp sản phẩm</p>
             <div className={cx('list-dropdown')}>
-              <Dropdown />
-              <Dropdown />
+              <Dropdown
+                handleChange={handleFilterChange}
+                setSelectedFilter={setSelectedFilter}
+                selectedFilter={selectedFilter}
+              />
             </div>
           </div>
           <div className={cx('sort-button')}>
@@ -168,7 +184,7 @@ const CategoryPage = () => {
                 onChange={(event) => handleMaxMinChange('max', event)}
               />
             </div>
-            <Button secondary onClick={handleFilterChange}>
+            <Button secondary onClick={() => handleFilterChange('maxmin')}>
               Áp dụng
             </Button>
           </div>
@@ -178,9 +194,19 @@ const CategoryPage = () => {
             <ProductItem product={item} key={index} />
           ))}
         </div>
-        <div className={cx('pagination-container')}>
-          <Pagination className={cx('pagination-item')} count={10} shape='rounded' />
-        </div>
+        <Pagination
+          className={cx('pagination-bar')}
+          currentPage={currentPage}
+          totalCount={products.length}
+          pageSize={initFilters.productPerPage}
+          onPageChange={(page) => {
+            setCurrentPage(page)
+            setFilters((prev) => ({
+              prev,
+              page: page
+            }))
+          }}
+        />
       </div>
     </div>
   )

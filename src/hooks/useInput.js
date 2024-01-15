@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function useInput(defaultValue, validationFn) {
   const [enteredValue, setEnteredValue] = useState(defaultValue)
   const [didEdit, setDidEdit] = useState(false)
+
+  useEffect(() => {
+    console.log(defaultValue)
+  }, [])
 
   const handleInputChange = (event) => {
     setEnteredValue(event.target.value)
