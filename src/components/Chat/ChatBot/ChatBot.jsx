@@ -13,16 +13,17 @@ import { Helper } from '~/utils/helper'
 const cx = classNames.bind(styles)
 export default function Chatbot({ setIsChatBotVisible }) {
   const textareaRef = useRef()
-  const messageEndRef = useRef(null)
+  // const messageEndRef = useRef(null)
   const { chatbotMessages, setChatbotMessages } = useContext(ChatbotContext)
   const { user } = useContext(UserContext)
   const [message, setMessage] = useState('')
 
-  useEffect(() => {
-    if (messageEndRef) {
-      messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [chatbotMessages])
+  // useEffect(() => {
+  //   if (messageEndRef) {
+  //     // console.log('change end: ', messageEndRef.current.scro)
+  //     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  //   }
+  // }, [chatbotMessages])
 
   const sendMessageMutation = useMutation({
     mutationFn: ChatbotApi.queryFromCustomer
@@ -77,7 +78,7 @@ export default function Chatbot({ setIsChatBotVisible }) {
         <div className={cx('messages')}>
           <Messages messages={chatbotMessages} />
         </div>
-        <div ref={messageEndRef}></div>
+        {/* <div ref={messageEndRef}>hello</div> */}
       </div>
       <form className={cx('action')} onSubmit={handleSubmit}>
         <textarea
