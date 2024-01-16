@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react'
 import { VoucherApi } from '~/api/voucher.api'
 import Spinner from '~/components/Spinner/Spinner'
 
-const data = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-
 const cx = classNames.bind(styles)
 const VoucherWallet = () => {
   const [vouchers, setVouchers] = useState([])

@@ -10,7 +10,6 @@ import NotificationContext from '~/store/notification-context'
 import Spinner from '~/components/Spinner/Spinner'
 
 const cx = classNames.bind(styles)
-const data = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
 const MyReviews = () => {
   const [selectedType, setSelectedType] = useState(myReviews[0])
   const { user } = useContext(UserContext)
@@ -63,12 +62,12 @@ const MyReviews = () => {
       <p className={cx('head-name')}>Đánh giá của tôi</p>
       <Tabs onSelectType={handleSelectType} selectedType={selectedType} items={myReviews}>
         <MyComment reviewed={reviewedReviews} unreviewed={unReviewedReviews} type={selectedType} />
-        {selectedType === myReviews[0] && (
+        {selectedType === myReviews[0] && unReviewedReviews.length === 0 && (
           <div>
             <p>Bạn không có sản phẩm nào để đánh giá!</p>
           </div>
         )}
-        {selectedType === myReviews[1] && (
+        {selectedType === myReviews[1] && reviewedReviews.length === 0 && (
           <div>
             <p>Bạn chưa đánh giá sản phẩm nào</p>
           </div>

@@ -25,15 +25,15 @@ function CartPage() {
     if (isChecked) {
       setSelectedItems((prev) => [...prev, item])
     } else {
-      setSelectedItems((prev) =>
-        prev.filter((selectedItem) => selectedItem.productID != item.productID && selectedItem.size != item.size)
-      )
+      const selectedItemIndex = selectedItems.findIndex((x) => x.productID === item.productID && x.size === item.size)
+      const updatedItems = [...selectedItems]
+      updatedItems.splice(selectedItemIndex, 1)
+      setSelectedItems(updatedItems)
     }
   }
 
   const handleSingleCheckboxChange = (returnedItem, isChecked) => {
     handleCheckboxChange(returnedItem, isChecked)
-
     const selectedItem = items.find(
       (item) => item.productID === returnedItem.productID && item.size === returnedItem.size
     )
@@ -92,7 +92,7 @@ function CartPage() {
                       size={item.size}
                       quantity={item.quantity}
                       isSelected={selectedItems.some(
-                        (selectedItem) => selectedItem.id === item.id && selectedItem.size === item.size
+                        (selectedItem) => selectedItem.productID === item.productID && selectedItem.size === item.size
                       )}
                     />
                   </>

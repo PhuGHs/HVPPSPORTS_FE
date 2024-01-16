@@ -15,30 +15,6 @@ import { Helper } from '~/utils/helper'
 import NotificationContext from '~/store/notification-context'
 
 const cx = classNames.bind(styles)
-
-// const list = [
-//   {
-//     id: 1,
-//     name: 'Lê Văn Phú',
-//     phone: '0814321006',
-//     address: 'Đông Hoà, Dĩ An, Bình Dương',
-//     isDefault: true
-//   },
-//   {
-//     id: 2,
-//     name: 'Lê Văn Phi',
-//     phone: '0814321005',
-//     address: 'Quảng Trị',
-//     isDefault: false
-//   },
-//   {
-//     id: 3,
-//     name: 'Lê Văn Phong',
-//     phone: '0814321004',
-//     address: 'Quảng Trị',
-//     isDefault: false
-//   }
-// ]
 const AddressPage = () => {
   const notificationCtx = useContext(NotificationContext)
   const [isModalOpen, setIsModalOpen] = useState(false)

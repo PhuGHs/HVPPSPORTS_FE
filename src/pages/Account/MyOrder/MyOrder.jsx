@@ -19,16 +19,6 @@ const MyOrder = () => {
     setSelectedType(item)
   }
 
-  // OrderStatusHubContext.useSignalREffect('ReceiveMessage', (order) => {
-  //   const index = orders.findIndex((currentOrder) => currentOrder.id === order.id)
-
-  //   if (index != -1) {
-  //     const updatedOrders = [...orders]
-  //     updatedOrders[index] === order
-  //     setOrders(updatedOrders)
-  //   }
-  // })
-
   const [connection, setConnection] = useState(null)
 
   useEffect(() => {

@@ -51,7 +51,7 @@ const ProductDetails = () => {
   const [description, setDescription] = useState([])
   const [feedbacks, setFeedbacks] = useState(null)
   const [sizes, setSizes] = useState([])
-  const [selectedSize, setSelectedSize] = useState()
+  const [selectedSize, setSelectedSize] = useState(null)
   const [index, setIndex] = useState(0)
   const [imageList, setImageList] = useState(null)
   const [mainImage, setMainImage] = useState(null)
@@ -219,7 +219,8 @@ const ProductDetails = () => {
           </div>
           <h2>{toVND(product.price)}</h2>
           <p>
-            Kích cỡ: {selectedSize?.size ? selectedSize.size : 'L'} | Số lượng: {selectedSize?.quantity ? selectedSize.quantity : 0}
+            Kích cỡ: {selectedSize?.size ? selectedSize.size : 'L'} | Số lượng:{' '}
+            {selectedSize?.quantity ? selectedSize.quantity : 0}
           </p>
           <div className={cx('size-container')}>
             {sizes.map((size, index) => (
@@ -246,7 +247,7 @@ const ProductDetails = () => {
             </div>
           </div>
           <div className={cx('action')}>
-            <Button secondary onClick={handleAddToCart}>
+            <Button secondary onClick={handleAddToCart} disabled={selectedSize ? false : true}>
               Thêm vào giỏ hàng
             </Button>
             <Button grey_outline rightIcon={<FontAwesomeIcon icon={faShareNodes} />}>

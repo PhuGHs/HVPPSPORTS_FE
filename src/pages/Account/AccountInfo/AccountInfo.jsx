@@ -27,55 +27,6 @@ const AccountInfo = () => {
     }
   }, [isOpen])
 
-  const {
-    value: usernameValue,
-    handleInputChange: handleUsernameChange,
-    handleInputBlur: handleUsernameBlur,
-    hasError: usernameHasError
-  } = useInput(user.name, Helper.validateUsername)
-
-  const {
-    value: phoneNumber,
-    handleInputChange: handlePhoneNumberChange,
-    handleInputBlur: handlePhoneNumberBlur,
-    hasError: phoneNumberHasError
-  } = useInput(user.phone, Helper.validatePhoneNumber)
-
-  const { value: sex, handleInputChange: handleSexChange } = useInput(user.male ? 'male' : 'female', () => true)
-
-  const {
-    value: newpasswordValue,
-    handleInputChange: handleNewPasswordValueChange,
-    handleInputBlur: handleNewPasswordValueBlur,
-    hasError: newpasswordValueHasError
-  } = useInput('', Helper.validatePassword)
-
-  const {
-    value: oldPassword,
-    handleInputChange: handleOldPasswordValueChange,
-    handleInputBlur: handleOldPasswordValueBlur,
-    hasError: oldPasswordValueHasError
-  } = useInput('', Helper.validatePassword)
-
-  const {
-    value: confirmedPassword,
-    handleInputChange: handleConfirmedPasswordValueChange,
-    handleInputBlur: handleConfirmedPasswordValueBlur,
-    hasError: confirmedPasswordValueHasError
-  } = useInput('', Helper.validatePassword)
-
-  const {
-    value: address,
-    handleInputChange: handleAddressValueChange,
-    handleInputBlur: handleAddressValueBlur
-  } = useInput(user.address, Helper.validateAddress)
-
-  const {
-    value: datebirth,
-    handleInputChange: handleDateBirthChange,
-    handleInputBlur: handleDateBirthBlur
-  } = useInput(user.datebirth, Helper.validateDate)
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     let body = {}
@@ -126,6 +77,55 @@ const AccountInfo = () => {
       }
     }
   }
+
+  const {
+    value: usernameValue,
+    handleInputChange: handleUsernameChange,
+    handleInputBlur: handleUsernameBlur,
+    hasError: usernameHasError
+  } = useInput(user.name, Helper.validateUsername)
+
+  const {
+    value: phoneNumber,
+    handleInputChange: handlePhoneNumberChange,
+    handleInputBlur: handlePhoneNumberBlur,
+    hasError: phoneNumberHasError
+  } = useInput(user.phone, Helper.validatePhoneNumber)
+
+  const { value: sex, handleInputChange: handleSexChange } = useInput(user.male ? 'male' : 'female', () => true)
+
+  const {
+    value: newpasswordValue,
+    handleInputChange: handleNewPasswordValueChange,
+    handleInputBlur: handleNewPasswordValueBlur,
+    hasError: newpasswordValueHasError
+  } = useInput('', Helper.validatePassword)
+
+  const {
+    value: oldPassword,
+    handleInputChange: handleOldPasswordValueChange,
+    handleInputBlur: handleOldPasswordValueBlur,
+    hasError: oldPasswordValueHasError
+  } = useInput('', Helper.validatePassword)
+
+  const {
+    value: confirmedPassword,
+    handleInputChange: handleConfirmedPasswordValueChange,
+    handleInputBlur: handleConfirmedPasswordValueBlur,
+    hasError: confirmedPasswordValueHasError
+  } = useInput('', Helper.validatePassword)
+
+  const {
+    value: address,
+    handleInputChange: handleAddressValueChange,
+    handleInputBlur: handleAddressValueBlur
+  } = useInput(user.address, Helper.validateAddress)
+
+  const {
+    value: datebirth,
+    handleInputChange: handleDateBirthChange,
+    handleInputBlur: handleDateBirthBlur
+  } = useInput(user.datebirth, Helper.validateDate)
 
   return (
     <div className={cx('container')}>

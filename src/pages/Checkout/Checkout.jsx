@@ -128,7 +128,7 @@ const Checkout = () => {
             ))}
           </div>
           <div className={cx('list')}>
-            <div className={cx('action')}>
+            <div className={cx('action')} onClick={() => navigate('/account/address')}>
               <FontAwesomeIcon icon={faPlusCircle} />
               <label>Giao hàng đến địa chỉ khác</label>
             </div>
