@@ -70,10 +70,10 @@ const Checkout = () => {
         setDeliveryInfo(data.map((item) => ({ selected: item.priority === 1, item })))
         const vouchers = await VoucherApi.getVouchers()
         setVouchers(vouchers)
-        const voucherWithMaxValue = vouchers.reduce((maxVoucher, currentVoucher) => {
-          return currentVoucher.value > maxVoucher.value ? currentVoucher : maxVoucher
-        }, vouchers[0])
-        setSelectedVoucher(voucherWithMaxValue)
+        // const voucherWithMaxValue = vouchers.reduce((maxVoucher, currentVoucher) => {
+        //   return currentVoucher.value > maxVoucher.value ? currentVoucher : maxVoucher
+        // }, vouchers[0])
+        // setSelectedVoucher(voucherWithMaxValue)
       } catch (error) {
         console.error(error)
       }
@@ -106,7 +106,8 @@ const Checkout = () => {
         removeItemNotFromDB(item.id, item.size)
       }
       notificationCtx.success('Đã đặt hàng thành công')
-      navigate(`/account/my-orders/${response.data.id}`)
+      console.log(response)
+      navigate(`/account/my-orders/${response.data.data.id}`)
     } catch (error) {
       console.error(error)
     }
@@ -122,8 +123,19 @@ const Checkout = () => {
           <Modal title='Voucher' onClose={handleCloseModal} className={cx('form-data')}>
             <div className={cx('voucher')}>
               {vouchers.map((item, index) => (
-                <VoucherItem key={index} item={item} in={true} handleSelect={handleSelectVoucher} />
+                <VoucherItem
+                  key={index}
+                  item={item}
+                  in={true}
+                  handleSelect={handleSelectVoucher}
+                  selected={selectedVoucher?.id === item?.id}
+                />
               ))}
+              {vouchers.length === 0 && (
+                <p style={{ textAlign: 'center' }}>
+                  Thật tiếc, hiện tại không có voucher nào có sẵn trong tài khoản của bạn.
+                </p>
+              )}
             </div>
           </Modal>
         )}

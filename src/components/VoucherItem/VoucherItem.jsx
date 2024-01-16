@@ -6,7 +6,7 @@ import { Helper } from '~/utils/helper'
 import Button from '../Button/Button'
 
 const cx = classNames.bind(styles)
-const VoucherItem = ({ item, in: isIn = false, handleSelect }) => {
+const VoucherItem = ({ item, in: isIn = false, handleSelect, selected }) => {
   return (
     <div className={cx('container')}>
       <div className={cx('left')}>
@@ -34,10 +34,10 @@ const VoucherItem = ({ item, in: isIn = false, handleSelect }) => {
             secondary
             small
             onClick={() => {
-              handleSelect(item)
+              selected ? handleSelect(null) : handleSelect(item)
             }}
           >
-            Chọn
+            {selected ? 'Bỏ chọn' : 'Chọn'}
           </Button>
         </div>
       )}
