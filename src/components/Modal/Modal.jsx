@@ -15,7 +15,7 @@ export default function Modal({ title, children, onClose, className }) {
         open
         className={cx('modal', className)}
       >
-        <p>{title ? title : undefined}</p>
+        <p className={cx('title')}>{title ? title : undefined}</p>
         {children}
       </motion.dialog>
     </>,

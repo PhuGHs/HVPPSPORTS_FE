@@ -1,5 +1,11 @@
 @use '../../assets/styles/mixin' as mixin;
 
+.voucher {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .container {
   width: 80%;
   padding: 20px 0;
